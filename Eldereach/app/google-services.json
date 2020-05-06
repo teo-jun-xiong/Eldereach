@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "472960691381-nlkbs14afmn842kp0uu2kddo8npj943m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.eldereach.eldereach",
+            "certificate_hash": "d2976e0508e87f9c8b7c2aa0b065375d87eee779"
+          }
+        },
+        {
           "client_id": "472960691381-vecp9o1lebvivmrqupqr4afb6v1qh9m5.apps.googleusercontent.com",
           "client_type": 3
         }
