@@ -9,31 +9,33 @@
         android:id="@+id/loginEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
         android:hint="Email"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:textSize="13sp" />
 
     <EditText
         android:id="@+id/loginpaswd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"
         android:hint="Password"
-        android:inputType="numberPassword"/>
+        android:inputType="textPassword"
+        android:textSize="13sp" />
 
     <Button
         android:id="@+id/btnLogIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:text="Login In"
-        android:textSize="25dp" />
-
-    <TextView
-        android:id="@+id/TVSignIn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:text="New User? Register Here"
-        android:textSize="20dp" />
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"
+        android:text="Log In" />
 </LinearLayout>
