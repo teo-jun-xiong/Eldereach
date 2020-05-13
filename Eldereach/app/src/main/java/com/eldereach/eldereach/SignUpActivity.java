@@ -45,6 +45,12 @@ public class SignUpActivity extends AppCompatActivity {
         setListeners();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        overridePendingTransition(0, 0);
+    }
+
     private void initialiseComponents() {
         email = findViewById(R.id.ETemail);
         password = findViewById(R.id.ETpassword);

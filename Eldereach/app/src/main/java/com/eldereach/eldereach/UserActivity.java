@@ -29,6 +29,11 @@ public class UserActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        overridePendingTransition(0, 0);
     }
 }
