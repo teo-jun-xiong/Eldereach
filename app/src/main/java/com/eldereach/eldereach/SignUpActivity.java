@@ -41,14 +41,14 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        initialiseComponents();
-        setListeners();
     }
 
     @Override
     public void onStart() {
         super.onStart();
         overridePendingTransition(0, 0);
+        initialiseComponents();
+        setListeners();
     }
 
     private void initialiseComponents() {
@@ -58,7 +58,9 @@ public class SignUpActivity extends AppCompatActivity {
         isVolunteer = findViewById(R.id.checkboxVolunteer);
         isRegistered = findViewById(R.id.checkboxOrganization);
         registeredOrganization = findViewById(R.id.ETorg);
+        registeredOrganization.setEnabled(false);
         volunteerExperience = findViewById(R.id.ETexp);
+        volunteerExperience.setEnabled(false);
         buttonSignUp = findViewById(R.id.btnSignUp);
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -83,15 +85,23 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
+        isRegistered.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    registeredOrganization.setEnabled(true);
+                } else {
+                    registeredOrganization.setEnabled(false);
+                }
+            }
+        });
 
         isVolunteer.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
-                    registeredOrganization.setEnabled(true);
                     volunteerExperience.setEnabled(true);
                 } else {
-                    registeredOrganization.setEnabled(false);
                     volunteerExperience.setEnabled(false);
                 }
             }
