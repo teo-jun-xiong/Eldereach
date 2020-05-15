@@ -123,14 +123,14 @@ public class SignUpActivity extends AppCompatActivity {
                 } else {
                     Map<String, Object> user_Info = new HashMap<>();
                     user_Info.put("email", emailID);
-                    user_Info.put("is_Client", !isVolunteer.isChecked());
-                    user_Info.put("is_Solo", !isRegistered.isChecked());
+                    user_Info.put("isVolunteer", isVolunteer.isChecked());
+                    user_Info.put("isRegistered", isRegistered.isChecked());
                     user_Info.put("phone", phone.getText().toString());
-                    user_Info.put("registered_Organization", registeredOrganization.getText().toString());
-                    user_Info.put("volunteer_Description", volunteerExperience.getText().toString());
+                    user_Info.put("registeredOrganization", registeredOrganization.getText().toString());
+                    user_Info.put("volunteerExperience", volunteerExperience.getText().toString());
 
                     db.collection("users").document(emailID).set(user_Info);
-                    startActivity(new Intent(SignUpActivity.this, UserActivity.class));
+                    startActivity(new Intent(SignUpActivity.this, HomeVolunteerActivity.class));
                 }
             }
         });

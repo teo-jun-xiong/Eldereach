@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-public class UserActivity extends AppCompatActivity {
+public class HomeClientActivity extends AppCompatActivity {
     Button btnLogOut;
     FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
@@ -17,14 +17,14 @@ public class UserActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_volunteer);
+        setContentView(R.layout.activity_client);
         btnLogOut = findViewById(R.id.btnLogOut);
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 FirebaseAuth.getInstance().signOut();
-                Intent I = new Intent(UserActivity.this, LogInActivity.class);
+                Intent I = new Intent(HomeClientActivity.this, LogInActivity.class);
                 startActivity(I);
 
             }

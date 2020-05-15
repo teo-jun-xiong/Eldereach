@@ -19,9 +19,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".LogInActivity" />
-        <activity android:name=".UserActivity" />
+        <activity android:name=".HomeVolunteerActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".HomeClientActivity" />
     </application>
 
 </manifest>
