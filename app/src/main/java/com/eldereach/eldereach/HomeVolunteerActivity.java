@@ -1,9 +1,11 @@
 package com.eldereach.eldereach;
 
 import android.content.Intent;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,15 +20,19 @@ public class HomeVolunteerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_volunteer);
+
+        initialiseComponents();
+    }
+
+    private void initialiseComponents() {
         btnLogOut = findViewById(R.id.btnLogOut);
+        firebaseAuth = FirebaseAuth.getInstance();
+
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                FirebaseAuth.getInstance().signOut();
-                Intent I = new Intent(HomeVolunteerActivity.this, LogInActivity.class);
-                startActivity(I);
-
+                firebaseAuth.signOut();
+                startActivity(new Intent(HomeVolunteerActivity.this, LogInActivity.class));
             }
         });
     }
@@ -35,5 +41,10 @@ public class HomeVolunteerActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         overridePendingTransition(0, 0);
+
+        // Prevents user from logging out and then pressing the "back" button to get back to the home screen
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+            startActivity(new Intent(HomeVolunteerActivity.this, LogInActivity.class));
+        }
     }
 }

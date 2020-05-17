@@ -35,5 +35,10 @@ public class HomeClientActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         overridePendingTransition(0, 0);
+
+        // Prevents user from logging out and then pressing the "back" button to get back to the home screen
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+            startActivity(new Intent(HomeClientActivity.this, LogInActivity.class));
+        }
     }
 }
