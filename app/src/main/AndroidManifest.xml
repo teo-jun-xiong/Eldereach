@@ -24,5 +24,4 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".HomeClientActivity" />
     </application>
-
 </manifest>

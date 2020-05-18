@@ -25,7 +25,7 @@ public class HomeVolunteerActivity extends AppCompatActivity {
     }
 
     private void initialiseComponents() {
-        btnLogOut = findViewById(R.id.btnLogOut);
+        btnLogOut = findViewById(R.id.btnVolunteerLogOut);
         firebaseAuth = FirebaseAuth.getInstance();
 
         btnLogOut.setOnClickListener(new View.OnClickListener() {

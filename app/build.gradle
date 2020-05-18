@@ -19,6 +19,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    android { //add inside the android {}
+        applicationVariants.all { variant ->
+            variant.outputs.all {
+                def versionName = variant.versionName
+                outputFileName = "eldereach_${versionName}.apk"
+            }
+        }
+    }
 }
 
 dependencies {
