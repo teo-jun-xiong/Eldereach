@@ -33,6 +33,6 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".HomeClientActivity" />
         <activity android:name=".TransportClientActivity"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
     </application>
 </manifest>

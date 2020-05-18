@@ -29,9 +29,9 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:text="Welcome client!"
-            android:textStyle="bold"
             android:textAlignment="center"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -42,8 +42,8 @@
 
         <ImageButton
             android:id="@+id/btnClientVisit"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_above="@+id/layoutTransportFoodAid"
             android:layout_centerInParent="true"
             android:layout_marginBottom="10dp"
@@ -52,17 +52,6 @@
             android:src="@drawable/ic_visit"
             android:text="Visit" />
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/btnClientVisit"
-            android:layout_centerInParent="true"
-            android:text="Visits"
-            android:textColor="#ffffff"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
         <RelativeLayout
             android:id="@+id/layoutTransportFoodAid"
             android:layout_width="wrap_content"
@@ -70,10 +59,10 @@
 
             <ImageButton
                 android:id="@+id/btnClientFoodAid"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="45dp"
+                android:layout_marginStart="25dp"
                 android:background="@drawable/rounded_corners"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_food_aid"
@@ -81,34 +70,80 @@
 
             <ImageButton
                 android:id="@+id/btnClientTransport"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="45dp"
+                android:layout_marginEnd="25dp"
                 android:background="@drawable/rounded_corners"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_transport"
                 android:text="Transport" />
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My requests"
+                android:textSize="11sp"
+                android:layout_centerInParent="true"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/btnClientFoodAid"
-                android:layout_marginStart="89dp"
+                android:layout_marginStart="32dp"
+                android:layout_alignStart="@id/btnClientFoodAid"
                 android:text="Food Aid"
                 android:textColor="#ffffff"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/btnClientTransport"
-                android:layout_marginStart="256dp"
+                android:layout_marginStart="31dp"
                 android:text="Transport"
+                android:layout_alignStart="@id/btnClientTransport"
                 android:textColor="#ffffff"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
         </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layoutTransportFoodAid" >
+
+            <ImageButton
+                android:id="@+id/btnClientHotline"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/rounded_corners"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_hotline"
+                android:text="Hotlines" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_alignBottom="@id/btnClientHotline"
+                android:layout_marginBottom="-5dp"
+                android:textColor="#ffffff"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:text="Hotlines" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/btnClientVisit"
+            android:layout_centerHorizontal="true"
+            android:text="Visits"
+            android:textColor="#ffffff"
+            android:textSize="14sp"
+            android:textStyle="bold" />
     </RelativeLayout>
 </LinearLayout>

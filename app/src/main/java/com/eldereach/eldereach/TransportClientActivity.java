@@ -8,6 +8,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.Spinner;
@@ -27,11 +29,18 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.IOException;
 import java.util.List;
 
+import static android.widget.CompoundButton.*;
+
 public class TransportClientActivity extends FragmentActivity implements OnMapReadyCallback {
     Button btnHelp;
     EditText purpose;
     TextView others;
     Spinner dropdown;
+    TextView destinationPrompt;
+    TextView returnPrompt;
+    EditText returnDate;
+    EditText returnTime;
+    CheckBox returnRequired;
     GoogleMap map;
     SupportMapFragment mapFragment;
     SearchView search;
@@ -49,6 +58,36 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
         purpose = findViewById(R.id.purposeClientTransport);
         others = findViewById(R.id.othersClientTransport);
         dropdown = findViewById(R.id.dropdownClient);
+        returnRequired = findViewById(R.id.checkboxReturn);
+        destinationPrompt = findViewById(R.id.destinationPrompt);
+        returnPrompt = findViewById(R.id.dateTimeTextBack);
+        returnDate = findViewById(R.id.dateClientTransportBack);
+        returnTime = findViewById(R.id.timeClientTransportBack);
+
+        destinationPrompt.setVisibility(INVISIBLE);
+        returnPrompt.setVisibility(INVISIBLE);
+        returnDate.setVisibility(INVISIBLE);
+        returnTime.setVisibility(INVISIBLE);
+
+        others.setVisibility(View.INVISIBLE);
+        purpose.setVisibility(View.INVISIBLE);
+
+        returnRequired.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    destinationPrompt.setVisibility(VISIBLE);
+                    returnPrompt.setVisibility(VISIBLE);
+                    returnDate.setVisibility(VISIBLE);
+                    returnTime.setVisibility(VISIBLE);
+                } else {
+                    destinationPrompt.setVisibility(INVISIBLE);
+                    returnPrompt.setVisibility(INVISIBLE);
+                    returnDate.setVisibility(INVISIBLE);
+                    returnTime.setVisibility(INVISIBLE);
+                }
+            }
+        });
 
         String[] dropdownOptions = new String[]{
                 "Medical appointment at hospital",

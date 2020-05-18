@@ -3,17 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
     android:orientation="vertical"
+    android:fillViewport="true"
     tools:context=".TransportClientActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical">
+        android:gravity="center">
 
         <RelativeLayout
+            android:id="@+id/layout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center">
@@ -40,10 +40,11 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/layout2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
-            android:layout_marginBottom="15dp">
+            android:layout_below="@id/layout1"
+            android:layout_marginBottom="10dp">
 
             <Spinner
                 android:id="@+id/dropdownClient"
@@ -65,9 +66,11 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/layout3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp">
+            android:layout_below="@id/layout2"
+            android:layout_marginBottom="10dp">
 
             <EditText
                 android:id="@+id/purposeClientTransport"
@@ -91,9 +94,30 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/layout4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp">
+            android:layout_below="@id/layout3"
+            android:layout_marginBottom="5dp">
+
+            <CheckBox
+                android:id="@+id/checkboxReturn"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginBottom="5dp"
+                android:layout_height="wrap_content"
+                android:text="Transportation back home required"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/returnHome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/checkboxReturn"
+                android:text="For pickup from home to destination"
+                android:textStyle="italic"
+                android:layout_marginStart="15dp"
+                android:textSize="12sp" />
 
             <EditText
                 android:id="@+id/dateClientTransport"
@@ -101,6 +125,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="6dp"
                 android:textAlignment="center"
+                android:layout_below="@+id/returnHome"
                 android:layout_toStartOf="@+id/timeClientTransport"
                 android:hint="DDMMYY"
                 android:inputType="date"
@@ -113,6 +138,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
+                android:layout_below="@+id/returnHome"
                 android:hint="HHMM"
                 android:inputType="time"
                 android:textSize="15sp" />
@@ -122,7 +148,59 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:text="Please indicate the date \nand time of the request:"
+                android:layout_below="@+id/returnHome"
+                android:text="Please indicate the date and\ntime of pickup from home:"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout4"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:id="@+id/destinationPrompt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="For pickup from destination to home"
+                android:textStyle="italic"
+                android:layout_marginStart="15dp"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/dateClientTransportBack"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:textAlignment="center"
+                android:layout_below="@id/destinationPrompt"
+                android:layout_toStartOf="@+id/timeClientTransportBack"
+                android:hint="DDMMYY"
+                android:inputType="date"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/timeClientTransportBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:hint="HHMM"
+                android:inputType="time"
+                android:layout_below="@id/destinationPrompt"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/dateTimeTextBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/destinationPrompt"
+                android:layout_marginStart="15dp"
+                android:text="Please indicate the date and\ntime of pickup from destination:"
                 android:textColor="#000000"
                 android:textStyle="bold" />
         </RelativeLayout>
@@ -130,14 +208,16 @@
         <RelativeLayout
             android:id="@+id/mapLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@id/layout5">
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/mapClientTransport"
                 android:layout_alignParentEnd="true"
-                android:layout_margin="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="10dp"
                 android:text="Submit request" />
 
             <SearchView
@@ -169,5 +249,5 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="15dp" />
         </RelativeLayout>
-    </LinearLayout>
+    </RelativeLayout>
 </ScrollView>
