@@ -19,7 +19,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    android { //add inside the android {}
+    android {
         applicationVariants.all { variant ->
             variant.outputs.all {
                 def versionName = variant.versionName

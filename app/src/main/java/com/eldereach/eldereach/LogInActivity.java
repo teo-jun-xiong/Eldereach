@@ -104,4 +104,11 @@ public class LogInActivity extends AppCompatActivity {
         super.onStart();
         overridePendingTransition(0, 0);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(LogInActivity.this, MainActivity.class));
+        finish();
+    }
 }
