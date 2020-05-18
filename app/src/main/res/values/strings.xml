@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Eldereach</string>
+    <string name="map_api_key" translatable="false">AIzaSyD4t3Joq0aCIFEHQAOBCokEvd-Tlu50qcU</string>
 </resources>

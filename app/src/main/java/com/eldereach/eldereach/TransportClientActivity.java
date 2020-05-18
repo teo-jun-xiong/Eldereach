@@ -1,27 +1,44 @@
 package com.eldereach.eldereach;
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
-public class TransportClientActivity extends AppCompatActivity {
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.io.IOException;
+import java.util.List;
+
+public class TransportClientActivity extends FragmentActivity implements OnMapReadyCallback {
     Button btnHelp;
-    EditText transportOtherPurpose;
+    EditText purpose;
+    TextView others;
     Spinner dropdown;
+    GoogleMap map;
+    SupportMapFragment mapFragment;
+    SearchView search;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_transport);
 
         initialiseComponents();
@@ -29,7 +46,9 @@ public class TransportClientActivity extends AppCompatActivity {
 
     private void initialiseComponents() {
         btnHelp = findViewById(R.id.btnTransportHelp);
-        transportOtherPurpose = findViewById(R.id.transportClientOther);
+        purpose = findViewById(R.id.purposeClientTransport);
+        others = findViewById(R.id.othersClientTransport);
+        dropdown = findViewById(R.id.dropdownClient);
 
         String[] dropdownOptions = new String[]{
                 "Medical appointment at hospital",
@@ -38,7 +57,7 @@ public class TransportClientActivity extends AppCompatActivity {
                 "Others"
         };
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.activity_client_transport);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, dropdownOptions);
         dropdown.setAdapter(adapter);
 
         dropdown.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -46,7 +65,13 @@ public class TransportClientActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String selectedItem = adapterView.getItemAtPosition(i).toString();
 
-                Toast.makeText(adapterView.getContext(), selectedItem, Toast.LENGTH_SHORT).show();
+                if (!selectedItem.equals("Others")) {
+                    others.setVisibility(View.INVISIBLE);
+                    purpose.setVisibility(View.INVISIBLE);
+                } else {
+                    others.setVisibility(View.VISIBLE);
+                    purpose.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -54,11 +79,60 @@ public class TransportClientActivity extends AppCompatActivity {
 
             }
         });
+
+        search = findViewById(R.id.searchClientTransport);
+        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapClientTransport);
+
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                map.clear();
+
+                String location = search.getQuery().toString();
+                List<Address> addressList = null;
+
+                if (location != null || !location.equals("")) {
+                    Geocoder geocoder = new Geocoder(TransportClientActivity.this);
+
+                    try {
+                        addressList = geocoder.getFromLocationName(location, 1);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    assert addressList != null;
+                    if (addressList.size() == 0) {
+                        Toast.makeText(TransportClientActivity.this, "Please narrow down the search terms.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Address address = addressList.get(0);
+                        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                        map.addMarker(new MarkerOptions().position(latLng).title(location));
+                        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17));
+                    }
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+
+        mapFragment.getMapAsync(this);
     }
 
     @Override
     public void onStart() {
         super.onStart();
         overridePendingTransition(0, 0);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
+
+        // On launch, centers on NUH
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(1.294088, 103.783049), 17));
     }
 }

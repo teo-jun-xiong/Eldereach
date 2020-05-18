@@ -1,68 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:gravity="center_horizontal"
+    android:fillViewport="true"
     android:orientation="vertical"
     tools:context=".TransportClientActivity">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btnTransportHelp"
-            android:layout_width="60dp"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_margin="15dp"
-            android:text="Help" />
+            android:layout_gravity="center">
 
-        <TextView
-            android:id="@+id/textClientTransport"
+            <Button
+                android:id="@+id/btnTransportHelp"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="15dp"
+                android:text="Help" />
+
+            <TextView
+                android:id="@+id/textClientTransport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:text="Transportation Request"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:text="Transportation Request"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:textSize="20sp" />
-    </RelativeLayout>
+            android:layout_marginTop="70dp"
+            android:layout_marginBottom="15dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:textAlignment="center"
-        android:text="Please indicate the purpose of the transportation request:"/>
+            <Spinner
+                android:id="@+id/dropdownClient"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="15dp"
+                android:spinnerMode="dropdown" />
 
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:spinnerMode="dropdown"/>
+            <TextView
+                android:id="@+id/purposeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="15dp"
+                android:text="Please indicate the purpose\nof the transportation request:"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+        </RelativeLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:textAlignment="center"
-        android:text="If you selected 'Others', please indicate the purpose:"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp">
 
-    <EditText
-        android:id="@+id/transportClientOther"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="15dp"
-        android:textSize="15sp"
-        android:hint="Purpose of transportation request"/>
-</LinearLayout>
+            <EditText
+                android:id="@+id/purposeClientTransport"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="15dp"
+                android:hint="Purpose of request"
+                android:textAlignment="center"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/othersClientTransport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="15dp"
+                android:text="If 'Others' is selected,\nplease indicate the purpose:"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp">
+
+            <EditText
+                android:id="@+id/dateClientTransport"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:textAlignment="center"
+                android:layout_toStartOf="@+id/timeClientTransport"
+                android:hint="DDMMYY"
+                android:inputType="date"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/timeClientTransport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:hint="HHMM"
+                android:inputType="time"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/dateTimeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="Please indicate the date \nand time of the request:"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/mapLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/mapClientTransport"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="15dp"
+                android:text="Submit request" />
+
+            <SearchView
+                android:id="@+id/searchClientTransport"
+                android:layout_width="150dp"
+                android:layout_height="35dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="15dp"
+                android:elevation="2dp"
+                android:iconifiedByDefault="false"
+                android:paddingBottom="5dp"
+                android:queryHint="" />
+
+            <TextView
+                android:id="@+id/searchPrompt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:text="Please search and indicate\nthe location in the search bar:"
+                android:textColor="#000000"
+                android:textStyle="bold" />
+
+            <fragment
+                android:id="@+id/mapClientTransport"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="380dp"
+                android:layout_height="180dp"
+                android:layout_below="@id/searchClientTransport"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp" />
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>
