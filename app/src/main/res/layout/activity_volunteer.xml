@@ -43,7 +43,7 @@
             android:id="@+id/btnVolunteerVisit"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_above="@+id/layoutTransportFoodAid"
+            android:layout_above="@+id/layoutFoodAidTransportClient"
             android:layout_centerInParent="true"
             android:layout_marginBottom="10dp"
             android:background="@drawable/rounded_corners"
@@ -63,7 +63,7 @@
             android:textStyle="bold" />
 
         <RelativeLayout
-            android:id="@+id/layoutTransportFoodAid"
+            android:id="@+id/layoutFoodAidTransportClient"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 

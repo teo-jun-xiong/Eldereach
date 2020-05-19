@@ -16,7 +16,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -29,18 +28,20 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.IOException;
 import java.util.List;
 
-import static android.widget.CompoundButton.*;
+import static android.widget.CompoundButton.INVISIBLE;
+import static android.widget.CompoundButton.OnCheckedChangeListener;
+import static android.widget.CompoundButton.VISIBLE;
 
 public class TransportClientActivity extends FragmentActivity implements OnMapReadyCallback {
-    Button btnHelp;
-    EditText purpose;
-    TextView others;
+    Button buttonHelp;
+    EditText textOthers;
+    TextView textOthersPrompt;
     Spinner dropdown;
-    TextView destinationPrompt;
-    TextView returnPrompt;
-    EditText returnDate;
-    EditText returnTime;
-    CheckBox returnRequired;
+    TextView textDestPickup;
+    TextView textDestPrompt;
+    EditText textDestDate;
+    EditText textDestTime;
+    CheckBox checkboxReturn;
     GoogleMap map;
     SupportMapFragment mapFragment;
     SearchView search;
@@ -53,42 +54,59 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
         initialiseComponents();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        overridePendingTransition(0, 0);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
+
+        // On launch, centers on NUH
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(1.294088, 103.783049), 17));
+    }
+
     private void initialiseComponents() {
-        btnHelp = findViewById(R.id.btnTransportHelp);
-        purpose = findViewById(R.id.purposeClientTransport);
-        others = findViewById(R.id.othersClientTransport);
-        dropdown = findViewById(R.id.dropdownClient);
-        returnRequired = findViewById(R.id.checkboxReturn);
-        destinationPrompt = findViewById(R.id.destinationPrompt);
-        returnPrompt = findViewById(R.id.dateTimeTextBack);
-        returnDate = findViewById(R.id.dateClientTransportBack);
-        returnTime = findViewById(R.id.timeClientTransportBack);
+        buttonHelp = findViewById(R.id.buttonHelpTransportClient);
+        textOthers = findViewById(R.id.textOthersTransportClient);
+        textOthersPrompt = findViewById(R.id.textOthersPromptTransportClient);
+        dropdown = findViewById(R.id.dropdownTransportClient);
+        checkboxReturn = findViewById(R.id.checkboxReturnTransportClient);
+        textDestPickup = findViewById(R.id.textDestPickupTransportClient);
+        textDestPrompt = findViewById(R.id.textDestPromptTransportClient);
+        textDestDate = findViewById(R.id.textDestDateTransportClient);
+        textDestTime = findViewById(R.id.textDestTimeTransportClient);
+        search = findViewById(R.id.searchTransportClient);
+        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapTransportClient);
 
-        destinationPrompt.setVisibility(INVISIBLE);
-        returnPrompt.setVisibility(INVISIBLE);
-        returnDate.setVisibility(INVISIBLE);
-        returnTime.setVisibility(INVISIBLE);
+        textDestPickup.setVisibility(INVISIBLE);
+        textDestPrompt.setVisibility(INVISIBLE);
+        textDestDate.setVisibility(INVISIBLE);
+        textDestTime.setVisibility(INVISIBLE);
+        textOthersPrompt.setVisibility(View.INVISIBLE);
+        textOthers.setVisibility(View.INVISIBLE);
 
-        others.setVisibility(View.INVISIBLE);
-        purpose.setVisibility(View.INVISIBLE);
-
-        returnRequired.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+        // if a return trip is required, make the details visible
+        checkboxReturn.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
-                    destinationPrompt.setVisibility(VISIBLE);
-                    returnPrompt.setVisibility(VISIBLE);
-                    returnDate.setVisibility(VISIBLE);
-                    returnTime.setVisibility(VISIBLE);
+                    textDestPickup.setVisibility(VISIBLE);
+                    textDestPrompt.setVisibility(VISIBLE);
+                    textDestDate.setVisibility(VISIBLE);
+                    textDestTime.setVisibility(VISIBLE);
                 } else {
-                    destinationPrompt.setVisibility(INVISIBLE);
-                    returnPrompt.setVisibility(INVISIBLE);
-                    returnDate.setVisibility(INVISIBLE);
-                    returnTime.setVisibility(INVISIBLE);
+                    textDestPickup.setVisibility(INVISIBLE);
+                    textDestPrompt.setVisibility(INVISIBLE);
+                    textDestDate.setVisibility(INVISIBLE);
+                    textDestTime.setVisibility(INVISIBLE);
                 }
             }
         });
 
+        // Options for dropdown selection
         String[] dropdownOptions = new String[]{
                 "Medical appointment at hospital",
                 "Community centre event",
@@ -104,24 +122,22 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 String selectedItem = adapterView.getItemAtPosition(i).toString();
 
+                // If the "Others" option is selected, make the details visible
                 if (!selectedItem.equals("Others")) {
-                    others.setVisibility(View.INVISIBLE);
-                    purpose.setVisibility(View.INVISIBLE);
+                    textOthersPrompt.setVisibility(View.INVISIBLE);
+                    textOthers.setVisibility(View.INVISIBLE);
                 } else {
-                    others.setVisibility(View.VISIBLE);
-                    purpose.setVisibility(View.VISIBLE);
+                    textOthersPrompt.setVisibility(View.VISIBLE);
+                    textOthers.setVisibility(View.VISIBLE);
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
 
-        search = findViewById(R.id.searchClientTransport);
-        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapClientTransport);
-
+        // Searches for the location based on the user search query
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -139,6 +155,7 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
                         e.printStackTrace();
                     }
 
+                    // If there are no results, inform the user
                     assert addressList != null;
                     if (addressList.size() == 0) {
                         Toast.makeText(TransportClientActivity.this, "Please narrow down the search terms.", Toast.LENGTH_SHORT).show();
@@ -159,19 +176,5 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
         });
 
         mapFragment.getMapAsync(this);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        overridePendingTransition(0, 0);
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        map = googleMap;
-
-        // On launch, centers on NUH
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(1.294088, 103.783049), 17));
     }
 }

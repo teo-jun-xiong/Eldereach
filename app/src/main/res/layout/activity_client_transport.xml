@@ -19,7 +19,7 @@
             android:layout_gravity="center">
 
             <Button
-                android:id="@+id/btnTransportHelp"
+                android:id="@+id/buttonHelpTransportClient"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -27,7 +27,7 @@
                 android:text="Help" />
 
             <TextView
-                android:id="@+id/textClientTransport"
+                android:id="@+id/textHeaderTransportClient"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -47,7 +47,7 @@
             android:layout_marginBottom="10dp">
 
             <Spinner
-                android:id="@+id/dropdownClient"
+                android:id="@+id/dropdownTransportClient"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -55,7 +55,7 @@
                 android:spinnerMode="dropdown" />
 
             <TextView
-                android:id="@+id/purposeText"
+                android:id="@+id/textPromptPurposeTransportClient"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -73,7 +73,7 @@
             android:layout_marginBottom="10dp">
 
             <EditText
-                android:id="@+id/purposeClientTransport"
+                android:id="@+id/textOthersTransportClient"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -83,7 +83,7 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/othersClientTransport"
+                android:id="@+id/textOthersPromptTransportClient"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -101,7 +101,7 @@
             android:layout_marginBottom="5dp">
 
             <CheckBox
-                android:id="@+id/checkboxReturn"
+                android:id="@+id/checkboxReturnTransportClient"
                 android:layout_width="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginBottom="5dp"
@@ -110,45 +110,45 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/returnHome"
+                android:id="@+id/textHomePickupTransportClient"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/checkboxReturn"
+                android:layout_below="@+id/checkboxReturnTransportClient"
                 android:text="For pickup from home to destination"
                 android:textStyle="italic"
                 android:layout_marginStart="15dp"
                 android:textSize="12sp" />
 
             <EditText
-                android:id="@+id/dateClientTransport"
+                android:id="@+id/textHomeDateTransportClient"
                 android:layout_width="75dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="6dp"
                 android:textAlignment="center"
-                android:layout_below="@+id/returnHome"
-                android:layout_toStartOf="@+id/timeClientTransport"
+                android:layout_below="@+id/textHomePickupTransportClient"
+                android:layout_toStartOf="@+id/textHomeTimeTransportClient"
                 android:hint="DDMMYY"
                 android:inputType="date"
                 android:textSize="15sp" />
 
             <EditText
-                android:id="@+id/timeClientTransport"
+                android:id="@+id/textHomeTimeTransportClient"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:layout_below="@+id/returnHome"
+                android:layout_below="@+id/textHomePickupTransportClient"
                 android:hint="HHMM"
                 android:inputType="time"
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/dateTimeText"
+                android:id="@+id/textHomePromptTransportClient"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
-                android:layout_below="@+id/returnHome"
+                android:layout_below="@+id/textHomePickupTransportClient"
                 android:text="Please indicate the date and\ntime of pickup from home:"
                 android:textColor="#000000"
                 android:textStyle="bold" />
@@ -162,7 +162,7 @@
             android:layout_marginBottom="10dp">
 
             <TextView
-                android:id="@+id/destinationPrompt"
+                android:id="@+id/textDestPickupTransportClient"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="For pickup from destination to home"
@@ -171,19 +171,19 @@
                 android:textSize="12sp" />
 
             <EditText
-                android:id="@+id/dateClientTransportBack"
+                android:id="@+id/textDestDateTransportClient"
                 android:layout_width="75dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="6dp"
                 android:textAlignment="center"
-                android:layout_below="@id/destinationPrompt"
-                android:layout_toStartOf="@+id/timeClientTransportBack"
+                android:layout_below="@id/textDestPickupTransportClient"
+                android:layout_toStartOf="@+id/textDestTimeTransportClient"
                 android:hint="DDMMYY"
                 android:inputType="date"
                 android:textSize="15sp" />
 
             <EditText
-                android:id="@+id/timeClientTransportBack"
+                android:id="@+id/textDestTimeTransportClient"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -191,14 +191,14 @@
                 android:layout_marginEnd="15dp"
                 android:hint="HHMM"
                 android:inputType="time"
-                android:layout_below="@id/destinationPrompt"
+                android:layout_below="@id/textDestPickupTransportClient"
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/dateTimeTextBack"
+                android:id="@+id/textDestPromptTransportClient"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/destinationPrompt"
+                android:layout_below="@id/textDestPickupTransportClient"
                 android:layout_marginStart="15dp"
                 android:text="Please indicate the date and\ntime of pickup from destination:"
                 android:textColor="#000000"
@@ -212,16 +212,17 @@
             android:layout_below="@id/layout5">
 
             <Button
+                android:id="@+id/buttonSubmitRequestTransportClient"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/mapClientTransport"
+                android:layout_below="@id/mapTransportClient"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="15dp"
                 android:layout_marginTop="10dp"
                 android:text="Submit request" />
 
             <SearchView
-                android:id="@+id/searchClientTransport"
+                android:id="@+id/searchTransportClient"
                 android:layout_width="150dp"
                 android:layout_height="35dp"
                 android:layout_alignParentEnd="true"
@@ -232,7 +233,7 @@
                 android:queryHint="" />
 
             <TextView
-                android:id="@+id/searchPrompt"
+                android:id="@+id/textSearchPromptTransportClient"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -241,11 +242,11 @@
                 android:textStyle="bold" />
 
             <fragment
-                android:id="@+id/mapClientTransport"
+                android:id="@+id/mapTransportClient"
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="380dp"
                 android:layout_height="180dp"
-                android:layout_below="@id/searchClientTransport"
+                android:layout_below="@id/searchTransportClient"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="15dp" />
         </RelativeLayout>

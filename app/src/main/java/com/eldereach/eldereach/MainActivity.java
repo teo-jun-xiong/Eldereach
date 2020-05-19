@@ -15,8 +15,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         initialiseComponents();
-        setListeners();
     }
 
     @Override
@@ -25,7 +25,10 @@ public class MainActivity extends AppCompatActivity {
         overridePendingTransition(0, 0);
     }
 
-    private void setListeners() {
+    private void initialiseComponents() {
+        buttonSignUp = findViewById(R.id.buttonSignUpMain);
+        buttonLogIn = findViewById(R.id.buttonLogInMain);
+
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -39,10 +42,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, LogInActivity.class));
             }
         });
-    }
-
-    private void initialiseComponents() {
-        buttonSignUp = findViewById(R.id.button_sign_up);
-        buttonLogIn = findViewById(R.id.button_log_in);
     }
 }

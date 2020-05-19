@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,7 +13,7 @@
         android:layout_gravity="center">
 
         <Button
-            android:id="@+id/btnClientLogOut"
+            android:id="@+id/buttonLogOutClient"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -22,7 +21,7 @@
             android:text="Log out" />
 
         <TextView
-            android:id="@+id/textClient"
+            android:id="@+id/textWelcomeClient"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -41,10 +40,10 @@
         android:gravity="center">
 
         <ImageButton
-            android:id="@+id/btnClientVisit"
+            android:id="@+id/buttonVisitClient"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:layout_above="@+id/layoutTransportFoodAid"
+            android:layout_above="@+id/layoutFoodAidTransportClient"
             android:layout_centerInParent="true"
             android:layout_marginBottom="10dp"
             android:background="@drawable/rounded_corners"
@@ -53,23 +52,20 @@
             android:text="Visit" />
 
         <RelativeLayout
-            android:id="@+id/layoutTransportFoodAid"
+            android:id="@+id/layoutFoodAidTransportClient"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <ImageButton
-                android:id="@+id/btnClientFoodAid"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="25dp"
-                android:background="@drawable/rounded_corners"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_food_aid"
-                android:text="Food aid" />
+            <Button
+                android:id="@+id/buttonRequestsClient"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="My requests"
+                android:textSize="11sp" />
 
             <ImageButton
-                android:id="@+id/btnClientTransport"
+                android:id="@+id/buttonTransportClient"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_alignParentEnd="true"
@@ -79,18 +75,23 @@
                 android:src="@drawable/ic_transport"
                 android:text="Transport" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="My requests"
-                android:textSize="11sp"
-                android:layout_centerInParent="true"/>
+            <ImageButton
+                android:id="@+id/buttonFoodAidClient"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="25dp"
+                android:background="@drawable/rounded_corners"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_food_aid"
+                android:text="Food aid" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/btnClientFoodAid"
+                android:layout_alignStart="@id/buttonFoodAidClient"
+                android:layout_alignBottom="@+id/buttonFoodAidClient"
                 android:layout_marginStart="32dp"
-                android:layout_alignStart="@id/btnClientFoodAid"
                 android:text="Food Aid"
                 android:textColor="#ffffff"
                 android:textSize="14sp"
@@ -99,10 +100,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/btnClientTransport"
+                android:layout_alignStart="@id/buttonTransportClient"
+                android:layout_alignBottom="@+id/buttonTransportClient"
                 android:layout_marginStart="31dp"
                 android:text="Transport"
-                android:layout_alignStart="@id/btnClientTransport"
                 android:textColor="#ffffff"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -111,10 +112,10 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/layoutTransportFoodAid" >
+            android:layout_below="@id/layoutFoodAidTransportClient">
 
             <ImageButton
-                android:id="@+id/btnClientHotline"
+                android:id="@+id/buttonHotlinesClient"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_centerInParent="true"
@@ -127,19 +128,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/buttonHotlinesClient"
                 android:layout_centerHorizontal="true"
-                android:layout_alignBottom="@id/btnClientHotline"
                 android:layout_marginBottom="-5dp"
+                android:text="Hotlines"
                 android:textColor="#ffffff"
                 android:textSize="14sp"
-                android:textStyle="bold"
-                android:text="Hotlines" />
+                android:textStyle="bold" />
         </RelativeLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/btnClientVisit"
+            android:layout_alignBottom="@+id/buttonVisitClient"
             android:layout_centerHorizontal="true"
             android:text="Visits"
             android:textColor="#ffffff"
