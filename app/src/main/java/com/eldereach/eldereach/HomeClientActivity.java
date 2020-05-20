@@ -62,5 +62,12 @@ public class HomeClientActivity extends AppCompatActivity {
                 startActivity(new Intent(HomeClientActivity.this, TransportClientActivity.class));
             }
         });
+
+        buttonRequests.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeClientActivity.this, RequestsClientActivity.class));
+            }
+        });
     }
 }
