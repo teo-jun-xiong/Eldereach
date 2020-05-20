@@ -100,48 +100,23 @@
             android:layout_below="@id/layout3"
             android:layout_marginBottom="5dp">
 
-            <CheckBox
-                android:id="@+id/checkboxReturnTransportClient"
-                android:layout_width="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginBottom="5dp"
-                android:layout_height="wrap_content"
-                android:text="Transportation back home required"
-                android:textSize="14sp" />
-
             <TextView
                 android:id="@+id/textHomePickupTransportClient"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/checkboxReturnTransportClient"
                 android:text="For pickup from home to destination"
                 android:textStyle="italic"
                 android:layout_marginStart="15dp"
                 android:textSize="12sp" />
 
-            <EditText
-                android:id="@+id/textHomeDateTransportClient"
-                android:layout_width="75dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="6dp"
-                android:textAlignment="center"
+            <Button
+                android:id="@+id/buttonDateTimeHomeTransportClient"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
                 android:layout_below="@+id/textHomePickupTransportClient"
-                android:layout_toStartOf="@+id/textHomeTimeTransportClient"
-                android:hint="DDMMYY"
-                android:inputType="date"
-                android:textSize="15sp" />
-
-            <EditText
-                android:id="@+id/textHomeTimeTransportClient"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:layout_below="@+id/textHomePickupTransportClient"
-                android:hint="HHMM"
-                android:inputType="time"
-                android:textSize="15sp" />
+                android:layout_alignParentEnd="true"
+                android:text="Date and time" />
 
             <TextView
                 android:id="@+id/textHomePromptTransportClient"
@@ -152,6 +127,16 @@
                 android:text="Please indicate the date and\ntime of pickup from home:"
                 android:textColor="#000000"
                 android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/checkboxReturnTransportClient"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginBottom="5dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/buttonDateTimeHomeTransportClient"
+                android:text="Transportation back home required"
+                android:textSize="14sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -170,29 +155,14 @@
                 android:layout_marginStart="15dp"
                 android:textSize="12sp" />
 
-            <EditText
-                android:id="@+id/textDestDateTransportClient"
-                android:layout_width="75dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="6dp"
-                android:textAlignment="center"
-                android:layout_below="@id/textDestPickupTransportClient"
-                android:layout_toStartOf="@+id/textDestTimeTransportClient"
-                android:hint="DDMMYY"
-                android:inputType="date"
-                android:textSize="15sp" />
-
-            <EditText
-                android:id="@+id/textDestTimeTransportClient"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="15dp"
+            <Button
+                android:id="@+id/buttonDateTimeDestPickerTransportClient"
+                android:layout_width="140dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/textDestPickupTransportClient"
                 android:layout_marginEnd="15dp"
-                android:hint="HHMM"
-                android:inputType="time"
-                android:layout_below="@id/textDestPickupTransportClient"
-                android:textSize="15sp" />
+                android:layout_alignParentEnd="true"
+                android:text="Date and time" />
 
             <TextView
                 android:id="@+id/textDestPromptTransportClient"

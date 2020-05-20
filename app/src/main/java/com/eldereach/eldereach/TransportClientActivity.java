@@ -1,19 +1,25 @@
 package com.eldereach.eldereach;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.fragment.app.FragmentActivity;
@@ -24,9 +30,15 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.widget.CompoundButton.INVISIBLE;
 import static android.widget.CompoundButton.OnCheckedChangeListener;
@@ -37,14 +49,18 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
     EditText textOthers;
     TextView textOthersPrompt;
     Spinner dropdown;
+    Button buttonDateTimeHome;
     TextView textDestPickup;
     TextView textDestPrompt;
-    EditText textDestDate;
-    EditText textDestTime;
+    Button buttonDateTimeDest;
     CheckBox checkboxReturn;
+    Button buttonSubmitRequest;
     GoogleMap map;
     SupportMapFragment mapFragment;
     SearchView search;
+    FirebaseFirestore db;
+    FirebaseAuth firebaseAuth;
+    String locationDest = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,17 +92,95 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
         checkboxReturn = findViewById(R.id.checkboxReturnTransportClient);
         textDestPickup = findViewById(R.id.textDestPickupTransportClient);
         textDestPrompt = findViewById(R.id.textDestPromptTransportClient);
-        textDestDate = findViewById(R.id.textDestDateTransportClient);
-        textDestTime = findViewById(R.id.textDestTimeTransportClient);
+        buttonDateTimeHome = findViewById(R.id.buttonDateTimeHomeTransportClient);
+        buttonDateTimeDest = findViewById(R.id.buttonDateTimeDestPickerTransportClient);
+
+        buttonSubmitRequest = findViewById(R.id.buttonSubmitRequestTransportClient);
         search = findViewById(R.id.searchTransportClient);
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapTransportClient);
+        db = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
         textDestPickup.setVisibility(INVISIBLE);
         textDestPrompt.setVisibility(INVISIBLE);
-        textDestDate.setVisibility(INVISIBLE);
-        textDestTime.setVisibility(INVISIBLE);
+        buttonDateTimeDest.setVisibility(INVISIBLE);
         textOthersPrompt.setVisibility(View.INVISIBLE);
         textOthers.setVisibility(View.INVISIBLE);
+
+        buttonDateTimeHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDateTimeDialog(buttonDateTimeHome);
+            }
+        });
+
+        buttonDateTimeDest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDateTimeDialog(buttonDateTimeDest);
+            }
+        });
+
+        buttonSubmitRequest.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Map<String, Object> transportRequest = new HashMap<>();
+
+                transportRequest.put("email", firebaseAuth.getCurrentUser().getEmail());
+
+                // If the dropdown item selected is others, it must not be empty
+                if (dropdown.getSelectedItem().toString().equals("Others")) {
+                    if (textOthers.getText().toString().equals("")) {
+                        Toast.makeText(TransportClientActivity.this, "Please do not leave the 'Others' purpose empty.", Toast.LENGTH_SHORT).show();
+                        textOthers.requestFocus();
+                        return;
+                    } else {
+                        transportRequest.put("purpose", textOthers.getText().toString());
+                    }
+                } else {
+                    transportRequest.put("purpose", dropdown.getSelectedItem().toString());
+                }
+
+                String dateTimeHome = buttonDateTimeHome.getText().toString();
+                String dateTimeDest;
+
+                if (isDateTime(dateTimeHome)) {
+                    transportRequest.put("dateTimeHome", dateTimeHome);
+                } else {
+                    Toast.makeText(TransportClientActivity.this, "Please enter a valid date and time for the pickup from home.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                transportRequest.put("returnNeeded", checkboxReturn.isChecked());
+
+                // If a return trip is required
+                if (checkboxReturn.isChecked()) {
+                    dateTimeDest = buttonDateTimeDest.getText().toString();
+
+                    if (isDateTime(dateTimeDest)) {
+                        transportRequest.put("dateTimeDest", dateTimeDest);
+                    } else {
+                        Toast.makeText(TransportClientActivity.this, "Please enter a valid date and time for the pickup from the destination.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                } else {
+                    dateTimeDest = "";
+                    transportRequest.put("dateTimeDest", dateTimeDest);
+                }
+
+                if (locationDest != null) {
+                    transportRequest.put("location", locationDest);
+                } else {
+                    Toast.makeText(TransportClientActivity.this, "Please select the destination in the search bar.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                transportRequest.put("isAccepted", false);
+                db.collection("transportRequests").document("T_" + firebaseAuth.getCurrentUser().getEmail() + "_" + dateTimeHome + "_" + dateTimeDest).set(transportRequest);
+                Toast.makeText(TransportClientActivity.this, "Transport request submitted.", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(TransportClientActivity.this, HomeClientActivity.class));
+            }
+        });
 
         // if a return trip is required, make the details visible
         checkboxReturn.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -95,13 +189,11 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
                 if (b) {
                     textDestPickup.setVisibility(VISIBLE);
                     textDestPrompt.setVisibility(VISIBLE);
-                    textDestDate.setVisibility(VISIBLE);
-                    textDestTime.setVisibility(VISIBLE);
+                    buttonDateTimeDest.setVisibility(VISIBLE);
                 } else {
                     textDestPickup.setVisibility(INVISIBLE);
                     textDestPrompt.setVisibility(INVISIBLE);
-                    textDestDate.setVisibility(INVISIBLE);
-                    textDestTime.setVisibility(INVISIBLE);
+                    buttonDateTimeDest.setVisibility(INVISIBLE);
                 }
             }
         });
@@ -162,6 +254,7 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
                     } else {
                         Address address = addressList.get(0);
                         LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                        locationDest = address.getAddressLine(0);
                         map.addMarker(new MarkerOptions().position(latLng).title(location));
                         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17));
                     }
@@ -176,5 +269,37 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
         });
 
         mapFragment.getMapAsync(this);
+    }
+
+    private boolean isDateTime(String dateTimeDest) {
+        return true;
+    }
+
+    private void showDateTimeDialog(final Button dateTimePicker) {
+        final Calendar calendar = Calendar.getInstance();
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                TimePickerDialog.OnTimeSetListener timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        calendar.set(Calendar.MINUTE, minute);
+
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yy HH:mm");
+
+                        dateTimePicker.setText(simpleDateFormat.format(calendar.getTime()));
+                    }
+                };
+
+                new TimePickerDialog(TransportClientActivity.this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show();
+            }
+        };
+
+        new DatePickerDialog(TransportClientActivity.this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 }
