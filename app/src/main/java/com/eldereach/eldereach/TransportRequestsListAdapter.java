@@ -9,12 +9,45 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
+/** Adapter to control the items inside the RecyclerView of TransportsRequestsFragment */
 public class TransportRequestsListAdapter extends RecyclerView.Adapter {
-    ArrayList<String> arr;
+    private ArrayList<TransportRequest> items;
 
-    public TransportRequestsListAdapter(ArrayList<String> strings) {
-        arr = strings;
+    TransportRequestsListAdapter(ArrayList<TransportRequest> transportRequests) {
+        items = transportRequests;
+    }
+
+    // Inner class for a single RecyclerViewItem
+    private class ListViewHolder extends RecyclerView.ViewHolder {
+        private TextView textCategory;
+        private TextView textDateTimeHome;
+        private TextView textDateTimeDest;
+        private TextView textLocation;
+
+        ListViewHolder(@NonNull View itemView) {
+            super(itemView);
+            textCategory = itemView.findViewById(R.id.textTransportRequestCategoryClient);
+            textDateTimeHome = itemView.findViewById(R.id.textTransportRequestDateTimeHomeClient);
+            textDateTimeDest = itemView.findViewById(R.id.textTransportRequestDateTimeDestClient);
+            textLocation = itemView.findViewById(R.id.textTransportRequestLocationClient);
+        }
+
+        void bindView(int position) {
+            TransportRequest request = items.get(position);
+
+            textCategory.setText("Transport");
+            textDateTimeHome.setText(request.getHomeDate());
+
+            if (request.getReturnNeeded()) {
+                textDateTimeDest.setText(request.getDestDate());
+            } else {
+                textDateTimeDest.setText("Return trip not required");
+            }
+
+            textLocation.setText(request.getLocation());
+        }
     }
 
     @NonNull
@@ -31,24 +64,13 @@ public class TransportRequestsListAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return arr.size();
+        return items.size();
     }
 
-    public void addItems(String str) {
-        arr.add(str);
-        notifyItemInserted(arr.size() - 1);
-    }
-
-    private class ListViewHolder extends RecyclerView.ViewHolder {
-        private TextView textView;
-
-        public ListViewHolder(@NonNull View itemView) {
-            super(itemView);
-            textView = itemView.findViewById(R.id.textView);
-        }
-
-        public void bindView(int position) {
-            textView.setText(arr.get(position));
-        }
+    // Replaces the list of items with another one - to be used for refreshing the view
+    public void addAll(List<TransportRequest> list) {
+        items.clear();
+        items.addAll(list);
+        notifyDataSetChanged();
     }
 }

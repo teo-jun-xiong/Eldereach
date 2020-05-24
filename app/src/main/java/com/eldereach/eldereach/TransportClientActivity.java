@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -30,14 +31,21 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import static android.widget.CompoundButton.INVISIBLE;
@@ -124,7 +132,7 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
         buttonSubmitRequest.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Map<String, Object> transportRequest = new HashMap<>();
+                final Map<String, Object> transportRequest = new HashMap<>();
 
                 transportRequest.put("email", firebaseAuth.getCurrentUser().getEmail());
 
@@ -145,7 +153,13 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
                 String dateTimeDest;
 
                 if (isDateTime(dateTimeHome)) {
-                    transportRequest.put("dateTimeHome", dateTimeHome);
+                    if (isDateAfterCurrentDate(dateTimeHome)) {
+                        transportRequest.put("dateTimeHome", dateTimeHome);
+                    } else {
+                        Toast.makeText(TransportClientActivity.this, "The date and time of the pickup from home is earlier than the current date.",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
                 } else {
                     Toast.makeText(TransportClientActivity.this, "Please enter a valid date and time for the pickup from home.", Toast.LENGTH_SHORT).show();
                     return;
@@ -158,7 +172,12 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
                     dateTimeDest = buttonDateTimeDest.getText().toString();
 
                     if (isDateTime(dateTimeDest)) {
-                        transportRequest.put("dateTimeDest", dateTimeDest);
+                        if (isDateBefore(dateTimeHome, dateTimeDest)) {
+                            transportRequest.put("dateTimeDest", dateTimeDest);
+                        } else {
+                            Toast.makeText(TransportClientActivity.this, "The date and time of the return trip is before the pickup from home.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                     } else {
                         Toast.makeText(TransportClientActivity.this, "Please enter a valid date and time for the pickup from the destination.", Toast.LENGTH_SHORT).show();
                         return;
@@ -176,9 +195,24 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
                 }
 
                 transportRequest.put("isAccepted", false);
-                db.collection("transportRequests").document("T_" + firebaseAuth.getCurrentUser().getEmail() + "_" + dateTimeHome + "_" + dateTimeDest).set(transportRequest);
-                Toast.makeText(TransportClientActivity.this, "Transport request submitted.", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(TransportClientActivity.this, HomeClientActivity.class));
+
+                String documentName = "T_" + firebaseAuth.getCurrentUser().getEmail() + "_" + dateTimeHome + "_" + dateTimeDest;
+                final DocumentReference docRef = db.collection("transportRequests").document(documentName); // set(transportRequest);
+                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                Toast.makeText(TransportClientActivity.this, "This transport request already exists. Please check under 'My Requests'.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                docRef.set(transportRequest);
+                                Toast.makeText(TransportClientActivity.this, "Transport request submitted.", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(TransportClientActivity.this, HomeClientActivity.class));
+                            }
+                        }
+                    }
+                });
             }
         });
 
@@ -289,9 +323,7 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                         calendar.set(Calendar.MINUTE, minute);
-
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yy HH:mm");
-
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yy hh:mm", Locale.ENGLISH);
                         dateTimePicker.setText(simpleDateFormat.format(calendar.getTime()));
                     }
                 };
@@ -301,5 +333,34 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
         };
 
         new DatePickerDialog(TransportClientActivity.this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+    }
+
+    private boolean isDateAfterCurrentDate(String date) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yy hh:mm", Locale.ENGLISH);
+        Date currentDate = new Date();
+        Date comparingDate = null;
+
+        try {
+            comparingDate = simpleDateFormat.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        assert comparingDate != null;
+        return comparingDate.after(currentDate);
+    }
+    private boolean isDateBefore(String home, String dest) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yy hh:mm", Locale.ENGLISH);
+        Date dateHome = null;
+        Date dateDest = null;
+        try {
+            dateHome = simpleDateFormat.parse(home);
+            dateDest = simpleDateFormat.parse(dest);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        assert dateHome != null;
+        return dateHome.before(dateDest);
     }
 }

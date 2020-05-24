@@ -1,19 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".RequestsClientActivity">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/layout1TransportRequestFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="75dp"
+            android:layout_centerHorizontal="true">
+
+            <TextView
+                android:id="@+id/textCategoryTransportRequestFragmentClient"
+                android:layout_width="70dp"
+                android:layout_height="75dp"
+                android:background="@drawable/black_borders"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="3"
+                android:padding="5dp"
+                android:scrollHorizontally="false"
+                android:text="Category"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textDateTimeHomeTransportRequestFragmentClient"
+                android:layout_width="90dp"
+                android:layout_height="75dp"
+                android:layout_marginStart="-4dp"
+                android:layout_toEndOf="@id/textCategoryTransportRequestFragmentClient"
+                android:background="@drawable/black_borders"
+                android:ellipsize="none"
+                android:gravity="center"
+                android:maxLines="3"
+                android:padding="5dp"
+                android:scrollHorizontally="false"
+                android:text="Pickup from home"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textDateTimeDestTransportRequestFragmentClient"
+                android:layout_width="90dp"
+                android:layout_height="75dp"
+                android:layout_marginStart="-4dp"
+                android:layout_toEndOf="@id/textDateTimeHomeTransportRequestFragmentClient"
+                android:background="@drawable/black_borders"
+                android:ellipsize="none"
+                android:gravity="center"
+                android:maxLines="3"
+                android:padding="5dp"
+                android:scrollHorizontally="false"
+                android:text="Pickup from destination"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textLocationTransportRequestFragmentClient"
+                android:layout_width="150dp"
+                android:layout_height="75dp"
+                android:layout_marginStart="-4dp"
+                android:layout_toEndOf="@id/textDateTimeDestTransportRequestFragmentClient"
+                android:background="@drawable/black_borders"
+                android:ellipsize="none"
+                android:gravity="center"
+                android:maxLines="3"
+                android:padding="5dp"
+                android:scrollHorizontally="false"
+                android:text="Address of destination"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout1TransportRequestFragment"
+            android:scrollbars="vertical" />
     </RelativeLayout>
-</LinearLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
