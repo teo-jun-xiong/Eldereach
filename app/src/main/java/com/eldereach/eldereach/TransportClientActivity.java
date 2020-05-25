@@ -41,6 +41,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -270,7 +271,7 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
                 map.clear();
 
                 String location = search.getQuery().toString();
-                List<Address> addressList = null;
+                List<Address> addressList = new ArrayList<>();
 
                 if (location != null || !location.equals("")) {
                     Geocoder geocoder = new Geocoder(TransportClientActivity.this);
@@ -306,6 +307,13 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
     }
 
     private boolean isDateTime(String dateTimeDest) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yy hh:mm", Locale.ENGLISH);
+        try {
+            simpleDateFormat.parse(dateTimeDest);
+        } catch (ParseException e) {
+            return false;
+        }
+
         return true;
     }
 
@@ -349,6 +357,7 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
         assert comparingDate != null;
         return comparingDate.after(currentDate);
     }
+
     private boolean isDateBefore(String home, String dest) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yy hh:mm", Locale.ENGLISH);
         Date dateHome = null;

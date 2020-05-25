@@ -18,7 +18,7 @@
             android:layout_centerHorizontal="true">
 
             <TextView
-                android:id="@+id/textCategoryTransportRequestFragmentClient"
+                android:id="@+id/textStatusTransportRequestFragmentClient"
                 android:layout_width="70dp"
                 android:layout_height="75dp"
                 android:background="@drawable/black_borders"
@@ -27,7 +27,7 @@
                 android:maxLines="3"
                 android:padding="5dp"
                 android:scrollHorizontally="false"
-                android:text="Category"
+                android:text="Status"
                 android:textAlignment="center"
                 android:textColor="#000000"
                 android:textSize="13sp"
@@ -38,7 +38,7 @@
                 android:layout_width="90dp"
                 android:layout_height="75dp"
                 android:layout_marginStart="-4dp"
-                android:layout_toEndOf="@id/textCategoryTransportRequestFragmentClient"
+                android:layout_toEndOf="@id/textStatusTransportRequestFragmentClient"
                 android:background="@drawable/black_borders"
                 android:ellipsize="none"
                 android:gravity="center"

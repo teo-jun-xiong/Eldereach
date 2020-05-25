@@ -21,14 +21,14 @@ public class TransportRequestsListAdapter extends RecyclerView.Adapter {
 
     // Inner class for a single RecyclerViewItem
     private class ListViewHolder extends RecyclerView.ViewHolder {
-        private TextView textCategory;
+        private TextView textStatus;
         private TextView textDateTimeHome;
         private TextView textDateTimeDest;
         private TextView textLocation;
 
         ListViewHolder(@NonNull View itemView) {
             super(itemView);
-            textCategory = itemView.findViewById(R.id.textTransportRequestCategoryClient);
+            textStatus = itemView.findViewById(R.id.textTransportRequestStatusClient);
             textDateTimeHome = itemView.findViewById(R.id.textTransportRequestDateTimeHomeClient);
             textDateTimeDest = itemView.findViewById(R.id.textTransportRequestDateTimeDestClient);
             textLocation = itemView.findViewById(R.id.textTransportRequestLocationClient);
@@ -37,7 +37,8 @@ public class TransportRequestsListAdapter extends RecyclerView.Adapter {
         void bindView(int position) {
             TransportRequest request = items.get(position);
 
-            textCategory.setText("Transport");
+            //TODO incorporate status and service provider
+            textStatus.setText("Pending");
             textDateTimeHome.setText(request.getHomeDate());
 
             if (request.getReturnNeeded()) {

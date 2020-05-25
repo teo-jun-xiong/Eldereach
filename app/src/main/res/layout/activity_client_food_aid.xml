@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:orientation="vertical"
+    tools:context=".RequestsClientActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/layout1FoodAidClient"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <Button
+            android:id="@+id/buttonHelpFoodAidClient"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="15dp"
+            android:text="Help" />
+
+        <TextView
+            android:id="@+id/textHeaderFoodAidClient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:text="Food Aid Request"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout2FoodAidClient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout1FoodAidClient"
+        android:layout_marginBottom="10dp">
+
+        <Spinner
+            android:id="@+id/dropdownDietaryFoodAidClient"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:spinnerMode="dropdown" />
+
+        <TextView
+            android:id="@+id/textPromptDietaryFoodAidClient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+
+            android:layout_marginStart="15dp"
+            android:text="Please indicate any dietary\nrestrictions:"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout3FoodAidClient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout2FoodAidClient"
+        android:layout_marginBottom="10dp">
+
+        <EditText
+            android:id="@+id/textAllergyFoodAidClient"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:hint="Food allergies"
+            android:spinnerMode="dropdown"
+            android:textAlignment="center"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/textPromptAllergyFoodAidClient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="15dp"
+            android:text="Please indicate any known\nfood allergies:"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout4FoodAidClient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout3FoodAidClient"
+        android:layout_marginBottom="10dp">
+
+        <com.eldereach.eldereach.MultiSelectSpinner
+            android:id="@+id/dropdownMealFoodAidClient"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp" />
+
+        <TextView
+            android:id="@+id/textPromptMealFoodAidClient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:text="Please indicate the type\nof food or meal required:"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout5FoodAidClient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout4FoodAidClient"
+        android:layout_marginBottom="5dp">
+
+        <Button
+            android:id="@+id/buttonDateTimeDeliveryFoodAidClient"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="15dp"
+            android:layout_alignParentEnd="true"
+            android:text="Date and time" />
+
+        <TextView
+            android:id="@+id/textDeliveryPromptFoodAidClient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="Please indicate the preferred\ndelivery date and time of :"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/buttonSubmitRequestFoodAidClient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout5FoodAidClient"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="10dp"
+        android:text="Submit request" />
+</RelativeLayout>

@@ -56,6 +56,13 @@ public class HomeClientActivity extends AppCompatActivity {
             }
         });
 
+        buttonFoodAid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeClientActivity.this, FoodAidClientActivity.class));
+            }
+        });
+
         buttonTransport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
