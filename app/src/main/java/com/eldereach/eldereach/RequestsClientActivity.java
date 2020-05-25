@@ -22,7 +22,7 @@ public class RequestsClientActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tabLayout);
         adapter = new RequestsClientTabAdapter(getSupportFragmentManager());
-        adapter.addFragment(new TransportRequestsFragment(), "Food Aid");
+        adapter.addFragment(new FoodAidRequestsFragment(), "Food Aid");
         adapter.addFragment(new TransportRequestsFragment(), "Transport");
         adapter.addFragment(new TransportRequestsFragment(), "Visit");
         viewPager.setAdapter(adapter);

@@ -1,6 +1,5 @@
 package com.eldereach.eldereach;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +7,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,36 +28,34 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-// In this case, the fragment displays simple text based on the page
-public class TransportRequestsFragment extends Fragment {
+public class FoodAidRequestsFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore db;
     private SwipeRefreshLayout swipeContainer;
-    private TransportRequestsListAdapter listAdapter;
+    private FoodAidRequestsListAdapter listAdapter;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_transport_requests_client, container, false);
+        View view = inflater.inflate(R.layout.fragment_food_aid_requests_client, container, false);
         firebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        final RecyclerView recyclerView = view.findViewById(R.id.recyclerTransportFragment);
-        swipeContainer = view.findViewById(R.id.transportSwipeContainer);
-        final ArrayList<TransportRequest> list = new ArrayList<>();
+        final RecyclerView recyclerView = view.findViewById(R.id.recyclerFoodAidFragment);
+        swipeContainer = view.findViewById(R.id.foodAidSwipeContainer);
+        final ArrayList<FoodAidRequest> list = new ArrayList<>();
 
-        CollectionReference collectionReference = db.collection("transportRequests");
+        CollectionReference collectionReference = db.collection("foodAidRequests");
         collectionReference.whereEqualTo("email", Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<DocumentSnapshot> documentSnapshotList = queryDocumentSnapshots.getDocuments();
 
                 for (DocumentSnapshot d : documentSnapshotList) {
-                    list.add(new TransportRequest(d));
+                    list.add(new FoodAidRequest(d));
                 }
 
-                listAdapter = new TransportRequestsListAdapter(sortDateTime(list));
+                listAdapter = new FoodAidRequestsListAdapter(sortDateTime(list));
                 recyclerView.setAdapter(listAdapter);
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
                 recyclerView.setLayoutManager(layoutManager);
@@ -73,24 +69,24 @@ public class TransportRequestsFragment extends Fragment {
                 // Your code to refresh the list here.
                 // Make sure you call swipeContainer.setRefreshing(false)
                 // once the network request has completed successfully.
-                refreshTransportRequests();
+                refreshFoodAidRequests();
             }
         });
 
         return view;
     }
 
-    public void refreshTransportRequests() {
-        final ArrayList<TransportRequest> list = new ArrayList<>();
+    public void refreshFoodAidRequests() {
+        final ArrayList<FoodAidRequest> list = new ArrayList<>();
 
-        CollectionReference collectionReference = db.collection("transportRequests");
+        CollectionReference collectionReference = db.collection("foodAidRequests");
         collectionReference.whereEqualTo("email", Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<DocumentSnapshot> documentSnapshotList = queryDocumentSnapshots.getDocuments();
 
                 for (DocumentSnapshot d : documentSnapshotList) {
-                    list.add(new TransportRequest(d));
+                    list.add(new FoodAidRequest(d));
                 }
 
 
@@ -102,13 +98,13 @@ public class TransportRequestsFragment extends Fragment {
         swipeContainer.setRefreshing(false);
     }
 
-    private ArrayList<TransportRequest> sortDateTime(ArrayList<TransportRequest> list) {
-        Collections.sort(list, new Comparator<TransportRequest>() {
+    private ArrayList<FoodAidRequest> sortDateTime(ArrayList<FoodAidRequest> list) {
+        Collections.sort(list, new Comparator<FoodAidRequest>() {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yy hh:mm", Locale.ENGLISH);
             @Override
-            public int compare(TransportRequest request1, TransportRequest request2) {
+            public int compare(FoodAidRequest request1, FoodAidRequest request2) {
                 try {
-                    return Objects.requireNonNull(simpleDateFormat.parse(request1.getHomeDate())).compareTo(simpleDateFormat.parse(request2.getHomeDate()));
+                    return Objects.requireNonNull(simpleDateFormat.parse(request1.getDateTime())).compareTo(simpleDateFormat.parse(request2.getDateTime()));
                 } catch (ParseException e) {
                     throw new IllegalArgumentException(e);
                 }
