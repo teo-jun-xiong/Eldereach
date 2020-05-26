@@ -34,6 +34,7 @@
             android:windowSoftInputMode="adjustResize" />
         <activity android:name=".client.RequestsClientActivity" />
         <activity android:name="com.eldereach.eldereach.client.foodaid.FoodAidClientActivity" />
+        <activity android:name=".client.visit.VisitClientActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

@@ -12,6 +12,7 @@ import com.eldereach.eldereach.LogInActivity;
 import com.eldereach.eldereach.R;
 import com.eldereach.eldereach.client.foodaid.FoodAidClientActivity;
 import com.eldereach.eldereach.client.transport.TransportClientActivity;
+import com.eldereach.eldereach.client.visit.VisitClientActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 /** Home screen for clients */
@@ -71,6 +72,13 @@ public class HomeClientActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(HomeClientActivity.this, TransportClientActivity.class));
+            }
+        });
+
+        buttonVisit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeClientActivity.this, VisitClientActivity.class));
             }
         });
 
