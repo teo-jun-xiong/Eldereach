@@ -1,4 +1,4 @@
-package com.eldereach.eldereach;
+package com.eldereach.eldereach.client.transport;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +7,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.eldereach.eldereach.R;
+import com.eldereach.eldereach.util.TransportRequest;
 
 import java.util.ArrayList;
 import java.util.List;

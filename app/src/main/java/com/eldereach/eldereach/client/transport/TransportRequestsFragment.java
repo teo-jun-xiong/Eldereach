@@ -1,5 +1,6 @@
-package com.eldereach.eldereach;
+package com.eldereach.eldereach.client.transport;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,11 +8,14 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.eldereach.eldereach.R;
+import com.eldereach.eldereach.util.TransportRequest;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -28,34 +32,36 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-public class FoodAidRequestsFragment extends Fragment {
+// In this case, the fragment displays simple text based on the page
+public class TransportRequestsFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore db;
     private SwipeRefreshLayout swipeContainer;
-    private FoodAidRequestsListAdapter listAdapter;
+    private TransportRequestsListAdapter listAdapter;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_food_aid_requests_client, container, false);
+        View view = inflater.inflate(R.layout.fragment_transport_requests_client, container, false);
         firebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        final RecyclerView recyclerView = view.findViewById(R.id.recyclerFoodAidFragment);
-        swipeContainer = view.findViewById(R.id.foodAidSwipeContainer);
-        final ArrayList<FoodAidRequest> list = new ArrayList<>();
+        final RecyclerView recyclerView = view.findViewById(R.id.recyclerTransportFragment);
+        swipeContainer = view.findViewById(R.id.transportSwipeContainer);
+        final ArrayList<TransportRequest> list = new ArrayList<>();
 
-        CollectionReference collectionReference = db.collection("foodAidRequests");
+        CollectionReference collectionReference = db.collection("transportRequests");
         collectionReference.whereEqualTo("email", Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<DocumentSnapshot> documentSnapshotList = queryDocumentSnapshots.getDocuments();
 
                 for (DocumentSnapshot d : documentSnapshotList) {
-                    list.add(new FoodAidRequest(d));
+                    list.add(new TransportRequest(d));
                 }
 
-                listAdapter = new FoodAidRequestsListAdapter(sortDateTime(list));
+                listAdapter = new com.eldereach.eldereach.client.transport.TransportRequestsListAdapter(sortDateTime(list));
                 recyclerView.setAdapter(listAdapter);
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
                 recyclerView.setLayoutManager(layoutManager);
@@ -69,24 +75,24 @@ public class FoodAidRequestsFragment extends Fragment {
                 // Your code to refresh the list here.
                 // Make sure you call swipeContainer.setRefreshing(false)
                 // once the network request has completed successfully.
-                refreshFoodAidRequests();
+                refreshTransportRequests();
             }
         });
 
         return view;
     }
 
-    public void refreshFoodAidRequests() {
-        final ArrayList<FoodAidRequest> list = new ArrayList<>();
+    private void refreshTransportRequests() {
+        final ArrayList<TransportRequest> list = new ArrayList<>();
 
-        CollectionReference collectionReference = db.collection("foodAidRequests");
+        CollectionReference collectionReference = db.collection("transportRequests");
         collectionReference.whereEqualTo("email", Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<DocumentSnapshot> documentSnapshotList = queryDocumentSnapshots.getDocuments();
 
                 for (DocumentSnapshot d : documentSnapshotList) {
-                    list.add(new FoodAidRequest(d));
+                    list.add(new TransportRequest(d));
                 }
 
 
@@ -98,13 +104,13 @@ public class FoodAidRequestsFragment extends Fragment {
         swipeContainer.setRefreshing(false);
     }
 
-    private ArrayList<FoodAidRequest> sortDateTime(ArrayList<FoodAidRequest> list) {
-        Collections.sort(list, new Comparator<FoodAidRequest>() {
+    private ArrayList<TransportRequest> sortDateTime(ArrayList<TransportRequest> list) {
+        Collections.sort(list, new Comparator<TransportRequest>() {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yy hh:mm", Locale.ENGLISH);
             @Override
-            public int compare(FoodAidRequest request1, FoodAidRequest request2) {
+            public int compare(TransportRequest request1, TransportRequest request2) {
                 try {
-                    return Objects.requireNonNull(simpleDateFormat.parse(request1.getDateTime())).compareTo(simpleDateFormat.parse(request2.getDateTime()));
+                    return Objects.requireNonNull(simpleDateFormat.parse(request1.getHomeDate())).compareTo(simpleDateFormat.parse(request2.getHomeDate()));
                 } catch (ParseException e) {
                     throw new IllegalArgumentException(e);
                 }

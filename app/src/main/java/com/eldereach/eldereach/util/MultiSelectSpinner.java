@@ -1,4 +1,4 @@
-package com.eldereach.eldereach;
+package com.eldereach.eldereach.util;
 
 import android.app.AlertDialog;
 import android.content.Context;

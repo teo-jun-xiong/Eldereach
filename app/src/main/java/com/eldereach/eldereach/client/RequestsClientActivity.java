@@ -1,10 +1,13 @@
-package com.eldereach.eldereach;
+package com.eldereach.eldereach.client;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import com.eldereach.eldereach.R;
+import com.eldereach.eldereach.client.foodaid.FoodAidRequestsFragment;
+import com.eldereach.eldereach.client.transport.TransportRequestsFragment;
 import com.google.android.material.tabs.TabLayout;
 
 /**

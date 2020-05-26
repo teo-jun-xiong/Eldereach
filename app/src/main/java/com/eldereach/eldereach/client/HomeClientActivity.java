@@ -1,4 +1,4 @@
-package com.eldereach.eldereach;
+package com.eldereach.eldereach.client;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,10 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.eldereach.eldereach.LogInActivity;
+import com.eldereach.eldereach.R;
+import com.eldereach.eldereach.client.foodaid.FoodAidClientActivity;
+import com.eldereach.eldereach.client.transport.TransportClientActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 /** Home screen for clients */

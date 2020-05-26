@@ -1,4 +1,4 @@
-package com.eldereach.eldereach;
+package com.eldereach.eldereach.client;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -15,11 +15,13 @@ public class RequestsClientTabAdapter extends FragmentStatePagerAdapter {
     RequestsClientTabAdapter(FragmentManager fm) {
         super(fm);
     }
+
     @Override
     public Fragment getItem(int position) {
         return mFragmentList.get(position);
     }
-    public void addFragment(Fragment fragment, String title) {
+
+    void addFragment(Fragment fragment, String title) {
         mFragmentList.add(fragment);
         mFragmentTitleList.add(title);
     }
@@ -28,6 +30,7 @@ public class RequestsClientTabAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         return mFragmentTitleList.get(position);
     }
+
     @Override
     public int getCount() {
         return mFragmentList.size();

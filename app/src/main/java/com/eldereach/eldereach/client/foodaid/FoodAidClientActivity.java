@@ -1,4 +1,4 @@
-package com.eldereach.eldereach;
+package com.eldereach.eldereach.client.foodaid;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -16,6 +16,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
+import com.eldereach.eldereach.client.HomeClientActivity;
+import com.eldereach.eldereach.util.MultiSelectSpinner;
+import com.eldereach.eldereach.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;

@@ -1,4 +1,4 @@
-package com.eldereach.eldereach;
+package com.eldereach.eldereach.client.foodaid;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.eldereach.eldereach.util.FoodAidRequest;
+import com.eldereach.eldereach.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +18,7 @@ import java.util.List;
 public class FoodAidRequestsListAdapter extends RecyclerView.Adapter {
     private ArrayList<FoodAidRequest> items;
 
-    FoodAidRequestsListAdapter(ArrayList<FoodAidRequest> foodAidRequests) {
+    public FoodAidRequestsListAdapter(ArrayList<FoodAidRequest> foodAidRequests) {
         items = foodAidRequests;
     }
 

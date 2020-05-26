@@ -23,17 +23,17 @@
         </activity>
 
         <activity android:name=".LogInActivity" />
-        <activity android:name=".HomeVolunteerActivity" />
+        <activity android:name=".volunteer.HomeVolunteerActivity" />
         <activity android:name=".SignUpActivity" />
         <activity
             android:name=".MainActivity"
             android:noHistory="true" />
-        <activity android:name=".HomeClientActivity" />
+        <activity android:name=".client.HomeClientActivity" />
         <activity
-            android:name=".TransportClientActivity"
+            android:name="com.eldereach.eldereach.client.transport.TransportClientActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".RequestsClientActivity" />
-        <activity android:name=".FoodAidClientActivity" />
+        <activity android:name=".client.RequestsClientActivity" />
+        <activity android:name="com.eldereach.eldereach.client.foodaid.FoodAidClientActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

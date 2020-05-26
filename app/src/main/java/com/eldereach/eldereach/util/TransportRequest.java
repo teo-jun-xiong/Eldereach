@@ -1,4 +1,4 @@
-package com.eldereach.eldereach;
+package com.eldereach.eldereach.util;
 
 import androidx.annotation.NonNull;
 
@@ -15,7 +15,7 @@ public class TransportRequest {
     private String dateTimeHome;
     private String dateTimeDest;
 
-    TransportRequest(DocumentSnapshot documentSnapshot) {
+    public TransportRequest(DocumentSnapshot documentSnapshot) {
         Map<String, Object> map = documentSnapshot.getData();
 
         assert map != null;
@@ -28,19 +28,19 @@ public class TransportRequest {
         dateTimeDest = (String) map.get("dateTimeDest");
     }
 
-    String getHomeDate() {
+    public String getHomeDate() {
         return dateTimeHome;
     }
 
-    String getDestDate() {
+    public String getDestDate() {
         return dateTimeDest;
     }
 
-    String getLocation() {
+    public String getLocation() {
         return location;
     }
 
-    boolean getReturnNeeded() {
+    public boolean getReturnNeeded() {
         return returnNeeded;
     }
 

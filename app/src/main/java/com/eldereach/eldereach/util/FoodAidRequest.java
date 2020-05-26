@@ -1,4 +1,4 @@
-package com.eldereach.eldereach;
+package com.eldereach.eldereach.util;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 
@@ -14,7 +14,7 @@ public class FoodAidRequest {
     private ArrayList<String> meals;
 
     @SuppressWarnings("unchecked")
-    FoodAidRequest(DocumentSnapshot documentSnapshot) {
+    public FoodAidRequest(DocumentSnapshot documentSnapshot) {
         Map<String, Object> map = documentSnapshot.getData();
 
         assert map != null;

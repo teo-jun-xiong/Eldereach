@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:orientation="vertical"
-    tools:context=".RequestsClientActivity">
+    tools:context=".client.RequestsClientActivity">
 
 
     <RelativeLayout
@@ -100,7 +100,7 @@
         android:layout_below="@id/layout3FoodAidClient"
         android:layout_marginBottom="10dp">
 
-        <com.eldereach.eldereach.MultiSelectSpinner
+        <com.eldereach.eldereach.util.MultiSelectSpinner
             android:id="@+id/dropdownMealFoodAidClient"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
