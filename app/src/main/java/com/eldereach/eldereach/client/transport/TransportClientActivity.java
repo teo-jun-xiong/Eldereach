@@ -25,8 +25,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
-import com.eldereach.eldereach.client.HomeClientActivity;
 import com.eldereach.eldereach.R;
+import com.eldereach.eldereach.client.HomeClientActivity;
+import com.eldereach.eldereach.util.EldereachDateTime;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -41,11 +42,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -155,8 +154,8 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
                 String dateTimeHome = buttonDateTimeHome.getText().toString();
                 String dateTimeDest;
 
-                if (isDateTime(dateTimeHome)) {
-                    if (isDateAfterCurrentDate(dateTimeHome)) {
+                if (EldereachDateTime.isDateTime(dateTimeHome)) {
+                    if (EldereachDateTime.isDateAfterCurrentDate(dateTimeHome)) {
                         transportRequest.put("dateTimeHome", dateTimeHome);
                     } else {
                         Toast.makeText(TransportClientActivity.this, "The date and time of the pickup from home is earlier than the current date.",Toast.LENGTH_SHORT).show();
@@ -174,8 +173,8 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
                 if (checkboxReturn.isChecked()) {
                     dateTimeDest = buttonDateTimeDest.getText().toString();
 
-                    if (isDateTime(dateTimeDest)) {
-                        if (isDateBefore(dateTimeHome, dateTimeDest)) {
+                    if (EldereachDateTime.isDateTime(dateTimeDest)) {
+                        if (EldereachDateTime.isDateBefore(dateTimeHome, dateTimeDest)) {
                             transportRequest.put("dateTimeDest", dateTimeDest);
                         } else {
                             Toast.makeText(TransportClientActivity.this, "The date and time of the return trip is before the pickup from home.", Toast.LENGTH_SHORT).show();
@@ -308,17 +307,6 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
         mapFragment.getMapAsync(this);
     }
 
-    private boolean isDateTime(String dateTimeDest) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yy hh:mm", Locale.ENGLISH);
-        try {
-            simpleDateFormat.parse(dateTimeDest);
-        } catch (ParseException e) {
-            return false;
-        }
-
-        return true;
-    }
-
     private void showDateTimeDialog(final Button dateTimePicker) {
         final Calendar calendar = Calendar.getInstance();
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
@@ -343,35 +331,5 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
         };
 
         new DatePickerDialog(TransportClientActivity.this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-    }
-
-    private boolean isDateAfterCurrentDate(String date) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yy hh:mm", Locale.ENGLISH);
-        Date currentDate = new Date();
-        Date comparingDate = null;
-
-        try {
-            comparingDate = simpleDateFormat.parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        assert comparingDate != null;
-        return comparingDate.after(currentDate);
-    }
-
-    private boolean isDateBefore(String home, String dest) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yy hh:mm", Locale.ENGLISH);
-        Date dateHome = null;
-        Date dateDest = null;
-        try {
-            dateHome = simpleDateFormat.parse(home);
-            dateDest = simpleDateFormat.parse(dest);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        assert dateHome != null;
-        return dateHome.before(dateDest);
     }
 }

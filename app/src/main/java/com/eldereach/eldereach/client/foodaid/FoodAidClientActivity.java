@@ -16,9 +16,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
-import com.eldereach.eldereach.client.HomeClientActivity;
-import com.eldereach.eldereach.util.MultiSelectSpinner;
 import com.eldereach.eldereach.R;
+import com.eldereach.eldereach.client.HomeClientActivity;
+import com.eldereach.eldereach.util.EldereachDateTime;
+import com.eldereach.eldereach.util.MultiSelectSpinner;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,7 +27,6 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -89,7 +89,7 @@ public class FoodAidClientActivity extends FragmentActivity implements MultiSele
 
                 String dateTime = buttonDateTime.getText().toString();
 
-                if (isDateTime(dateTime) && isDateAfterCurrentDate(dateTime)) {
+                if (EldereachDateTime.isDateTime(dateTime) && EldereachDateTime.isDateAfterCurrentDate(dateTime)) {
                     foodAidRequest.put("dateTimeHome", dateTime);
                 } else {
                     Toast.makeText(FoodAidClientActivity.this, "The date and time of the delivery is earlier than the current date.",Toast.LENGTH_SHORT).show();
@@ -168,32 +168,6 @@ public class FoodAidClientActivity extends FragmentActivity implements MultiSele
         };
 
         new DatePickerDialog(FoodAidClientActivity.this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-    }
-
-    private boolean isDateAfterCurrentDate(String date) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yy hh:mm", Locale.ENGLISH);
-        Date currentDate = new Date();
-        Date comparingDate = null;
-
-        try {
-            comparingDate = simpleDateFormat.parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        assert comparingDate != null;
-        return comparingDate.after(currentDate);
-    }
-
-    private boolean isDateTime(String dateTimeDest) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yy hh:mm", Locale.ENGLISH);
-        try {
-            simpleDateFormat.parse(dateTimeDest);
-        } catch (ParseException e) {
-            return false;
-        }
-
-        return true;
     }
 
     @Override
