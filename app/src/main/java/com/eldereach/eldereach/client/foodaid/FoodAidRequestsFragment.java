@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.eldereach.eldereach.R;
+import com.eldereach.eldereach.util.EldereachDateTime;
 import com.eldereach.eldereach.util.FoodAidRequest;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,12 +23,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 public class FoodAidRequestsFragment extends Fragment {
@@ -57,7 +56,7 @@ public class FoodAidRequestsFragment extends Fragment {
                     list.add(new FoodAidRequest(d));
                 }
 
-                listAdapter = new com.eldereach.eldereach.client.foodaid.FoodAidRequestsListAdapter(sortDateTime(list));
+                listAdapter = new FoodAidRequestsListAdapter(sortDateTime(list));
                 recyclerView.setAdapter(listAdapter);
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
                 recyclerView.setLayoutManager(layoutManager);
@@ -102,11 +101,10 @@ public class FoodAidRequestsFragment extends Fragment {
 
     private ArrayList<FoodAidRequest> sortDateTime(ArrayList<FoodAidRequest> list) {
         Collections.sort(list, new Comparator<FoodAidRequest>() {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yy hh:mm", Locale.ENGLISH);
             @Override
             public int compare(FoodAidRequest request1, FoodAidRequest request2) {
                 try {
-                    return Objects.requireNonNull(simpleDateFormat.parse(request1.getDateTime())).compareTo(simpleDateFormat.parse(request2.getDateTime()));
+                    return Objects.requireNonNull(EldereachDateTime.simpleDateFormat.parse(request1.getDateTime())).compareTo(EldereachDateTime.simpleDateFormat.parse(request2.getDateTime()));
                 } catch (ParseException e) {
                     throw new IllegalArgumentException(e);
                 }

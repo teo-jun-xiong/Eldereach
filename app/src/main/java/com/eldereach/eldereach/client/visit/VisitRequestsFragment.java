@@ -1,6 +1,5 @@
-package com.eldereach.eldereach.client.transport;
+package com.eldereach.eldereach.client.visit;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +7,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +14,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.eldereach.eldereach.R;
 import com.eldereach.eldereach.util.EldereachDateTime;
-import com.eldereach.eldereach.util.TransportRequest;
+import com.eldereach.eldereach.util.VisitRequest;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -31,36 +29,34 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
-// In this case, the fragment displays simple text based on the page
-public class TransportRequestsFragment extends Fragment {
+public class VisitRequestsFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore db;
     private SwipeRefreshLayout swipeContainer;
-    private TransportRequestsListAdapter listAdapter;
+    private VisitRequestsListAdapter listAdapter;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_transport_requests_client, container, false);
+        View view = inflater.inflate(R.layout.fragment_visit_requests_client, container, false);
         firebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        final RecyclerView recyclerView = view.findViewById(R.id.recyclerTransportFragment);
-        swipeContainer = view.findViewById(R.id.transportSwipeContainer);
-        final ArrayList<TransportRequest> list = new ArrayList<>();
+        final RecyclerView recyclerView = view.findViewById(R.id.recyclerVisitFragment);
+        swipeContainer = view.findViewById(R.id.visitSwipeContainer);
+        final ArrayList<VisitRequest> list = new ArrayList<>();
 
-        CollectionReference collectionReference = db.collection("transportRequests");
+        CollectionReference collectionReference = db.collection("visitRequests");
         collectionReference.whereEqualTo("email", Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<DocumentSnapshot> documentSnapshotList = queryDocumentSnapshots.getDocuments();
 
                 for (DocumentSnapshot d : documentSnapshotList) {
-                    list.add(new TransportRequest(d));
+                    list.add(new VisitRequest(d));
                 }
 
-                listAdapter = new TransportRequestsListAdapter(sortDateTime(list));
+                listAdapter = new VisitRequestsListAdapter(sortDateTime(list));
                 recyclerView.setAdapter(listAdapter);
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
                 recyclerView.setLayoutManager(layoutManager);
@@ -74,24 +70,24 @@ public class TransportRequestsFragment extends Fragment {
                 // Your code to refresh the list here.
                 // Make sure you call swipeContainer.setRefreshing(false)
                 // once the network request has completed successfully.
-                refreshTransportRequests();
+                refreshVisitRequests();
             }
         });
 
         return view;
     }
 
-    private void refreshTransportRequests() {
-        final ArrayList<TransportRequest> list = new ArrayList<>();
+    private void refreshVisitRequests() {
+        final ArrayList<VisitRequest> list = new ArrayList<>();
 
-        CollectionReference collectionReference = db.collection("transportRequests");
+        CollectionReference collectionReference = db.collection("visitRequests");
         collectionReference.whereEqualTo("email", Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<DocumentSnapshot> documentSnapshotList = queryDocumentSnapshots.getDocuments();
 
                 for (DocumentSnapshot d : documentSnapshotList) {
-                    list.add(new TransportRequest(d));
+                    list.add(new VisitRequest(d));
                 }
 
 
@@ -103,10 +99,10 @@ public class TransportRequestsFragment extends Fragment {
         swipeContainer.setRefreshing(false);
     }
 
-    private ArrayList<TransportRequest> sortDateTime(ArrayList<TransportRequest> list) {
-        Collections.sort(list, new Comparator<TransportRequest>() {
+    private ArrayList<VisitRequest> sortDateTime(ArrayList<VisitRequest> list) {
+        Collections.sort(list, new Comparator<VisitRequest>() {
             @Override
-            public int compare(TransportRequest request1, TransportRequest request2) {
+            public int compare(VisitRequest request1, VisitRequest request2) {
                 try {
                     return Objects.requireNonNull(EldereachDateTime.simpleDateFormat.parse(request1.getDateTime())).compareTo(EldereachDateTime.simpleDateFormat.parse(request2.getDateTime()));
                 } catch (ParseException e) {

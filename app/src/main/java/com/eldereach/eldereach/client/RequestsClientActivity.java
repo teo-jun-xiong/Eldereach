@@ -8,6 +8,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.eldereach.eldereach.R;
 import com.eldereach.eldereach.client.foodaid.FoodAidRequestsFragment;
 import com.eldereach.eldereach.client.transport.TransportRequestsFragment;
+import com.eldereach.eldereach.client.visit.VisitRequestsFragment;
 import com.google.android.material.tabs.TabLayout;
 
 /**
@@ -27,7 +28,7 @@ public class RequestsClientActivity extends AppCompatActivity {
         adapter = new RequestsClientTabAdapter(getSupportFragmentManager());
         adapter.addFragment(new FoodAidRequestsFragment(), "Food Aid");
         adapter.addFragment(new TransportRequestsFragment(), "Transport");
-        adapter.addFragment(new TransportRequestsFragment(), "Visit");
+        adapter.addFragment(new VisitRequestsFragment(), "Visit");
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
     }

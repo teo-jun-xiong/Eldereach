@@ -28,7 +28,8 @@ public class TransportRequest {
         dateTimeDest = (String) map.get("dateTimeDest");
     }
 
-    public String getHomeDate() {
+    // Used to sort
+    public String getDateTime() {
         return dateTimeHome;
     }
 

@@ -42,7 +42,7 @@ public class TransportRequestsListAdapter extends RecyclerView.Adapter {
 
             //TODO incorporate status and service provider
             textStatus.setText("Pending");
-            textDateTimeHome.setText(request.getHomeDate());
+            textDateTimeHome.setText(request.getDateTime());
 
             if (request.getReturnNeeded()) {
                 textDateTimeDest.setText(request.getDestDate());
