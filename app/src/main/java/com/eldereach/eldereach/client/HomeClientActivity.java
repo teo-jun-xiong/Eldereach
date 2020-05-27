@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.eldereach.eldereach.LogInActivity;
 import com.eldereach.eldereach.R;
 import com.eldereach.eldereach.client.foodaid.FoodAidClientActivity;
+import com.eldereach.eldereach.client.hotline.HotlineClientActivity;
 import com.eldereach.eldereach.client.transport.TransportClientActivity;
 import com.eldereach.eldereach.client.visit.VisitClientActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -88,5 +89,11 @@ public class HomeClientActivity extends AppCompatActivity {
                 startActivity(new Intent(HomeClientActivity.this, RequestsClientActivity.class));
             }
         });
-    }
+
+        buttonHotline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeClientActivity.this, HotlineClientActivity.class));
+            }
+        });    }
 }
