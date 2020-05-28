@@ -1,13 +1,14 @@
 package com.eldereach.eldereach.client.hotline;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,24 +20,19 @@ import com.eldereach.eldereach.util.EldereachHotline;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.content.Context.LAYOUT_INFLATER_SERVICE;
-import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
-
 public class HotlineListAdapter extends RecyclerView.Adapter {
     private ArrayList<EldereachHotline> items;
     private Context context;
-    private LinearLayout linearLayout;
 
-    public HotlineListAdapter(ArrayList<EldereachHotline> hotlines, Context context, LinearLayout linearLayout) {
+    public HotlineListAdapter(ArrayList<EldereachHotline> hotlines, Context context) {
         items = hotlines;
         this.context = context;
-        this.linearLayout = linearLayout;
     }
 
     // Inner class for a single RecyclerViewItem
     private class ListViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageLogo;
-        private PopupWindow popupWindow;
+        private Dialog dialog;
 
         ListViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -50,32 +46,29 @@ public class HotlineListAdapter extends RecyclerView.Adapter {
             imageLogo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // inflate the layout of the popup window
-                    LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
-                    View popupView = inflater.inflate(R.layout.popup_window, null);
-                    ImageView imagePopup = popupView.findViewById(R.id.imagePopup);
-                    TextView textName = popupView.findViewById(R.id.textNamePopup);
-                    TextView textDesc = popupView.findViewById(R.id.textDescriptionPopup);
-                    TextView textHotline = popupView.findViewById(R.id.textHotlinePopup);
-                    popupWindow = new PopupWindow(view, WRAP_CONTENT, WRAP_CONTENT);
+                    dialog = new Dialog(context);
+                    dialog.setContentView(R.layout.popup_window);
+                    ImageView imagePopup = dialog.findViewById(R.id.imagePopup);
+                    TextView textName = dialog.findViewById(R.id.textNamePopup);
+                    TextView textDesc = dialog.findViewById(R.id.textDescriptionPopup);
+                    TextView textHotline = dialog.findViewById(R.id.textHotlinePopup);
+                    Button buttonCall = dialog.findViewById(R.id.buttonCall);
 
                     imagePopup.setImageResource(hotline.getImage());
                     textName.setText(hotline.getName());
                     textDesc.setText(hotline.getDescription());
                     textHotline.setText(hotline.getHotline());
 
-                    popupView.setOnTouchListener(new View.OnTouchListener() {
+                    buttonCall.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public boolean onTouch(View v, MotionEvent event) {
-
-                            //Close the window when clicked
-                            popupWindow.dismiss();
-                            return true;
+                        public void onClick(View view) {
+                            Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                            callIntent.setData(Uri.parse("tel:" + hotline.getHotline()));
+                            context.startActivity(callIntent);
                         }
                     });
 
-                    System.out.print("1\n2\n3\n4\n");
-                    //popupWindow.showAtLocation(linearLayout, Gravity.CENTER, 0, 0);
+                    dialog.show();
                 }
             });
         }
