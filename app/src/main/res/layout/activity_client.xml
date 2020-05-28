@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,17 +8,18 @@
     tools:context=".client.HomeClientActivity">
 
     <RelativeLayout
+        android:id="@+id/layout1_client"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center">
 
-        <Button
+        <ImageButton
             android:id="@+id/buttonLogOutClient"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="90dp"
+            android:layout_height="50dp"
             android:layout_alignParentEnd="true"
             android:layout_margin="15dp"
-            android:text="Log out" />
+            android:background="@drawable/icon_logout" />
 
         <TextView
             android:id="@+id/textWelcomeClient"
@@ -34,117 +35,95 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
+
         android:gravity="center">
 
-        <ImageButton
-            android:id="@+id/buttonVisitClient"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_above="@+id/layoutFoodAidTransportClient"
-            android:layout_centerInParent="true"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/custom_rounded_corners"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_visit"
-            android:text="Visit" />
-
         <RelativeLayout
-            android:id="@+id/layoutFoodAidTransportClient"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/buttonRequestsClient"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="My requests"
-                android:textSize="11sp" />
-
-            <ImageButton
-                android:id="@+id/buttonTransportClient"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="25dp"
-                android:background="@drawable/custom_rounded_corners"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_transport"
-                android:text="Transport" />
+            android:id="@+id/layout2_client"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
 
             <ImageButton
                 android:id="@+id/buttonFoodAidClient"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="25dp"
-                android:background="@drawable/custom_rounded_corners"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginEnd="33dp"
+                android:background="@drawable/custom_dropshadow"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_food_aid"
+                android:src="@drawable/icon_foodaid"
                 android:text="Food aid" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@id/buttonFoodAidClient"
-                android:layout_alignBottom="@+id/buttonFoodAidClient"
-                android:layout_marginStart="32dp"
-                android:text="Food Aid"
-                android:textColor="#ffffff"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+            <ImageButton
+                android:id="@+id/buttonTransportClient"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_toEndOf="@+id/buttonFoodAidClient"
+                android:background="@drawable/custom_dropshadow"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_transport"
+                android:text="Transport" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@id/buttonTransportClient"
-                android:layout_alignBottom="@+id/buttonTransportClient"
-                android:layout_marginStart="31dp"
-                android:text="Transport"
-                android:textColor="#ffffff"
-                android:textSize="14sp"
-                android:textStyle="bold" />
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/layout3_client"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/layoutFoodAidTransportClient">
+            android:layout_below="@+id/layout2_client"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal">
+
+            <ImageButton
+                android:id="@+id/buttonVisitClient"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="@drawable/custom_dropshadow"
+                android:scaleType="fitCenter"
+                android:layout_marginEnd="33dp"
+                android:src="@drawable/icon_visit"
+                android:text="Visit" />
+
+            <ImageButton
+                android:id="@+id/buttonRequestsClient"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="@drawable/custom_dropshadow"
+                android:scaleType="fitCenter"
+                android:layout_toEndOf="@id/buttonVisitClient"
+                android:src="@drawable/icon_request" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout4_client"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout3_client"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal">
 
             <ImageButton
                 android:id="@+id/buttonHotlinesClient"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_centerInParent="true"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/custom_rounded_corners"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginEnd="33dp"
+                android:background="@drawable/custom_dropshadow"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_hotline"
+                android:src="@drawable/icon_hotline"
                 android:text="Hotlines" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/buttonHotlinesClient"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="-5dp"
-                android:text="Hotlines"
-                android:textColor="#ffffff"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+            <ImageButton
+                android:id="@+id/buttonSettingsClient"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_toEndOf="@id/buttonHotlinesClient"
+                android:background="@drawable/custom_dropshadow"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_settings"
+                android:text="Hotlines" />
         </RelativeLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/buttonVisitClient"
-            android:layout_centerHorizontal="true"
-            android:text="Visits"
-            android:textColor="#ffffff"
-            android:textSize="14sp"
-            android:textStyle="bold" />
     </RelativeLayout>
-</LinearLayout>
+</RelativeLayout>

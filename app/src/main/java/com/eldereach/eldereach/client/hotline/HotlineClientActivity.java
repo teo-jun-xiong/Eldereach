@@ -26,4 +26,10 @@ public class HotlineClientActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(layoutManager);
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        overridePendingTransition(0, 0);
+    }
 }

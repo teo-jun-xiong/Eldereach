@@ -1,4 +1,4 @@
-package com.eldereach.eldereach.client;
+package com.eldereach.eldereach.client.request;
 
 import android.os.Bundle;
 
@@ -31,5 +31,11 @@ public class RequestsClientActivity extends AppCompatActivity {
         adapter.addFragment(new VisitRequestsFragment(), "Visit");
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        overridePendingTransition(0, 0);
     }
 }

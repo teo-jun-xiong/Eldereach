@@ -67,9 +67,6 @@ public class VisitRequestsFragment extends Fragment {
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // Your code to refresh the list here.
-                // Make sure you call swipeContainer.setRefreshing(false)
-                // once the network request has completed successfully.
                 refreshVisitRequests();
             }
         });
@@ -89,7 +86,6 @@ public class VisitRequestsFragment extends Fragment {
                 for (DocumentSnapshot d : documentSnapshotList) {
                     list.add(new VisitRequest(d));
                 }
-
 
                 listAdapter.addAll(sortDateTime(list));
             }

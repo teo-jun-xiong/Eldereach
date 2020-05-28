@@ -33,7 +33,7 @@
         <activity
             android:name="com.eldereach.eldereach.client.transport.TransportClientActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".client.RequestsClientActivity" />
+        <activity android:name=".client.request.RequestsClientActivity" />
         <activity android:name="com.eldereach.eldereach.client.foodaid.FoodAidClientActivity" />
         <activity android:name=".client.visit.VisitClientActivity" />
         <activity android:name=".client.hotline.HotlineClientActivity" />

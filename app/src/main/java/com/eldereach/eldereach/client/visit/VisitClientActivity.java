@@ -55,6 +55,12 @@ public class VisitClientActivity extends FragmentActivity {
         initialiseComponents();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        overridePendingTransition(0, 0);
+    }
+
     private void initialiseComponents() {
         buttonSubmit = findViewById(R.id.buttonSubmitRequestVisitClient);
         buttonDateTime = findViewById(R.id.buttonDateTimeVisitClient);

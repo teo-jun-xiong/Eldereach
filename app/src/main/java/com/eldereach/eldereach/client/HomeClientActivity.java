@@ -3,7 +3,6 @@ package com.eldereach.eldereach.client;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,18 +11,19 @@ import com.eldereach.eldereach.LogInActivity;
 import com.eldereach.eldereach.R;
 import com.eldereach.eldereach.client.foodaid.FoodAidClientActivity;
 import com.eldereach.eldereach.client.hotline.HotlineClientActivity;
+import com.eldereach.eldereach.client.request.RequestsClientActivity;
 import com.eldereach.eldereach.client.transport.TransportClientActivity;
 import com.eldereach.eldereach.client.visit.VisitClientActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 /** Home screen for clients */
 public class HomeClientActivity extends AppCompatActivity {
-    Button buttonLogOut;
+    ImageButton buttonLogOut;
     ImageButton buttonTransport;
     ImageButton buttonFoodAid;
     ImageButton buttonVisit;
     ImageButton buttonHotline;
-    Button buttonRequests;
+    ImageButton buttonRequests;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

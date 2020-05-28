@@ -71,9 +71,6 @@ public class TransportRequestsFragment extends Fragment {
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // Your code to refresh the list here.
-                // Make sure you call swipeContainer.setRefreshing(false)
-                // once the network request has completed successfully.
                 refreshTransportRequests();
             }
         });
@@ -93,8 +90,7 @@ public class TransportRequestsFragment extends Fragment {
                 for (DocumentSnapshot d : documentSnapshotList) {
                     list.add(new TransportRequest(d));
                 }
-
-
+                
                 listAdapter.addAll(sortDateTime(list));
             }
         });
