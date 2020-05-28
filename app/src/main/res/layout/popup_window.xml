@@ -10,7 +10,7 @@
             android:id="@+id/buttonCall"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@drawable/ic_call_black_24dp"
+            android:background="@drawable/ic_hotline_call"
             android:layout_below="@id/textDescriptionPopup"
             android:layout_alignStart="@+id/imagePopup"
             android:layout_marginTop="-10dp" />
@@ -21,7 +21,7 @@
             android:layout_height="160dp"
             android:layout_centerHorizontal="true"
             android:padding="10dp"
-            android:src="@drawable/ada" />
+            android:src="@drawable/org_ada" />
 
         <TextView
             android:id="@+id/textDescriptionPopup"

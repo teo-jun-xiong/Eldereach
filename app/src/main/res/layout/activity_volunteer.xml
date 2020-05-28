@@ -46,7 +46,7 @@
             android:layout_above="@+id/layoutFoodAidTransportClient"
             android:layout_centerInParent="true"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/rounded_corners"
+            android:background="@drawable/custom_rounded_corners"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_visit"
             android:text="Visit" />
@@ -73,7 +73,7 @@
                 android:layout_height="150dp"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="45dp"
-                android:background="@drawable/rounded_corners"
+                android:background="@drawable/custom_rounded_corners"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_food_aid"
                 android:text="Food aid" />
@@ -84,7 +84,7 @@
                 android:layout_height="150dp"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="45dp"
-                android:background="@drawable/rounded_corners"
+                android:background="@drawable/custom_rounded_corners"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_transport"
                 android:text="Transport" />
