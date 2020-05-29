@@ -37,6 +37,7 @@
         <activity android:name="com.eldereach.eldereach.client.foodaid.FoodAidClientActivity" />
         <activity android:name=".client.visit.VisitClientActivity" />
         <activity android:name=".client.hotline.HotlineClientActivity" />
+        <activity android:name=".client.settings.SettingsClientActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

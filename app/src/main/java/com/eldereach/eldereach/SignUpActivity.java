@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.eldereach.eldereach.client.HomeClientActivity;
 import com.eldereach.eldereach.volunteer.HomeVolunteerActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -34,6 +35,8 @@ public class SignUpActivity extends AppCompatActivity {
     TextView textVolunteerSection;
     EditText textRegisteredOrganizations;
     EditText textExperience;
+    EditText textName;
+    EditText textAddress;
     CheckBox checkboxIsVolunteer;
     CheckBox checkboxIsRegistered;
     FirebaseAuth firebaseAuth;
@@ -56,8 +59,10 @@ public class SignUpActivity extends AppCompatActivity {
     private void initialiseComponents() {
         buttonSignUp = findViewById(R.id.buttonSignUpSignUp);
         textEmail = findViewById(R.id.textEmailSignUp);
+        textName = findViewById(R.id.textNameSignUp);
         textPassword = findViewById(R.id.textPasswordSignUp);
         textPhone = findViewById(R.id.textPhoneSignUp);
+        textAddress = findViewById(R.id.textAddressSignup);
         textVolunteerSection = findViewById(R.id.textVolunteerSectionSignUp);
         textRegisteredOrganizations = findViewById(R.id.textRegisteredOrganizationsSignUp);
         textExperience = findViewById(R.id.textExperienceSignUp);
@@ -67,7 +72,7 @@ public class SignUpActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        textVolunteerSection.setVisibility(INVISIBLE);
+        textVolunteerSection.setText("This section is for clients only.");
         textRegisteredOrganizations.setVisibility(INVISIBLE);
         textExperience.setVisibility(INVISIBLE);
         checkboxIsRegistered.setVisibility(INVISIBLE);
@@ -77,12 +82,20 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick (View view){
                 String emailID = textEmail.getText().toString();
                 String pass = textPassword.getText().toString();
+                String name = textName.getText().toString();
+
                 if (emailID.isEmpty()) {
-                    textEmail.setError("Provide your email first!");
+                    textEmail.setError("Please indicate your email.");
                     textEmail.requestFocus();
                 } else if (pass.isEmpty()) {
-                    textPassword.setError("Set your password");
+                    textPassword.setError("Please set a password for your Eldereach account.");
                     textPassword.requestFocus();
+                } else if (name.isEmpty()) {
+                    textName.setError("Please indicate your name.");
+                    textName.requestFocus();
+                } else if (!checkboxIsVolunteer.isChecked() && textAddress.getText().toString().isEmpty()) {
+                    textAddress.setError("Please indicate your home address.");
+                    textAddress.requestFocus();
                 } else {
                     createAccount();
                 }
@@ -93,11 +106,13 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
-                    textVolunteerSection.setVisibility(VISIBLE);
+                    textVolunteerSection.setText("This section is for volunteers only.");
                     textExperience.setVisibility(VISIBLE);
                     checkboxIsRegistered.setVisibility(VISIBLE);
+                    textAddress.setVisibility(INVISIBLE);
                 } else {
-                    textVolunteerSection.setVisibility(INVISIBLE);
+                    textVolunteerSection.setText("This section is for clients only.");
+                    textAddress.setVisibility(VISIBLE   );
                     textExperience.setVisibility(INVISIBLE);
                     textRegisteredOrganizations.setVisibility(INVISIBLE);
                     checkboxIsRegistered.setVisibility(INVISIBLE);
@@ -139,14 +154,21 @@ public class SignUpActivity extends AppCompatActivity {
                 } else {
                     Map<String, Object> user_Info = new HashMap<>();
                     user_Info.put("email", emailID);
+                    user_Info.put("name", textName.getText().toString());
                     user_Info.put("isVolunteer", checkboxIsVolunteer.isChecked());
                     user_Info.put("isRegistered", checkboxIsRegistered.isChecked());
+                    user_Info.put("address", textAddress.getText().toString());
                     user_Info.put("phone", textPhone.getText().toString());
                     user_Info.put("registeredOrganization", textRegisteredOrganizations.getText().toString());
                     user_Info.put("volunteerExperience", textExperience.getText().toString());
 
                     db.collection("users").document(emailID).set(user_Info);
-                    startActivity(new Intent(SignUpActivity.this, HomeVolunteerActivity.class));
+
+                    if (checkboxIsVolunteer.isChecked()) {
+                        startActivity(new Intent(SignUpActivity.this, HomeVolunteerActivity.class));
+                    } else {
+                        startActivity(new Intent(SignUpActivity.this, HomeClientActivity.class));
+                    }
                 }
             }
         });

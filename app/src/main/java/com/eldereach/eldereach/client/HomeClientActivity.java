@@ -12,6 +12,7 @@ import com.eldereach.eldereach.R;
 import com.eldereach.eldereach.client.foodaid.FoodAidClientActivity;
 import com.eldereach.eldereach.client.hotline.HotlineClientActivity;
 import com.eldereach.eldereach.client.request.RequestsClientActivity;
+import com.eldereach.eldereach.client.settings.SettingsClientActivity;
 import com.eldereach.eldereach.client.transport.TransportClientActivity;
 import com.eldereach.eldereach.client.visit.VisitClientActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +25,7 @@ public class HomeClientActivity extends AppCompatActivity {
     ImageButton buttonVisit;
     ImageButton buttonHotline;
     ImageButton buttonRequests;
+    ImageButton buttonSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class HomeClientActivity extends AppCompatActivity {
         buttonVisit = findViewById(R.id.buttonVisitClient);
         buttonHotline = findViewById(R.id.buttonHotlinesClient);
         buttonRequests = findViewById(R.id.buttonRequestsClient);
+        buttonSettings = findViewById(R.id.buttonSettingsClient);
 
         // Signs out of the app
         buttonLogOut.setOnClickListener(new View.OnClickListener() {
@@ -95,5 +98,13 @@ public class HomeClientActivity extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(HomeClientActivity.this, HotlineClientActivity.class));
             }
-        });    }
+        });
+
+        buttonSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeClientActivity.this, SettingsClientActivity.class));
+            }
+        });
+    }
 }

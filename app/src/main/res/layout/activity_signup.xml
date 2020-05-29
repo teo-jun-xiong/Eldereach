@@ -32,6 +32,18 @@
         android:textSize="13sp" />
 
     <EditText
+        android:id="@+id/textNameSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"
+        android:hint="Name"
+        android:inputType="text"
+        android:textSize="13sp" />
+
+    <EditText
         android:id="@+id/textPhoneSignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,47 +55,68 @@
         android:inputType="phone"
         android:textSize="13sp" />
 
-
-    <TableLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content" >
 
         <CheckBox
             android:id="@+id/checkboxIsVolunteerSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:text="I am a volunteer" />
 
         <TextView
             android:id="@+id/textVolunteerSectionSignUp"
-            android:text="\n This section is for volunteers only."
+            android:text="This section is for volunteers only."
             android:textAlignment="center"
-            android:textStyle="italic" />
+            android:layout_below="@id/checkboxIsVolunteerSignUp"
+            android:textStyle="italic"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
 
         <EditText
             android:id="@+id/textExperienceSignUp"
-            android:hint="Volunteer experience with elderly, if any."
+            android:hint="    Volunteer experience with elderly, if any.    "
+            android:layout_below="@id/textVolunteerSectionSignUp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
             android:inputType="textMultiLine"
             android:textSize="13sp" />
 
+        <EditText
+            android:id="@+id/textAddressSignup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textVolunteerSectionSignUp"
+            android:layout_centerHorizontal="true"
+            android:inputType="textMultiLine"
+            android:hint="                     Address of residence                      "
+            android:textSize="13sp" />
         <CheckBox
             android:id="@+id/checkboxIsRegisteredSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/textExperienceSignUp"
             android:text="I am registered with an organization" />
 
         <EditText
             android:id="@+id/textRegisteredOrganizationsSignUp"
-            android:hint="Registered organization(s), if any."
+            android:layout_height="wrap_content"
+            android:layout_below="@id/checkboxIsRegisteredSignUp"
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:hint="          Registered organization(s), if any.          "
             android:textSize="13sp" />
-
-    </TableLayout>
+    </RelativeLayout>
 
     <Button
         android:id="@+id/buttonSignUpSignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="20dp"
