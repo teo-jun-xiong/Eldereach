@@ -18,20 +18,17 @@
             android:layout_width="90dp"
             android:layout_height="50dp"
             android:layout_alignParentEnd="true"
-            android:layout_margin="15dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
             android:background="@drawable/icon_logout" />
 
-        <TextView
-            android:id="@+id/textWelcomeClient"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:text="Welcome client!"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/icon_eldereach" />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -52,6 +49,7 @@
                 android:layout_height="150dp"
                 android:layout_marginEnd="33dp"
                 android:background="@drawable/custom_dropshadow"
+                android:padding="5dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/icon_foodaid"
                 android:text="Food aid" />
@@ -61,7 +59,9 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_toEndOf="@+id/buttonFoodAidClient"
+
                 android:background="@drawable/custom_dropshadow"
+                android:padding="5dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/icon_transport"
                 android:text="Transport" />
@@ -80,9 +80,10 @@
                 android:id="@+id/buttonVisitClient"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:background="@drawable/custom_dropshadow"
-                android:scaleType="fitCenter"
                 android:layout_marginEnd="33dp"
+                android:background="@drawable/custom_dropshadow"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
                 android:src="@drawable/icon_visit"
                 android:text="Visit" />
 
@@ -90,9 +91,10 @@
                 android:id="@+id/buttonRequestsClient"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:background="@drawable/custom_dropshadow"
-                android:scaleType="fitCenter"
                 android:layout_toEndOf="@id/buttonVisitClient"
+                android:background="@drawable/custom_dropshadow"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
                 android:src="@drawable/icon_request" />
         </RelativeLayout>
 
@@ -110,6 +112,7 @@
                 android:layout_height="150dp"
                 android:layout_marginEnd="33dp"
                 android:background="@drawable/custom_dropshadow"
+                android:padding="5dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/icon_hotline"
                 android:text="Hotlines" />
@@ -120,6 +123,7 @@
                 android:layout_height="150dp"
                 android:layout_toEndOf="@id/buttonHotlinesClient"
                 android:background="@drawable/custom_dropshadow"
+                android:padding="5dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/icon_settings"
                 android:text="Hotlines" />

@@ -5,6 +5,12 @@
     android:gravity="center"
     android:orientation="vertical">
 
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_margin="20dp"
+        android:src="@drawable/icon_eldereach" />
+
     <EditText
         android:id="@+id/textEmailLogIn"
         android:layout_width="match_parent"
