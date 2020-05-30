@@ -15,12 +15,15 @@
 
         <ImageButton
             android:id="@+id/buttonLogOutClient"
-            android:layout_width="90dp"
+            android:layout_width="100dp"
             android:layout_height="50dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="15dp"
-            android:background="@drawable/icon_logout" />
+            android:scaleType="fitCenter"
+            android:padding="3dp"
+            android:background="@drawable/custom_dropshadow"
+            android:src="@drawable/icon_logout" />
 
         <ImageView
             android:layout_width="80dp"

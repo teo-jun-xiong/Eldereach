@@ -4,7 +4,8 @@
     android:layout_height="400dp"
     android:layout_gravity="center"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/custom_dropshadow">
 
         <Button
             android:id="@+id/buttonCall"

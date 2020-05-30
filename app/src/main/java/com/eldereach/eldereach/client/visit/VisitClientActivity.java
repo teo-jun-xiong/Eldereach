@@ -27,15 +27,15 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
-import static android.widget.AdapterView.*;
+import static android.widget.AdapterView.OnItemSelectedListener;
+import static com.eldereach.eldereach.util.EldereachDateTime.isDateAfterCurrentDate;
+import static com.eldereach.eldereach.util.EldereachDateTime.isDateTime;
+import static com.eldereach.eldereach.util.EldereachDateTime.simpleDateFormat;
 
 public class VisitClientActivity extends FragmentActivity {
     Button buttonSubmit;
@@ -101,7 +101,6 @@ public class VisitClientActivity extends FragmentActivity {
                 visitRequest.put("isAccepted", false);
 
                 // Visit - Email - Visit date - Request made date time
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yy hh:mm", Locale.ENGLISH);
                 String documentName = "V_" + firebaseAuth.getCurrentUser().getEmail() + "_" + dateTime + "_" + simpleDateFormat.format(new Date());
                 final DocumentReference docRef = db.collection("visitRequests").document(documentName);
 
@@ -168,7 +167,6 @@ public class VisitClientActivity extends FragmentActivity {
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                         calendar.set(Calendar.MINUTE, minute);
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yy hh:mm", Locale.ENGLISH);
                         buttonDateTime.setText(simpleDateFormat.format(calendar.getTime()));
                     }
                 };
@@ -178,31 +176,5 @@ public class VisitClientActivity extends FragmentActivity {
         };
 
         new DatePickerDialog(VisitClientActivity.this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-    }
-
-    private boolean isDateAfterCurrentDate(String date) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yy hh:mm", Locale.ENGLISH);
-        Date currentDate = new Date();
-        Date comparingDate = null;
-
-        try {
-            comparingDate = simpleDateFormat.parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        assert comparingDate != null;
-        return comparingDate.after(currentDate);
-    }
-
-    private boolean isDateTime(String dateTimeDest) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yy hh:mm", Locale.ENGLISH);
-        try {
-            simpleDateFormat.parse(dateTimeDest);
-        } catch (ParseException e) {
-            return false;
-        }
-
-        return true;
     }
 }

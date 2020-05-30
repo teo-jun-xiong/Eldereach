@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class EldereachDateTime {
-    public static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yy hh:mm", Locale.ENGLISH);
+    public static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yy hh:mm a", Locale.ENGLISH);
 
     public static boolean isDateAfterCurrentDate(String date) {
         Date currentDate = new Date();

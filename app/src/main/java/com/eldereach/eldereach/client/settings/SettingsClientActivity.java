@@ -1,18 +1,13 @@
 package com.eldereach.eldereach.client.settings;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.eldereach.eldereach.R;
-import com.eldereach.eldereach.SplashActivity;
-import com.eldereach.eldereach.client.HomeClientActivity;
-import com.eldereach.eldereach.volunteer.HomeVolunteerActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,14 +27,13 @@ public class SettingsClientActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_settings);
+        initialiseComponents();
     }
 
     @Override
     public void onStart() {
         super.onStart();
         overridePendingTransition(0, 0);
-
-        initialiseComponents();
     }
 
     private void initialiseComponents() {

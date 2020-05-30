@@ -27,13 +27,13 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
+
+import static com.eldereach.eldereach.util.EldereachDateTime.simpleDateFormat;
 
 public class FoodAidClientActivity extends FragmentActivity implements MultiSelectSpinner.OnMultipleItemsSelectedListener {
     Spinner dropdownDietary;
@@ -92,14 +92,18 @@ public class FoodAidClientActivity extends FragmentActivity implements MultiSele
                 if (EldereachDateTime.isDateTime(dateTime) && EldereachDateTime.isDateAfterCurrentDate(dateTime)) {
                     foodAidRequest.put("dateTimeHome", dateTime);
                 } else {
-                    Toast.makeText(FoodAidClientActivity.this, "The date and time of the delivery is earlier than the current date.",Toast.LENGTH_SHORT).show();
-                    return;
+                    if (EldereachDateTime.isDateAfterCurrentDate(dateTime)) {
+                        Toast.makeText(FoodAidClientActivity.this, "Not date time", Toast.LENGTH_SHORT).show();
+                        return;
+                    } else {
+                        Toast.makeText(FoodAidClientActivity.this, "The date and time of the delivery is earlier than the current date.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 }
 
                 foodAidRequest.put("isAccepted", false);
 
                 // Food Aid - Email - Delivery date time - Request made date time
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yy hh:mm", Locale.ENGLISH);
                 String documentName = "F_" + firebaseAuth.getCurrentUser().getEmail() + "_" + dateTime + "_" + simpleDateFormat.format(new Date());
                 final DocumentReference docRef = db.collection("foodAidRequests").document(documentName);
 
@@ -158,8 +162,7 @@ public class FoodAidClientActivity extends FragmentActivity implements MultiSele
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                         calendar.set(Calendar.MINUTE, minute);
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yy hh:mm", Locale.ENGLISH);
-                        buttonDateTime.setText(simpleDateFormat.format(calendar.getTime()));
+                        buttonDateTime.setText(EldereachDateTime.simpleDateFormat.format(calendar.getTime()));
                     }
                 };
 

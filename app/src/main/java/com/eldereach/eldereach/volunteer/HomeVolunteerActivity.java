@@ -3,7 +3,7 @@ package com.eldereach.eldereach.volunteer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,7 +12,7 @@ import com.eldereach.eldereach.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeVolunteerActivity extends AppCompatActivity {
-    Button btnLogOut;
+    ImageButton btnLogOut;
     FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
 
@@ -25,7 +25,7 @@ public class HomeVolunteerActivity extends AppCompatActivity {
     }
 
     private void initialiseComponents() {
-        btnLogOut = findViewById(R.id.btnVolunteerLogOut);
+        btnLogOut = findViewById(R.id.buttonLogOutVolunteer);
         firebaseAuth = FirebaseAuth.getInstance();
 
         btnLogOut.setOnClickListener(new View.OnClickListener() {

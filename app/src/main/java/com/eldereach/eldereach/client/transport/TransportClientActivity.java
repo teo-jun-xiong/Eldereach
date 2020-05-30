@@ -42,17 +42,16 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import static android.widget.CompoundButton.INVISIBLE;
 import static android.widget.CompoundButton.OnCheckedChangeListener;
 import static android.widget.CompoundButton.VISIBLE;
+import static com.eldereach.eldereach.util.EldereachDateTime.simpleDateFormat;
 
 public class TransportClientActivity extends FragmentActivity implements OnMapReadyCallback {
     Button buttonHelp;
@@ -321,7 +320,6 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                         calendar.set(Calendar.MINUTE, minute);
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yy hh:mm", Locale.ENGLISH);
                         dateTimePicker.setText(simpleDateFormat.format(calendar.getTime()));
                     }
                 };
