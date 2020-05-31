@@ -1,56 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/custom_dropshadow"
     android:layout_margin="10dp"
+    android:background="@drawable/custom_dropshadow"
     android:orientation="vertical">
+        <TextView
+            android:id="@+id/textFoodAidRequestNameVolunteer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Client name"
+            android:textColor="#000000" />
 
-    <TextView
-        android:id="@+id/textFoodAidRequestNameVolunteer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:textColor="#000000"
-        android:text="Client name" />
+        <ImageButton
+            android:id="@+id/buttonViewFoodAidVolunteer"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="15dp"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:background="@drawable/custom_dropshadow"
+            android:src="@drawable/icon_view"/>
 
     <TextView
         android:id="@+id/textFoodAidRequestDateVolunteer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:textColor="#000000"
-        android:text="Date of request" />
+        android:text="Date of request"
+        android:layout_below="@+id/textFoodAidRequestNameVolunteer"
+        android:textColor="#000000" />
 
     <TextView
         android:id="@+id/textFoodAidRequestDateTimeVolunteer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:textColor="#000000"
-        android:text="Date and time of delivery" />
+        android:layout_below="@+id/textFoodAidRequestDateVolunteer"
+        android:text="Date and time of delivery"
+        android:textColor="#000000" />
 
     <TextView
         android:id="@+id/textFoodAidRequestAddressVolunteer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:textColor="#000000"
-        android:text="Client's address" />
+        android:text="Client's address"
+        android:layout_below="@+id/textFoodAidRequestDateTimeVolunteer"
+        android:textColor="#000000" />
 
     <TextView
         android:id="@+id/textFoodAidRequestTypeVolunteer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:textColor="#000000"
-        android:text="Type of food aid" />
+        android:text="Type of food aid"
+        android:layout_below="@+id/textFoodAidRequestAddressVolunteer"
+        android:textColor="#000000" />
 
     <TextView
         android:id="@+id/textFoodAidRequestDietaryVolunteer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:textColor="#000000"
-        android:text="Dietary restrictions" />
-</LinearLayout>
+        android:text="Dietary restrictions"
+        android:layout_below="@+id/textFoodAidRequestTypeVolunteer"
+        android:textColor="#000000" />
+</RelativeLayout>

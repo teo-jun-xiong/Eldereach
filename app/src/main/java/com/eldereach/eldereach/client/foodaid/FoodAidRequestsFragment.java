@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class FoodAidRequestsFragment extends Fragment {
+    private String email;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore db;
     private SwipeRefreshLayout swipeContainer;
@@ -40,6 +41,7 @@ public class FoodAidRequestsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_food_aid_requests_client, container, false);
+        email = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail();
         firebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         final RecyclerView recyclerView = view.findViewById(R.id.recyclerFoodAidFragment);
@@ -47,7 +49,8 @@ public class FoodAidRequestsFragment extends Fragment {
         final ArrayList<FoodAidRequest> list = new ArrayList<>();
 
         CollectionReference collectionReference = db.collection("foodAidRequests");
-        collectionReference.whereEqualTo("email", Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        collectionReference.whereEqualTo("email", email)
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<DocumentSnapshot> documentSnapshotList = queryDocumentSnapshots.getDocuments();
@@ -77,7 +80,8 @@ public class FoodAidRequestsFragment extends Fragment {
         final ArrayList<FoodAidRequest> list = new ArrayList<>();
 
         CollectionReference collectionReference = db.collection("foodAidRequests");
-        collectionReference.whereEqualTo("email", Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        collectionReference.whereEqualTo("email", email)
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<DocumentSnapshot> documentSnapshotList = queryDocumentSnapshots.getDocuments();
@@ -100,12 +104,15 @@ public class FoodAidRequestsFragment extends Fragment {
             @Override
             public int compare(FoodAidRequest request1, FoodAidRequest request2) {
                 try {
-                    return Objects.requireNonNull(EldereachDateTime.simpleDateFormat.parse(request1.getDateTime())).compareTo(EldereachDateTime.simpleDateFormat.parse(request2.getDateTime()));
+                    return Objects.requireNonNull(
+                            EldereachDateTime.simpleDateFormat.parse(request1.getDateTime()))
+                            .compareTo(EldereachDateTime.simpleDateFormat.parse(request2.getDateTime()));
                 } catch (ParseException e) {
                     throw new IllegalArgumentException(e);
                 }
             }
         });
+
         return list;
     }
 }

@@ -6,10 +6,16 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class FoodAidRequest {
+    private String id;
     private String email;
     private String dateTime;
+    private String dateRequest;
     private String dietary;
     private String allergies;
+    private String address;
+    private String name;
+    private String serviceProviderName;
+    private String serviceProviderPhone;
     private long status;
     private ArrayList<String> meals;
 
@@ -18,10 +24,16 @@ public class FoodAidRequest {
         Map<String, Object> map = documentSnapshot.getData();
 
         assert map != null;
+        id = (String) map.get("id");
         email = (String) map.get("email");
         dateTime = (String) map.get("dateTime");
         dietary = (String) map.get("dietary");
         allergies = (String) map.get("allergy");
+        name = (String) map.get("name");
+        dateRequest = (String) map.get("dateRequest");
+        address = (String) map.get("address");
+        serviceProviderName = (String) map.get("serviceProviderName");
+        serviceProviderPhone = (String) map.get("serviceProviderPhone");
         status = (long) map.get("status");
         meals = (ArrayList<String>) map.get("meals");
     }
@@ -42,8 +54,14 @@ public class FoodAidRequest {
         return allergies;
     }
 
-    public long getStatus() {
-        return status;
+    public String getStatus() {
+        if (status == 0) {
+            return "Pending";
+        } else if (status == 1) {
+            return "Accepted";
+        } else {
+            return "Completed";
+        }
     }
 
     public String getMeals() {
@@ -55,5 +73,37 @@ public class FoodAidRequest {
 
         mealString += meals.get(meals.size() - 1);
         return mealString;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDateRequest() {
+        return dateRequest;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getServiceProviderName() {
+        if (serviceProviderName.equals("")) {
+            return "-";
+        }
+
+        return serviceProviderName;
+    }
+
+    public String getServiceProviderPhone() {
+        if (serviceProviderPhone.equals("")) {
+            return "-";
+        }
+
+        return serviceProviderPhone;
+    }
+
+    public String getId() {
+        return id;
     }
 }

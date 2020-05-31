@@ -104,13 +104,15 @@ public class VisitClientActivity extends FragmentActivity {
                 visitRequest.put("dateRequest", currentDate);
                 visitRequest.put("status", 0);
 
-                final String[] name = {""};
+                final String[] userInfo = {""};
                 db.collection("users").document(Objects.requireNonNull(firebaseAuth.getCurrentUser().getEmail())).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         Map<String, Object> map = documentSnapshot.getData();
-                        name[0] = (String) map.get("name");
-                        visitRequest.put("name", name[0]);
+                        userInfo[0] = (String) map.get("name");
+                        userInfo[1] = (String) map.get("address");
+                        visitRequest.put("name", userInfo[0]);
+                        visitRequest.put("address", userInfo[1]);
                     }
                 });
 

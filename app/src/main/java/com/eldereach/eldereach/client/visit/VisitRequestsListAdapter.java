@@ -40,7 +40,7 @@ class VisitRequestsListAdapter extends RecyclerView.Adapter {
             VisitRequest request = items.get(position);
 
             //TODO incorporate status and service provider
-            textStatus.setText("Pending");
+            textStatus.setText(request.getStatus());
             textDateTime.setText(request.getDateTime());
             textService.setText(request.getService());
             textService.setText(request.getSpecial());

@@ -34,12 +34,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class FoodAidClientActivity extends FragmentActivity implements MultiSelectSpinner.OnMultipleItemsSelectedListener {
+import static com.eldereach.eldereach.util.MultiSelectSpinner.*;
+
+public class FoodAidClientActivity extends FragmentActivity implements OnMultipleItemsSelectedListener {
     Spinner dropdownDietary;
     MultiSelectSpinner dropdownMeal;
     EditText textAllergy;
     Button buttonDateTime;
     Button buttonSubmit;
+
     FirebaseFirestore db;
     FirebaseAuth firebaseAuth;
 
@@ -51,15 +54,23 @@ public class FoodAidClientActivity extends FragmentActivity implements MultiSele
         initialiseComponents();
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        overridePendingTransition(0, 0);
+    }
+
     private void initialiseComponents() {
         dropdownDietary = findViewById(R.id.dropdownDietaryFoodAidClient);
         dropdownMeal = findViewById(R.id.dropdownMealFoodAidClient);
         textAllergy = findViewById(R.id.textAllergyFoodAidClient);
         buttonDateTime = findViewById(R.id.buttonDateTimeDeliveryFoodAidClient);
         buttonSubmit = findViewById(R.id.buttonSubmitRequestFoodAidClient);
+
         db = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
 
+        // Sets button to show date and time picker
         buttonDateTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,75 +78,7 @@ public class FoodAidClientActivity extends FragmentActivity implements MultiSele
             }
         });
 
-        buttonSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Map<String, Object> foodAidRequest = new HashMap<>();
-
-                foodAidRequest.put("email", firebaseAuth.getCurrentUser().getEmail());
-                foodAidRequest.put("dietary", dropdownDietary.getSelectedItem().toString());
-                foodAidRequest.put("allergy", textAllergy.getText().toString());
-
-                List<String> selectedMeals = dropdownMeal.getSelectedStrings();
-
-                if (selectedMeals.size() == 0) {
-                    dropdownMeal.requestFocus();
-                    Toast.makeText(FoodAidClientActivity.this, "Please select the types of food or meals you require.", Toast.LENGTH_SHORT).show();
-                    return;
-                } else {
-                    foodAidRequest.put("meals", selectedMeals);
-                }
-
-                String dateTime = buttonDateTime.getText().toString();
-
-                if (EldereachDateTime.isDateTime(dateTime) && EldereachDateTime.isDateAfterCurrentDate(dateTime)) {
-                    foodAidRequest.put("dateTime", dateTime);
-                } else {
-                    if (EldereachDateTime.isDateAfterCurrentDate(dateTime)) {
-                        Toast.makeText(FoodAidClientActivity.this, "Not date time", Toast.LENGTH_SHORT).show();
-                        return;
-                    } else {
-                        Toast.makeText(FoodAidClientActivity.this, "The date and time of the delivery is earlier than the current date.", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                }
-
-                String currentDate = EldereachDateTime.getCurrentDate();
-                foodAidRequest.put("dateRequest", currentDate);
-                foodAidRequest.put("status", 0);
-
-                final String[] name = {""};
-                db.collection("users").document(Objects.requireNonNull(firebaseAuth.getCurrentUser().getEmail())).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Map<String, Object> map = documentSnapshot.getData();
-                        name[0] = (String) map.get("name");
-                        foodAidRequest.put("name", name[0]);
-                    }
-                });
-
-                // Food Aid - Email - Delivery date time - Request made date time
-                String documentName = "F_" + firebaseAuth.getCurrentUser().getEmail() + "_" + dateTime + "_" + currentDate;
-                final DocumentReference docRef = db.collection("foodAidRequests").document(documentName);
-
-                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()) {
-                                Toast.makeText(FoodAidClientActivity.this, "This food aid request already exists. Please check under 'My Requests'.", Toast.LENGTH_SHORT).show();
-                            } else {
-                                docRef.set(foodAidRequest);
-                                Toast.makeText(FoodAidClientActivity.this, "Food aid request submitted.", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(FoodAidClientActivity.this, HomeClientActivity.class));
-                            }
-                        }
-                    }
-                });
-            }
-        });
-
+        // Initialize multiple selection spinner
         String[] dropdownDietaryOptions = new String[]{
                 "Halal",
                 "Vegetarian",
@@ -143,20 +86,125 @@ public class FoodAidClientActivity extends FragmentActivity implements MultiSele
                 "None"
         };
 
-        ArrayAdapter<String> dietaryAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, dropdownDietaryOptions);
+        ArrayAdapter<String> dietaryAdapter = new ArrayAdapter<>(
+                this, R.layout.support_simple_spinner_dropdown_item, dropdownDietaryOptions);
         dropdownDietary.setAdapter(dietaryAdapter);
 
-        String[] array = {"Cooked breakfast", "Cooked lunch", "Cooked dinner", "Fruits", "Assorted canned food"};
+        String[] array = {
+                "Cooked breakfast",
+                "Cooked lunch",
+                "Cooked dinner",
+                "Fruits",
+                "Assorted canned food"
+        };
+
         dropdownMeal.setItems(array);
         dropdownMeal.hasNoneOption(false);
         dropdownMeal.setSelection(new int[]{0});
         dropdownMeal.setListener(this);
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        overridePendingTransition(0, 0);
+        // Gathers data from components and adds it to the database
+        buttonSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Map<String, Object> foodAidRequest = new HashMap<>();
+
+                String email = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail();
+                String currentDate = EldereachDateTime.getCurrentDate();
+                foodAidRequest.put("dateRequest", currentDate);
+                foodAidRequest.put("status", 0);
+                foodAidRequest.put("email", email);
+                foodAidRequest.put("dietary", dropdownDietary.getSelectedItem().toString());
+                foodAidRequest.put("allergy", textAllergy.getText().toString());
+
+                // Obtains data from the multiple selection spinner
+                List<String> selectedMeals = dropdownMeal.getSelectedStrings();
+
+                // At least one option in the spinner has to be selected
+                if (selectedMeals.size() == 0) {
+                    dropdownMeal.requestFocus();
+                    Toast.makeText(
+                            FoodAidClientActivity.this,
+                            "Please select the types of food or meals you require.",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    foodAidRequest.put("meals", selectedMeals);
+                }
+
+                // Obtains the date and time of delivery from EditText
+                String dateTime = buttonDateTime.getText().toString();
+
+                if (EldereachDateTime.isDateTime(dateTime) && EldereachDateTime.isDateAfterCurrentDate(dateTime)) {
+                    foodAidRequest.put("dateTime", dateTime);
+                } else {
+                    if (EldereachDateTime.isDateAfterCurrentDate(dateTime)) {
+                        Toast.makeText(
+                                FoodAidClientActivity.this,
+                                "Not date time",
+                                Toast.LENGTH_SHORT).show();
+                        return;
+                    } else {
+                        Toast.makeText(
+                                FoodAidClientActivity.this,
+                                "The date and time of the delivery is earlier than the current date.",
+                                Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+
+                // Final array to store user information to be included in the database
+                final String[] userInfo = {"", ""};
+
+                assert email != null;
+                db.collection("users").document(email)
+                        .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Map<String, Object> map = documentSnapshot.getData();
+
+                        assert map != null;
+                        userInfo[0] = (String) map.get("name");
+                        userInfo[1] = (String) map.get("address");
+                        foodAidRequest.put("name", userInfo[0]);
+                        foodAidRequest.put("address", userInfo[1]);
+                    }
+                });
+
+                // Food Aid - Email - Delivery date time - Request made date time
+                String documentName = "F_" + firebaseAuth.getCurrentUser().getEmail() + "_" + dateTime + "_" + currentDate;
+                foodAidRequest.put("id", documentName);
+                foodAidRequest.put("serviceProviderName", "");
+                foodAidRequest.put("serviceProviderPhone", "");
+                final DocumentReference docRef = db.collection("foodAidRequests").document(documentName);
+
+                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+
+                            // If the request already exists (i.e. created at the same time and delivery at the same time)
+                            // TODO improve handling of duplicate requests - should the id not include time of creation?
+                            assert document != null;
+                            if (document.exists()) {
+                                Toast.makeText(
+                                        FoodAidClientActivity.this,
+                                        "This food aid request already exists. Please check under 'My Requests'.",
+                                        Toast.LENGTH_SHORT).show();
+                            } else {
+                                docRef.set(foodAidRequest);
+                                Toast.makeText(
+                                        FoodAidClientActivity.this,
+                                        "Food aid request submitted.",
+                                        Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(FoodAidClientActivity.this, HomeClientActivity.class));
+                            }
+                        }
+                    }
+                });
+            }
+        });
     }
 
     private void showDateTimeDialog(final Button buttonDateTime) {
@@ -177,11 +225,21 @@ public class FoodAidClientActivity extends FragmentActivity implements MultiSele
                     }
                 };
 
-                new TimePickerDialog(FoodAidClientActivity.this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show();
+                new TimePickerDialog(
+                        FoodAidClientActivity.this,
+                        timeSetListener,
+                        calendar.get(Calendar.HOUR_OF_DAY),
+                        calendar.get(Calendar.MINUTE),
+                        false).show();
             }
         };
 
-        new DatePickerDialog(FoodAidClientActivity.this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+        new DatePickerDialog(
+                FoodAidClientActivity.this,
+                dateSetListener,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
     @Override

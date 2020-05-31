@@ -56,21 +56,24 @@ import static android.widget.CompoundButton.VISIBLE;
 import static com.eldereach.eldereach.util.EldereachDateTime.simpleDateFormat;
 
 public class TransportClientActivity extends FragmentActivity implements OnMapReadyCallback {
+    Spinner dropdown;
     Button buttonHelp;
+    Button buttonDateTimeHome;
+    Button buttonDateTimeDest;
+    Button buttonSubmitRequest;
     EditText textOthers;
     TextView textOthersPrompt;
-    Spinner dropdown;
-    Button buttonDateTimeHome;
     TextView textDestPickup;
     TextView textDestPrompt;
-    Button buttonDateTimeDest;
     CheckBox checkboxReturn;
-    Button buttonSubmitRequest;
+    SearchView search;
+
     GoogleMap map;
     SupportMapFragment mapFragment;
-    SearchView search;
+
     FirebaseFirestore db;
     FirebaseAuth firebaseAuth;
+
     String locationDest = null;
 
     @Override
@@ -96,25 +99,26 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
     }
 
     private void initialiseComponents() {
-        buttonHelp = findViewById(R.id.buttonHelpTransportClient);
-        textOthers = findViewById(R.id.textOthersTransportClient);
-        textOthersPrompt = findViewById(R.id.textOthersPromptTransportClient);
         dropdown = findViewById(R.id.dropdownTransportClient);
-        checkboxReturn = findViewById(R.id.checkboxReturnTransportClient);
-        textDestPickup = findViewById(R.id.textDestPickupTransportClient);
-        textDestPrompt = findViewById(R.id.textDestPromptTransportClient);
+        buttonHelp = findViewById(R.id.buttonHelpTransportClient);
         buttonDateTimeHome = findViewById(R.id.buttonDateTimeHomeTransportClient);
         buttonDateTimeDest = findViewById(R.id.buttonDateTimeDestPickerTransportClient);
-
         buttonSubmitRequest = findViewById(R.id.buttonSubmitRequestTransportClient);
+        textOthers = findViewById(R.id.textOthersTransportClient);
+        textOthersPrompt = findViewById(R.id.textOthersPromptTransportClient);
+        textDestPickup = findViewById(R.id.textDestPickupTransportClient);
+        textDestPrompt = findViewById(R.id.textDestPromptTransportClient);
+        checkboxReturn = findViewById(R.id.checkboxReturnTransportClient);
         search = findViewById(R.id.searchTransportClient);
+
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapTransportClient);
+
         db = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
 
+        buttonDateTimeDest.setVisibility(INVISIBLE);
         textDestPickup.setVisibility(INVISIBLE);
         textDestPrompt.setVisibility(INVISIBLE);
-        buttonDateTimeDest.setVisibility(INVISIBLE);
         textOthersPrompt.setVisibility(View.INVISIBLE);
         textOthers.setVisibility(View.INVISIBLE);
 
@@ -137,12 +141,20 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
             public void onClick(View view) {
                 final Map<String, Object> transportRequest = new HashMap<>();
 
-                transportRequest.put("email", firebaseAuth.getCurrentUser().getEmail());
+                String email = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail();
+                String currentDate = EldereachDateTime.getCurrentDate();
+                transportRequest.put("email", email);
+                transportRequest.put("returnNeeded", checkboxReturn.isChecked());
+                transportRequest.put("dateRequest", currentDate);
+                transportRequest.put("status", 0);
 
                 // If the dropdown item selected is others, it must not be empty
                 if (dropdown.getSelectedItem().toString().equals("Others")) {
                     if (textOthers.getText().toString().equals("")) {
-                        Toast.makeText(TransportClientActivity.this, "Please do not leave the 'Others' purpose empty.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(
+                                TransportClientActivity.this,
+                                "Please do not leave the 'Others' purpose empty.",
+                                Toast.LENGTH_SHORT).show();
                         textOthers.requestFocus();
                         return;
                     } else {
@@ -159,16 +171,20 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
                     if (EldereachDateTime.isDateAfterCurrentDate(dateTimeHome)) {
                         transportRequest.put("dateTimeHome", dateTimeHome);
                     } else {
-                        Toast.makeText(TransportClientActivity.this, "The date and time of the pickup from home is earlier than the current date.",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(
+                                TransportClientActivity.this,
+                                "The date and time of the pickup from home is earlier than the current date.",
+                                Toast.LENGTH_SHORT).show();
                         return;
                     }
 
                 } else {
-                    Toast.makeText(TransportClientActivity.this, "Please enter a valid date and time for the pickup from home.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(
+                            TransportClientActivity.this,
+                            "Please enter a valid date and time for the pickup from home.",
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                transportRequest.put("returnNeeded", checkboxReturn.isChecked());
 
                 // If a return trip is required
                 if (checkboxReturn.isChecked()) {
@@ -178,11 +194,17 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
                         if (EldereachDateTime.isDateBefore(dateTimeHome, dateTimeDest)) {
                             transportRequest.put("dateTimeDest", dateTimeDest);
                         } else {
-                            Toast.makeText(TransportClientActivity.this, "The date and time of the return trip is before the pickup from home.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(
+                                    TransportClientActivity.this,
+                                    "The date and time of the return trip is before the pickup from home.",
+                                    Toast.LENGTH_SHORT).show();
                             return;
                         }
                     } else {
-                        Toast.makeText(TransportClientActivity.this, "Please enter a valid date and time for the pickup from the destination.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(
+                                TransportClientActivity.this,
+                                "Please enter a valid date and time for the pickup from the destination.",
+                                Toast.LENGTH_SHORT).show();
                         return;
                     }
                 } else {
@@ -193,25 +215,27 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
                 if (locationDest != null) {
                     transportRequest.put("location", locationDest);
                 } else {
-                    Toast.makeText(TransportClientActivity.this, "Please select the destination in the search bar.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(
+                            TransportClientActivity.this,
+                            "Please select the destination in the search bar.",
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                String currentDate = EldereachDateTime.getCurrentDate();
-                transportRequest.put("dateRequest", currentDate);
-                transportRequest.put("status", 0);
-
-                final String[] name = {""};
-                db.collection("users").document(Objects.requireNonNull(firebaseAuth.getCurrentUser().getEmail())).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                // Final array to store user information to be included in the database
+                final String[] userInfo = {"", ""};
+                db.collection("users").document(email).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         Map<String, Object> map = documentSnapshot.getData();
-                        name[0] = (String) map.get("name");
-                        transportRequest.put("name", name[0]);
+                        userInfo[0] = (String) map.get("name");
+                        userInfo[1] = (String) map.get("address");
+                        transportRequest.put("name", userInfo[0]);
+                        transportRequest.put("address", userInfo[1]);
                     }
                 });
 
-                String documentName = "T_" + firebaseAuth.getCurrentUser().getEmail() + "_" + dateTimeHome + "_" + dateTimeDest + "_" + currentDate;
+                String documentName = "T_" + email + "_" + dateTimeHome + "_" + dateTimeDest + "_" + currentDate;
                 final DocumentReference docRef = db.collection("transportRequests").document(documentName); // set(transportRequest);
                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
@@ -219,10 +243,16 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
-                                Toast.makeText(TransportClientActivity.this, "This transport request already exists. Please check under 'My Requests'.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(
+                                        TransportClientActivity.this,
+                                        "This transport request already exists. Please check under 'My Requests'.",
+                                        Toast.LENGTH_SHORT).show();
                             } else {
                                 docRef.set(transportRequest);
-                                Toast.makeText(TransportClientActivity.this, "Transport request submitted.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(
+                                        TransportClientActivity.this,
+                                        "Transport request submitted.",
+                                        Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(TransportClientActivity.this, HomeClientActivity.class));
                             }
                         }
@@ -299,7 +329,10 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
                     // If there are no results, inform the user
                     assert addressList != null;
                     if (addressList.size() == 0) {
-                        Toast.makeText(TransportClientActivity.this, "Please narrow down the search terms.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(
+                                TransportClientActivity.this,
+                                "Please narrow down the search terms.",
+                                Toast.LENGTH_SHORT).show();
                     } else {
                         Address address = addressList.get(0);
                         LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
@@ -338,10 +371,19 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
                     }
                 };
 
-                new TimePickerDialog(TransportClientActivity.this, timeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false).show();
+                new TimePickerDialog(
+                        TransportClientActivity.this,
+                        timeSetListener,
+                        calendar.get(Calendar.HOUR_OF_DAY),
+                        calendar.get(Calendar.MINUTE), false).show();
             }
         };
 
-        new DatePickerDialog(TransportClientActivity.this, dateSetListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+        new DatePickerDialog(
+                TransportClientActivity.this,
+                dateSetListener,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 }

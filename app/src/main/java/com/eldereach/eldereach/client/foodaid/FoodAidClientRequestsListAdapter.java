@@ -6,16 +6,18 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.eldereach.eldereach.util.FoodAidRequest;
 import com.eldereach.eldereach.R;
+import com.eldereach.eldereach.util.FoodAidRequest;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static androidx.recyclerview.widget.RecyclerView.Adapter;
+import static androidx.recyclerview.widget.RecyclerView.ViewHolder;
+
 /** Adapter to control the items inside the RecyclerView of FoodAidRequestsFragment */
-public class FoodAidClientRequestsListAdapter extends RecyclerView.Adapter {
+public class FoodAidClientRequestsListAdapter extends Adapter {
     private ArrayList<FoodAidRequest> items;
 
     public FoodAidClientRequestsListAdapter(ArrayList<FoodAidRequest> foodAidRequests) {
@@ -23,7 +25,7 @@ public class FoodAidClientRequestsListAdapter extends RecyclerView.Adapter {
     }
 
     // Inner class for a single RecyclerViewItem
-    private class ListViewHolder extends RecyclerView.ViewHolder {
+    private class ListViewHolder extends ViewHolder {
         private TextView textStatus;
         private TextView textDateTime;
         private TextView textMeals;
@@ -39,7 +41,7 @@ public class FoodAidClientRequestsListAdapter extends RecyclerView.Adapter {
             FoodAidRequest request = items.get(position);
 
             //TODO incorporate status and service provider
-            textStatus.setText("Pending");
+            textStatus.setText(request.getStatus());
             textDateTime.setText(request.getDateTime());
             textMeals.setText(request.getMeals());
         }
@@ -47,13 +49,13 @@ public class FoodAidClientRequestsListAdapter extends RecyclerView.Adapter {
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_food_aid_client_requests, parent, false);
         return new ListViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ((ListViewHolder) holder).bindView(position);
     }
 

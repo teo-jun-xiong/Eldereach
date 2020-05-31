@@ -24,7 +24,7 @@ public class HotlineListAdapter extends RecyclerView.Adapter {
     private ArrayList<EldereachHotline> items;
     private Context context;
 
-    public HotlineListAdapter(ArrayList<EldereachHotline> hotlines, Context context) {
+    HotlineListAdapter(ArrayList<EldereachHotline> hotlines, Context context) {
         items = hotlines;
         this.context = context;
     }
@@ -47,7 +47,7 @@ public class HotlineListAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View view) {
                     dialog = new Dialog(context);
-                    dialog.setContentView(R.layout.popup_window);
+                    dialog.setContentView(R.layout.dialog_hotline_client);
                     ImageView imagePopup = dialog.findViewById(R.id.imagePopup);
                     TextView textName = dialog.findViewById(R.id.textNamePopup);
                     TextView textDesc = dialog.findViewById(R.id.textDescriptionPopup);

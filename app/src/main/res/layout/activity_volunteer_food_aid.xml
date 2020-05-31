@@ -1,16 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/foodAidSwipeContainer"
+    android:id="@+id/foodAidSwipeContainerVolunteer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".volunteer.foodaid.FoodAidVolunteerActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerFoodAidFragment"
+    <RelativeLayout
+        android:id="@+id/layout1VolunteerRequestFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/layout1VolunteerRequestFragment"
-        android:scrollbars="vertical" />
+        android:layout_gravity="center">
+
+        <Button
+            android:id="@+id/buttonHelpFoodAidVolunteer"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="15dp"
+            android:background="@drawable/custom_dropshadow"
+            style="?android:attr/borderlessButtonStyle"
+            android:text="Help" />
+
+        <TextView
+            android:id="@+id/textHeaderFoodAidClient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBaseline="@+id/buttonHelpFoodAidVolunteer"
+            android:text="Food Aid Requests"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerFoodAidVolunteer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/buttonHelpFoodAidVolunteer"
+            android:scrollbars="vertical" />
+    </RelativeLayout>
+
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

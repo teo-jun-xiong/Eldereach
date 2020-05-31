@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="150dp"
+    android:background="@drawable/custom_dropshadow"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textAcceptFoodAidVolunteer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Accept this food aid request?"
+        android:textColor="#000000" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp" >
+    <ImageButton
+        android:id="@+id/buttonTickFoodAidVolunteer"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_tick"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/custom_dropshadow" />
+
+    <ImageButton
+        android:id="@+id/buttonCrossFoodAidVolunteer"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_cross"
+        android:background="@drawable/custom_dropshadow" />
+    </LinearLayout>
+</LinearLayout>

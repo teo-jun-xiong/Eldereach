@@ -9,10 +9,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.eldereach.eldereach.LogInActivity;
 import com.eldereach.eldereach.R;
+import com.eldereach.eldereach.volunteer.foodaid.FoodAidVolunteerActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeVolunteerActivity extends AppCompatActivity {
     ImageButton btnLogOut;
+    ImageButton buttonFoodAid;
     FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
 
@@ -26,6 +28,7 @@ public class HomeVolunteerActivity extends AppCompatActivity {
 
     private void initialiseComponents() {
         btnLogOut = findViewById(R.id.buttonLogOutVolunteer);
+        buttonFoodAid = findViewById(R.id.buttonFoodAidVolunteer);
         firebaseAuth = FirebaseAuth.getInstance();
 
         btnLogOut.setOnClickListener(new View.OnClickListener() {
@@ -33,6 +36,13 @@ public class HomeVolunteerActivity extends AppCompatActivity {
             public void onClick(View view) {
                 firebaseAuth.signOut();
                 startActivity(new Intent(HomeVolunteerActivity.this, LogInActivity.class));
+            }
+        });
+
+        buttonFoodAid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeVolunteerActivity.this, FoodAidVolunteerActivity.class));
             }
         });
     }
