@@ -46,4 +46,9 @@ public class EldereachDateTime {
         assert dateHome != null;
         return dateHome.before(dateDest);
     }
+
+    public static String getCurrentDate() {
+        Date currentDate = new Date();
+        return simpleDateFormat.format(currentDate);
+    }
 }

@@ -33,7 +33,7 @@ public class FoodAidRequestsFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore db;
     private SwipeRefreshLayout swipeContainer;
-    private FoodAidRequestsListAdapter listAdapter;
+    private FoodAidClientRequestsListAdapter listAdapter;
 
     @Nullable
     @Override
@@ -56,20 +56,16 @@ public class FoodAidRequestsFragment extends Fragment {
                     list.add(new FoodAidRequest(d));
                 }
 
-                listAdapter = new FoodAidRequestsListAdapter(sortDateTime(list));
+                listAdapter = new FoodAidClientRequestsListAdapter(sortDateTime(list));
                 recyclerView.setAdapter(listAdapter);
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
                 recyclerView.setLayoutManager(layoutManager);
             }
         });
 
-        // Setup refresh listener which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // Your code to refresh the list here.
-                // Make sure you call swipeContainer.setRefreshing(false)
-                // once the network request has completed successfully.
                 refreshFoodAidRequests();
             }
         });

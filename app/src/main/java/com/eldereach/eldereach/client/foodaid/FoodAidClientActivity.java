@@ -21,6 +21,7 @@ import com.eldereach.eldereach.client.HomeClientActivity;
 import com.eldereach.eldereach.util.EldereachDateTime;
 import com.eldereach.eldereach.util.MultiSelectSpinner;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -28,12 +29,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static com.eldereach.eldereach.util.EldereachDateTime.simpleDateFormat;
+import java.util.Objects;
 
 public class FoodAidClientActivity extends FragmentActivity implements MultiSelectSpinner.OnMultipleItemsSelectedListener {
     Spinner dropdownDietary;
@@ -90,7 +89,7 @@ public class FoodAidClientActivity extends FragmentActivity implements MultiSele
                 String dateTime = buttonDateTime.getText().toString();
 
                 if (EldereachDateTime.isDateTime(dateTime) && EldereachDateTime.isDateAfterCurrentDate(dateTime)) {
-                    foodAidRequest.put("dateTimeHome", dateTime);
+                    foodAidRequest.put("dateTime", dateTime);
                 } else {
                     if (EldereachDateTime.isDateAfterCurrentDate(dateTime)) {
                         Toast.makeText(FoodAidClientActivity.this, "Not date time", Toast.LENGTH_SHORT).show();
@@ -101,10 +100,22 @@ public class FoodAidClientActivity extends FragmentActivity implements MultiSele
                     }
                 }
 
-                foodAidRequest.put("isAccepted", false);
+                String currentDate = EldereachDateTime.getCurrentDate();
+                foodAidRequest.put("dateRequest", currentDate);
+                foodAidRequest.put("status", 0);
+
+                final String[] name = {""};
+                db.collection("users").document(Objects.requireNonNull(firebaseAuth.getCurrentUser().getEmail())).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Map<String, Object> map = documentSnapshot.getData();
+                        name[0] = (String) map.get("name");
+                        foodAidRequest.put("name", name[0]);
+                    }
+                });
 
                 // Food Aid - Email - Delivery date time - Request made date time
-                String documentName = "F_" + firebaseAuth.getCurrentUser().getEmail() + "_" + dateTime + "_" + simpleDateFormat.format(new Date());
+                String documentName = "F_" + firebaseAuth.getCurrentUser().getEmail() + "_" + dateTime + "_" + currentDate;
                 final DocumentReference docRef = db.collection("foodAidRequests").document(documentName);
 
                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

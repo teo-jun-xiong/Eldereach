@@ -11,7 +11,7 @@ public class TransportRequest {
     private String location;
     private String purpose;
     private boolean returnNeeded;
-    private boolean isAccepted;
+    private long status;
     private String dateTimeHome;
     private String dateTimeDest;
 
@@ -23,7 +23,7 @@ public class TransportRequest {
         location = (String) map.get("location");
         purpose = (String) map.get("purpose");
         returnNeeded = (boolean) map.get("returnNeeded");
-        isAccepted = (boolean) map.get("isAccepted");
+        status = (long) map.get("status");
         dateTimeHome = (String) map.get("dateTimeHome");
         dateTimeDest = (String) map.get("dateTimeDest");
     }
@@ -49,5 +49,9 @@ public class TransportRequest {
     @Override
     public String toString() {
         return email + " " + dateTimeHome + " " + location + dateTimeDest;
+    }
+
+    public long getStatus() {
+        return status;
     }
 }

@@ -9,7 +9,7 @@ public class VisitRequest {
     private String dateTime;
     private String service;
     private String special;
-    private boolean isAccepted;
+    private long status;
 
     public VisitRequest(DocumentSnapshot documentSnapshot) {
         Map<String, Object> map = documentSnapshot.getData();
@@ -19,15 +19,15 @@ public class VisitRequest {
         dateTime = (String) map.get("dateTime");
         service = (String) map.get("service");
         special = (String) map.get("special");
-        isAccepted = (boolean) map.get("isAccepted");
+        status = (long) map.get("status");
     }
 
     public String getSpecial() {
         return special;
     }
 
-    public boolean isAccepted() {
-        return isAccepted;
+    public long getStatus() {
+        return status;
     }
 
     public String getService() {

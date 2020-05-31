@@ -1,4 +1,4 @@
-package com.eldereach.eldereach.client.foodaid;
+package com.eldereach.eldereach.volunteer.foodaid;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,47 +8,51 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.eldereach.eldereach.util.FoodAidRequest;
 import com.eldereach.eldereach.R;
+import com.eldereach.eldereach.util.FoodAidRequest;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/** Adapter to control the items inside the RecyclerView of FoodAidRequestsFragment */
-public class FoodAidRequestsListAdapter extends RecyclerView.Adapter {
+// Requests shown by the list adapter shall only be of status "pending".
+public class FoodAidVolunteerRequestsListAdapter  extends RecyclerView.Adapter {
     private ArrayList<FoodAidRequest> items;
 
-    public FoodAidRequestsListAdapter(ArrayList<FoodAidRequest> foodAidRequests) {
+    public FoodAidVolunteerRequestsListAdapter(ArrayList<FoodAidRequest> foodAidRequests) {
         items = foodAidRequests;
     }
 
     // Inner class for a single RecyclerViewItem
     private class ListViewHolder extends RecyclerView.ViewHolder {
-        private TextView textStatus;
-        private TextView textDateTime;
-        private TextView textMeals;
+        private TextView textName;
+        private TextView textDate;
+        private TextView textDateDelivery;
+        private TextView textAddress;
+        private TextView textType;
+        private TextView textDietary;
 
         ListViewHolder(@NonNull View itemView) {
             super(itemView);
-            textStatus = itemView.findViewById(R.id.textFoodAidRequestStatusClient);
-            textDateTime = itemView.findViewById(R.id.textFoodAidRequestDateTimeClient);
-            textMeals = itemView.findViewById(R.id.textFoodAidRequestMealsClient);
+
+            textName = itemView.findViewById(R.id.textFoodAidRequestNameVolunteer);
+            textDate = itemView.findViewById(R.id.textFoodAidRequestDateVolunteer);
+            textDateDelivery = itemView.findViewById(R.id.textFoodAidRequestDateTimeVolunteer);
+            textAddress = itemView.findViewById(R.id.textFoodAidRequestAddressVolunteer);
+            textType = itemView.findViewById(R.id.textFoodAidRequestTypeVolunteer);
+            textDietary = itemView.findViewById(R.id.textFoodAidRequestDietaryVolunteer);
         }
 
         void bindView(int position) {
             FoodAidRequest request = items.get(position);
 
-            //TODO incorporate status and service provider
-            textStatus.setText("Pending");
-            textDateTime.setText(request.getDateTime());
-            textMeals.setText(request.getMeals());
+
         }
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_food_aid_requests, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_food_aid_client_requests, parent, false);
         return new ListViewHolder(view);
     }
 

@@ -38,6 +38,7 @@
         <activity android:name=".client.visit.VisitClientActivity" />
         <activity android:name=".client.hotline.HotlineClientActivity" />
         <activity android:name=".client.settings.SettingsClientActivity" />
+        <activity android:name=".volunteer.foodaid.FoodAidVolunteerActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

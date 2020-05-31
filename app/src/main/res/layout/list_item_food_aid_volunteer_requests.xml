@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/custom_dropshadow"
+    android:layout_margin="10dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textFoodAidRequestNameVolunteer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textColor="#000000"
+        android:text="Client name" />
+
+    <TextView
+        android:id="@+id/textFoodAidRequestDateVolunteer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textColor="#000000"
+        android:text="Date of request" />
+
+    <TextView
+        android:id="@+id/textFoodAidRequestDateTimeVolunteer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textColor="#000000"
+        android:text="Date and time of delivery" />
+
+    <TextView
+        android:id="@+id/textFoodAidRequestAddressVolunteer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textColor="#000000"
+        android:text="Client's address" />
+
+    <TextView
+        android:id="@+id/textFoodAidRequestTypeVolunteer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textColor="#000000"
+        android:text="Type of food aid" />
+
+    <TextView
+        android:id="@+id/textFoodAidRequestDietaryVolunteer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textColor="#000000"
+        android:text="Dietary restrictions" />
+</LinearLayout>

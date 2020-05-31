@@ -57,7 +57,7 @@ public class TransportRequestsListAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_transport_requests, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_transport_client_requests, parent, false);
         return new ListViewHolder(view);
     }
 

@@ -20,7 +20,9 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.eldereach.eldereach.R;
 import com.eldereach.eldereach.client.HomeClientActivity;
+import com.eldereach.eldereach.util.EldereachDateTime;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -28,9 +30,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static android.widget.AdapterView.OnItemSelectedListener;
 import static com.eldereach.eldereach.util.EldereachDateTime.isDateAfterCurrentDate;
@@ -98,10 +100,22 @@ public class VisitClientActivity extends FragmentActivity {
                     return;
                 }
 
-                visitRequest.put("isAccepted", false);
+                String currentDate = EldereachDateTime.getCurrentDate();
+                visitRequest.put("dateRequest", currentDate);
+                visitRequest.put("status", 0);
+
+                final String[] name = {""};
+                db.collection("users").document(Objects.requireNonNull(firebaseAuth.getCurrentUser().getEmail())).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Map<String, Object> map = documentSnapshot.getData();
+                        name[0] = (String) map.get("name");
+                        visitRequest.put("name", name[0]);
+                    }
+                });
 
                 // Visit - Email - Visit date - Request made date time
-                String documentName = "V_" + firebaseAuth.getCurrentUser().getEmail() + "_" + dateTime + "_" + simpleDateFormat.format(new Date());
+                String documentName = "V_" + firebaseAuth.getCurrentUser().getEmail() + "_" + dateTime + "_" + currentDate;
                 final DocumentReference docRef = db.collection("visitRequests").document(documentName);
 
                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

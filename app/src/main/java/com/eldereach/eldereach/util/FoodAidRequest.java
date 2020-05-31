@@ -10,7 +10,7 @@ public class FoodAidRequest {
     private String dateTime;
     private String dietary;
     private String allergies;
-    private boolean isAccepted;
+    private long status;
     private ArrayList<String> meals;
 
     @SuppressWarnings("unchecked")
@@ -19,10 +19,10 @@ public class FoodAidRequest {
 
         assert map != null;
         email = (String) map.get("email");
-        dateTime = (String) map.get("dateTimeHome");
+        dateTime = (String) map.get("dateTime");
         dietary = (String) map.get("dietary");
         allergies = (String) map.get("allergy");
-        isAccepted = (boolean) map.get("isAccepted");
+        status = (long) map.get("status");
         meals = (ArrayList<String>) map.get("meals");
     }
 
@@ -42,8 +42,8 @@ public class FoodAidRequest {
         return allergies;
     }
 
-    public boolean isAccepted() {
-        return isAccepted;
+    public long getStatus() {
+        return status;
     }
 
     public String getMeals() {

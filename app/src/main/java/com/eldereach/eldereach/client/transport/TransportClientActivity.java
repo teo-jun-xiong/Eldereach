@@ -35,6 +35,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -47,6 +48,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import static android.widget.CompoundButton.INVISIBLE;
 import static android.widget.CompoundButton.OnCheckedChangeListener;
@@ -195,9 +197,21 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
                     return;
                 }
 
-                transportRequest.put("isAccepted", false);
+                String currentDate = EldereachDateTime.getCurrentDate();
+                transportRequest.put("dateRequest", currentDate);
+                transportRequest.put("status", 0);
 
-                String documentName = "T_" + firebaseAuth.getCurrentUser().getEmail() + "_" + dateTimeHome + "_" + dateTimeDest;
+                final String[] name = {""};
+                db.collection("users").document(Objects.requireNonNull(firebaseAuth.getCurrentUser().getEmail())).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Map<String, Object> map = documentSnapshot.getData();
+                        name[0] = (String) map.get("name");
+                        transportRequest.put("name", name[0]);
+                    }
+                });
+
+                String documentName = "T_" + firebaseAuth.getCurrentUser().getEmail() + "_" + dateTimeHome + "_" + dateTimeDest + "_" + currentDate;
                 final DocumentReference docRef = db.collection("transportRequests").document(documentName); // set(transportRequest);
                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override

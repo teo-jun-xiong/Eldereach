@@ -1,4 +1,4 @@
-package com.eldereach.eldereach.client.visit;
+package com.eldereach.eldereach.client.foodaid;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,49 +8,47 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.eldereach.eldereach.util.FoodAidRequest;
 import com.eldereach.eldereach.R;
-import com.eldereach.eldereach.util.VisitRequest;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class VisitRequestsListAdapter extends RecyclerView.Adapter {
-    private ArrayList<VisitRequest> items;
+/** Adapter to control the items inside the RecyclerView of FoodAidRequestsFragment */
+public class FoodAidClientRequestsListAdapter extends RecyclerView.Adapter {
+    private ArrayList<FoodAidRequest> items;
 
-    public VisitRequestsListAdapter(ArrayList<VisitRequest> visitRequests) {
-        items = visitRequests;
+    public FoodAidClientRequestsListAdapter(ArrayList<FoodAidRequest> foodAidRequests) {
+        items = foodAidRequests;
     }
 
     // Inner class for a single RecyclerViewItem
     private class ListViewHolder extends RecyclerView.ViewHolder {
         private TextView textStatus;
         private TextView textDateTime;
-        private TextView textSpecial;
-        private TextView textService;
+        private TextView textMeals;
 
         ListViewHolder(@NonNull View itemView) {
             super(itemView);
-            textStatus = itemView.findViewById(R.id.textVisitRequestStatusClient);
-            textDateTime = itemView.findViewById(R.id.textVisitRequestDateTimeClient);
-            textService = itemView.findViewById(R.id.textVisitRequestServiceClient);
-            textSpecial = itemView.findViewById(R.id.textVisitRequestSpecialClient);
+            textStatus = itemView.findViewById(R.id.textFoodAidRequestStatusClient);
+            textDateTime = itemView.findViewById(R.id.textFoodAidRequestDateTimeClient);
+            textMeals = itemView.findViewById(R.id.textFoodAidRequestMealsClient);
         }
 
         void bindView(int position) {
-            VisitRequest request = items.get(position);
+            FoodAidRequest request = items.get(position);
 
             //TODO incorporate status and service provider
             textStatus.setText("Pending");
             textDateTime.setText(request.getDateTime());
-            textService.setText(request.getService());
-            textService.setText(request.getSpecial());
+            textMeals.setText(request.getMeals());
         }
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_visit_client_requests, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_food_aid_client_requests, parent, false);
         return new ListViewHolder(view);
     }
 
@@ -65,7 +63,7 @@ class VisitRequestsListAdapter extends RecyclerView.Adapter {
     }
 
     // Replaces the list of items with another one - to be used for refreshing the view
-    public void addAll(List<VisitRequest> list) {
+    public void addAll(List<FoodAidRequest> list) {
         items.clear();
         items.addAll(list);
         notifyDataSetChanged();
