@@ -7,11 +7,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import java.util.Map;
 
 public class TransportRequest {
+    private String id;
     private String email;
-    private String location;
+    private String dest;
     private String purpose;
-    private boolean returnNeeded;
-    private long status;
     private String dateTimeHome;
     private String dateTimeDest;
     private String dateRequest;
@@ -19,13 +18,16 @@ public class TransportRequest {
     private String name;
     private String serviceProviderName;
     private String serviceProviderPhone;
+    private long status;
+    private boolean returnNeeded;
 
     public TransportRequest(DocumentSnapshot documentSnapshot) {
         Map<String, Object> map = documentSnapshot.getData();
 
         assert map != null;
+        id = (String) map.get("id");
         email = (String) map.get("email");
-        location = (String) map.get("location");
+        dest = (String) map.get("location");
         purpose = (String) map.get("purpose");
         returnNeeded = (boolean) map.get("returnNeeded");
         status = (long) map.get("status");
@@ -50,8 +52,13 @@ public class TransportRequest {
     public String getDateRequest() {
         return dateRequest;
     }
-    public String getLocation() {
-        return location;
+
+    public String getHomeAddress() {
+        return address;
+    }
+
+    public String getDestAddress() {
+        return dest;
     }
 
     public boolean getReturnNeeded() {
@@ -61,7 +68,7 @@ public class TransportRequest {
     @NonNull
     @Override
     public String toString() {
-        return email + " " + dateTimeHome + " " + location + dateTimeDest;
+        return email + " " + dateTimeHome + " " + dest + dateTimeDest;
     }
 
     public String getStatus() {
@@ -100,5 +107,9 @@ public class TransportRequest {
         }
 
         return serviceProviderPhone;
+    }
+
+    public String getId() {
+        return id;
     }
 }

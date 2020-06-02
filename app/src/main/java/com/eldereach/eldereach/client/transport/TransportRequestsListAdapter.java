@@ -50,7 +50,7 @@ public class TransportRequestsListAdapter extends RecyclerView.Adapter {
                 textDateTimeDest.setText("Return trip not required");
             }
 
-            textLocation.setText(request.getLocation());
+            textLocation.setText(request.getDestAddress());
         }
     }
 

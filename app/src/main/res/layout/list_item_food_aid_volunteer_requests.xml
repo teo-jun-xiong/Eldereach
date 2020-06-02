@@ -11,6 +11,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:text="Client name"
+            android:layout_toStartOf="@id/buttonViewFoodAidVolunteer"
             android:textColor="#000000" />
 
         <ImageButton
@@ -22,7 +23,7 @@
             android:padding="5dp"
             android:scaleType="fitCenter"
             android:background="@drawable/custom_dropshadow"
-            android:src="@drawable/icon_view"/>
+            android:src="@drawable/icon_check_button"/>
 
     <TextView
         android:id="@+id/textFoodAidRequestDateVolunteer"
@@ -30,6 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="Date of request"
+        android:layout_toStartOf="@id/buttonViewFoodAidVolunteer"
         android:layout_below="@+id/textFoodAidRequestNameVolunteer"
         android:textColor="#000000" />
 
@@ -40,6 +42,7 @@
         android:layout_margin="10dp"
         android:layout_below="@+id/textFoodAidRequestDateVolunteer"
         android:text="Date and time of delivery"
+        android:layout_toStartOf="@id/buttonViewFoodAidVolunteer"
         android:textColor="#000000" />
 
     <TextView

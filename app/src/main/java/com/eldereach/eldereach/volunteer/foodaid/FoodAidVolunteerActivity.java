@@ -47,7 +47,8 @@ public class FoodAidVolunteerActivity extends AppCompatActivity {
         swipeContainer = findViewById(R.id.foodAidSwipeContainerVolunteer);
         final ArrayList<FoodAidRequest> list = new ArrayList<>();
 
-        db.collection("foodAidRequests").whereEqualTo("status", 0).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        db.collection("foodAidRequests").whereEqualTo("status", 0)
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<DocumentSnapshot> documentSnapshotList = queryDocumentSnapshots.getDocuments();
@@ -55,6 +56,8 @@ public class FoodAidVolunteerActivity extends AppCompatActivity {
                 for (DocumentSnapshot d : documentSnapshotList) {
                     list.add(new FoodAidRequest(d));
                 }
+
+                System.out.println("size" + list.size());
 
                 listAdapter = new FoodAidVolunteerRequestsListAdapter(sortDateTime(list), FoodAidVolunteerActivity.this);
                 recyclerView.setAdapter(listAdapter);
@@ -75,7 +78,8 @@ public class FoodAidVolunteerActivity extends AppCompatActivity {
         final ArrayList<FoodAidRequest> list = new ArrayList<>();
 
 
-        db.collection("foodAidRequests").whereEqualTo("status", 0).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        db.collection("foodAidRequests").whereEqualTo("status", 0)
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<DocumentSnapshot> documentSnapshotList = queryDocumentSnapshots.getDocuments();

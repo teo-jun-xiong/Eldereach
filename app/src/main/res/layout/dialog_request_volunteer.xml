@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textAcceptFoodAidVolunteer"
+        android:id="@+id/textAcceptVolunteer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Accept this food aid request?"
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp" >
     <ImageButton
-        android:id="@+id/buttonTickFoodAidVolunteer"
+        android:id="@+id/buttonTickVolunteer"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/ic_tick"
@@ -27,7 +27,7 @@
         android:background="@drawable/custom_dropshadow" />
 
     <ImageButton
-        android:id="@+id/buttonCrossFoodAidVolunteer"
+        android:id="@+id/buttonCrossVolunteer"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/ic_cross"

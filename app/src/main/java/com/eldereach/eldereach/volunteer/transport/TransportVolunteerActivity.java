@@ -1,15 +1,8 @@
-package com.eldereach.eldereach.client.transport;
+package com.eldereach.eldereach.volunteer.transport;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -17,9 +10,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.eldereach.eldereach.R;
 import com.eldereach.eldereach.util.EldereachDateTime;
 import com.eldereach.eldereach.util.TransportRequest;
+import com.eldereach.eldereach.volunteer.foodaid.TransportVolunteerRequestsListAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -31,31 +23,32 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
-// In this case, the fragment displays simple text based on the page
-public class TransportRequestsFragment extends Fragment {
-    private String email;
-    private FirebaseAuth firebaseAuth;
+public class TransportVolunteerActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private SwipeRefreshLayout swipeContainer;
-    private TransportRequestsListAdapter listAdapter;
+    private TransportVolunteerRequestsListAdapter listAdapter;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_transport_requests_client, container, false);
-        firebaseAuth = FirebaseAuth.getInstance();
-        email = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail();
-        firebaseAuth = FirebaseAuth.getInstance();
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_volunteer_transport);
+
+        initialiseComponents();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        overridePendingTransition(0, 0);
+    }
+
+    private void initialiseComponents() {
         db = FirebaseFirestore.getInstance();
-        final RecyclerView recyclerView = view.findViewById(R.id.recyclerTransportFragment);
-        swipeContainer = view.findViewById(R.id.transportSwipeContainerClient);
+        final RecyclerView recyclerView = findViewById(R.id.recyclerTransportVolunteer);
+        swipeContainer = findViewById(R.id.transportSwipeContainerVolunteer);
         final ArrayList<TransportRequest> list = new ArrayList<>();
 
-        CollectionReference collectionReference = db.collection("transportRequests");
-        collectionReference.whereEqualTo("email", email)
-                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        db.collection("transportRequests").whereEqualTo("status", 0).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<DocumentSnapshot> documentSnapshotList = queryDocumentSnapshots.getDocuments();
@@ -64,29 +57,25 @@ public class TransportRequestsFragment extends Fragment {
                     list.add(new TransportRequest(d));
                 }
 
-                listAdapter = new TransportRequestsListAdapter(sortDateTime(list));
+                listAdapter = new TransportVolunteerRequestsListAdapter(sortDateTime(list), TransportVolunteerActivity.this);
                 recyclerView.setAdapter(listAdapter);
-                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(TransportVolunteerActivity.this);
                 recyclerView.setLayoutManager(layoutManager);
             }
         });
 
-        // Setup refresh listener which triggers new data loading
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 refreshTransportRequests();
             }
         });
-
-        return view;
     }
 
     private void refreshTransportRequests() {
         final ArrayList<TransportRequest> list = new ArrayList<>();
 
-        CollectionReference collectionReference = db.collection("transportRequests");
-        collectionReference.whereEqualTo("email",email)
+        db.collection("transportRequests").whereEqualTo("status", 0)
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -95,7 +84,7 @@ public class TransportRequestsFragment extends Fragment {
                 for (DocumentSnapshot d : documentSnapshotList) {
                     list.add(new TransportRequest(d));
                 }
-                
+
                 listAdapter.addAll(sortDateTime(list));
             }
         });
@@ -115,6 +104,7 @@ public class TransportRequestsFragment extends Fragment {
                 }
             }
         });
+
         return list;
     }
 }

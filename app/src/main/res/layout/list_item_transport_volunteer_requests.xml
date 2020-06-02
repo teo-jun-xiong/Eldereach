@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@drawable/custom_dropshadow"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/textTransportRequestNameVolunteer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Client name"
+        android:layout_toStartOf="@+id/buttonViewTransportVolunteer"
+        android:textColor="#000000" />
+
+    <ImageButton
+        android:id="@+id/buttonViewTransportVolunteer"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="15dp"
+        android:padding="5dp"
+        android:scaleType="fitCenter"
+        android:background="@drawable/custom_dropshadow"
+        android:src="@drawable/icon_check_button"/>
+
+    <TextView
+        android:id="@+id/textTransportRequestDateVolunteer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Date of request"
+        android:layout_toStartOf="@+id/buttonViewTransportVolunteer"
+        android:layout_below="@+id/textTransportRequestNameVolunteer"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/textTransportRequestDateTimeHomeVolunteer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/textTransportRequestDateVolunteer"
+        android:layout_toStartOf="@+id/buttonViewTransportVolunteer"
+        android:text="Date of pickup from home"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/textTransportRequestAddressHomeVolunteer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Client's address"
+        android:layout_below="@+id/textTransportRequestDateTimeHomeVolunteer"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/textTransportRequestDateTimeDestVolunteer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/textTransportRequestAddressHomeVolunteer"
+        android:text="Date and time of pickup from destination"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/textTransportRequestAddressDestVolunteer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Address of destination"
+        android:layout_below="@+id/textTransportRequestDateTimeDestVolunteer"
+        android:textColor="#000000" />
+    <TextView
+        android:id="@+id/textTransportRequestPurposeVolunteer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Purpose"
+        android:layout_below="@+id/textTransportRequestAddressDestVolunteer"
+        android:textColor="#000000" />
+</RelativeLayout>

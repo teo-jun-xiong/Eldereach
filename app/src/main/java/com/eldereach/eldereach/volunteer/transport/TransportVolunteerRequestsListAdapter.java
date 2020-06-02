@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eldereach.eldereach.R;
-import com.eldereach.eldereach.util.FoodAidRequest;
+import com.eldereach.eldereach.util.TransportRequest;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -26,22 +26,24 @@ import java.util.Map;
 import java.util.Objects;
 
 // Requests shown by the list adapter shall only be of status "pending".
-public class FoodAidVolunteerRequestsListAdapter extends RecyclerView.Adapter {
-    private ArrayList<FoodAidRequest> items;
+public class TransportVolunteerRequestsListAdapter extends RecyclerView.Adapter {
+    private ArrayList<TransportRequest> items;
     private Context context;
 
-    public FoodAidVolunteerRequestsListAdapter(ArrayList<FoodAidRequest> foodAidRequests, Context context) {
-        items = foodAidRequests;
+    public TransportVolunteerRequestsListAdapter(ArrayList<TransportRequest> TransportRequest, Context context) {
+        items = TransportRequest;
         this.context = context;
     }
 
     // Inner class for a single RecyclerViewItem
     private class ListViewHolder extends RecyclerView.ViewHolder {
         private TextView textName;
-        private TextView textDate;
-        private TextView textDateDelivery;
-        private TextView textAddress;
-        private TextView textType;
+        private TextView textDateRequest;
+        private TextView textDateHome;
+        private TextView textDateDest;
+        private TextView textHomeAddress;
+        private TextView textDestAddress;
+        private TextView textPurpose;
         private TextView textDietary;
         private ImageButton buttonView;
         private Dialog dialog;
@@ -49,23 +51,25 @@ public class FoodAidVolunteerRequestsListAdapter extends RecyclerView.Adapter {
         ListViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            textName = itemView.findViewById(R.id.textFoodAidRequestNameVolunteer);
-            textDate = itemView.findViewById(R.id.textFoodAidRequestDateVolunteer);
-            textDateDelivery = itemView.findViewById(R.id.textFoodAidRequestDateTimeVolunteer);
-            textAddress = itemView.findViewById(R.id.textFoodAidRequestAddressVolunteer);
-            textType = itemView.findViewById(R.id.textFoodAidRequestTypeVolunteer);
-            textDietary = itemView.findViewById(R.id.textFoodAidRequestDietaryVolunteer);
-            buttonView = itemView.findViewById(R.id.buttonViewFoodAidVolunteer);
+            textName = itemView.findViewById(R.id.textTransportRequestNameVolunteer);
+            textDateRequest = itemView.findViewById(R.id.textTransportRequestDateVolunteer);
+            textDateHome = itemView.findViewById(R.id.textTransportRequestDateTimeHomeVolunteer);
+            textDateDest = itemView.findViewById(R.id.textTransportRequestDateTimeDestVolunteer);
+            textHomeAddress = itemView.findViewById(R.id.textTransportRequestAddressHomeVolunteer);
+            textDestAddress = itemView.findViewById(R.id.textTransportRequestAddressDestVolunteer);
+            textPurpose = itemView.findViewById(R.id.textTransportRequestPurposeVolunteer);
+            buttonView = itemView.findViewById(R.id.buttonViewTransportVolunteer);
         }
 
         void bindView(int position) {
-            final FoodAidRequest request = items.get(position);
+            final TransportRequest request = items.get(position);
             textName.setText("Name of client: " + request.getName());
-            textDate.setText("Date of request: " + request.getDateRequest());
-            textDateDelivery.setText("Date of delivery: " + request.getDateTime());
-            textAddress.setText("Address of client: " + request.getAddress());
-            textType.setText("Type(s) of food aid required: " + request.getMeals());
-            textDietary.setText("Dietary restriction(s): " + request.getDietary());
+            textDateRequest.setText("Date of request: " + request.getDateRequest());
+            textDateHome.setText("Date of pickup from home: " + request.getDateTime());
+            textDateDest.setText("Date of pickup from destination: " + request.getDestDate());
+            textHomeAddress.setText("Address of client: " + request.getHomeAddress());
+            textDestAddress.setText("Address of destination: " + request.getDestAddress());
+            textPurpose.setText("Purpose of transport: " + request.getPurpose());
 
             buttonView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -73,17 +77,17 @@ public class FoodAidVolunteerRequestsListAdapter extends RecyclerView.Adapter {
                     dialog = new Dialog(context);
                     dialog.setContentView(R.layout.dialog_request_volunteer);
 
-                    TextView textHeader = dialog.findViewById(R.id.textAcceptVolunteer);
+                    TextView textAccept = dialog.findViewById(R.id.textAcceptVolunteer);
                     ImageButton buttonAccept = dialog.findViewById(R.id.buttonTickVolunteer);
                     ImageButton buttonDecline = dialog.findViewById(R.id.buttonCrossVolunteer);
+                    textAccept.setText("Accept this transport request?");
 
-                    textHeader.setText("Accept this food request?");
                     buttonAccept.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             // TODO code for accepting request, probably fetch the item and update the database
                             final FirebaseFirestore db = FirebaseFirestore.getInstance();
-                            final DocumentReference docRef = db.collection("foodAidRequests").document(request.getId());
+                            final DocumentReference docRef = db.collection("transportRequests").document(request.getId());
                             docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                 @Override
                                 public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -101,7 +105,7 @@ public class FoodAidVolunteerRequestsListAdapter extends RecyclerView.Adapter {
                                             request.put("serviceProviderPhone", userInfo[1]);
                                             request.put("status", 1);
                                             docRef.set(request);
-                                            Toast.makeText(context, "Food aid request accepted", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(context, "Transport request accepted", Toast.LENGTH_SHORT).show();
                                             dialog.dismiss();
                                         }
                                     });
@@ -126,7 +130,7 @@ public class FoodAidVolunteerRequestsListAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_food_aid_volunteer_requests, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_transport_volunteer_requests, parent, false);
         return new ListViewHolder(view);
     }
 
@@ -141,7 +145,7 @@ public class FoodAidVolunteerRequestsListAdapter extends RecyclerView.Adapter {
     }
 
     // Replaces the list of items with another one - to be used for refreshing the view
-    public void addAll(List<FoodAidRequest> list) {
+    public void addAll(List<TransportRequest> list) {
         items.clear();
         items.addAll(list);
         notifyDataSetChanged();
