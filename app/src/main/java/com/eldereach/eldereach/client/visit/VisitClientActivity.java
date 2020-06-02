@@ -40,12 +40,13 @@ import static com.eldereach.eldereach.util.EldereachDateTime.isDateTime;
 import static com.eldereach.eldereach.util.EldereachDateTime.simpleDateFormat;
 
 public class VisitClientActivity extends FragmentActivity {
-    Button buttonSubmit;
     Spinner dropdownService;
+    Button buttonDateTime;
+    Button buttonSubmit;
     EditText textSpecial;
     EditText textOther;
     TextView textOtherPrompt;
-    Button buttonDateTime;
+
     FirebaseAuth firebaseAuth;
     FirebaseFirestore db;
 
@@ -64,12 +65,13 @@ public class VisitClientActivity extends FragmentActivity {
     }
 
     private void initialiseComponents() {
+        dropdownService = findViewById(R.id.dropdownServiceVisitClient);
         buttonSubmit = findViewById(R.id.buttonSubmitRequestVisitClient);
         buttonDateTime = findViewById(R.id.buttonDateTimeVisitClient);
-        dropdownService = findViewById(R.id.dropdownServiceVisitClient);
         textSpecial = findViewById(R.id.textSpecialVisitClient);
         textOther = findViewById(R.id.textOtherVisitClient);
         textOtherPrompt = findViewById(R.id.textOthersPromptVisitClient);
+
         firebaseAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
@@ -88,7 +90,11 @@ public class VisitClientActivity extends FragmentActivity {
             public void onClick(View view) {
                 final Map<String, Object> visitRequest = new HashMap<>();
 
-                visitRequest.put("email", firebaseAuth.getCurrentUser().getEmail());
+                String email = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail();
+                String currentDate = EldereachDateTime.getCurrentDate();
+                visitRequest.put("dateRequest", currentDate);
+                visitRequest.put("email", email);
+                visitRequest.put("status", 0);
                 visitRequest.put("service", dropdownService.getSelectedItem());
                 visitRequest.put("special", textSpecial.getText().toString());
 
@@ -96,16 +102,16 @@ public class VisitClientActivity extends FragmentActivity {
                 if (isDateTime(dateTime) && isDateAfterCurrentDate(dateTime)) {
                     visitRequest.put("dateTime", dateTime);
                 } else {
-                    Toast.makeText(VisitClientActivity.this, "The date and time of the visit is earlier than the current date.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(
+                            VisitClientActivity.this,
+                            "The date and time of the visit is earlier than the current date.",
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                String currentDate = EldereachDateTime.getCurrentDate();
-                visitRequest.put("dateRequest", currentDate);
-                visitRequest.put("status", 0);
-
-                final String[] userInfo = {""};
-                db.collection("users").document(Objects.requireNonNull(firebaseAuth.getCurrentUser().getEmail())).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                final String[] userInfo = {"", ""};
+                db.collection("users").document(email)
+                        .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         Map<String, Object> map = documentSnapshot.getData();
@@ -118,6 +124,9 @@ public class VisitClientActivity extends FragmentActivity {
 
                 // Visit - Email - Visit date - Request made date time
                 String documentName = "V_" + firebaseAuth.getCurrentUser().getEmail() + "_" + dateTime + "_" + currentDate;
+                visitRequest.put("id", documentName);
+                visitRequest.put("serviceProviderName", "");
+                visitRequest.put("serviceProviderPhone", "");
                 final DocumentReference docRef = db.collection("visitRequests").document(documentName);
 
                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -126,10 +135,16 @@ public class VisitClientActivity extends FragmentActivity {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
-                                Toast.makeText(VisitClientActivity.this, "This visit request already exists. Please check under 'My Requests'.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(
+                                        VisitClientActivity.this,
+                                        "This visit request already exists. Please check under 'My Requests'.",
+                                        Toast.LENGTH_SHORT).show();
                             } else {
                                 docRef.set(visitRequest);
-                                Toast.makeText(VisitClientActivity.this, "Visit request submitted.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(
+                                        VisitClientActivity.this,
+                                        "Visit request submitted.",
+                                        Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(VisitClientActivity.this, HomeClientActivity.class));
                             }
                         }

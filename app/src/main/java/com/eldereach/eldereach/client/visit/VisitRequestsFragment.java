@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class VisitRequestsFragment extends Fragment {
+    private String email;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore db;
     private SwipeRefreshLayout swipeContainer;
@@ -41,13 +42,15 @@ public class VisitRequestsFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_visit_requests_client, container, false);
         firebaseAuth = FirebaseAuth.getInstance();
+        email = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail();
         db = FirebaseFirestore.getInstance();
         final RecyclerView recyclerView = view.findViewById(R.id.recyclerVisitFragment);
         swipeContainer = view.findViewById(R.id.visitSwipeContainer);
         final ArrayList<VisitRequest> list = new ArrayList<>();
 
         CollectionReference collectionReference = db.collection("visitRequests");
-        collectionReference.whereEqualTo("email", Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        collectionReference.whereEqualTo("email", email)
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<DocumentSnapshot> documentSnapshotList = queryDocumentSnapshots.getDocuments();
@@ -78,7 +81,8 @@ public class VisitRequestsFragment extends Fragment {
         final ArrayList<VisitRequest> list = new ArrayList<>();
 
         CollectionReference collectionReference = db.collection("visitRequests");
-        collectionReference.whereEqualTo("email", Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        collectionReference.whereEqualTo("email", email)
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<DocumentSnapshot> documentSnapshotList = queryDocumentSnapshots.getDocuments();

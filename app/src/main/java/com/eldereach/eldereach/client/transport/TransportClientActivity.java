@@ -236,7 +236,11 @@ public class TransportClientActivity extends FragmentActivity implements OnMapRe
                 });
 
                 String documentName = "T_" + email + "_" + dateTimeHome + "_" + dateTimeDest + "_" + currentDate;
-                final DocumentReference docRef = db.collection("transportRequests").document(documentName); // set(transportRequest);
+                transportRequest.put("id", documentName);
+                transportRequest.put("serviceProviderName", "");
+                transportRequest.put("serviceProviderPhone", "");
+                final DocumentReference docRef = db.collection("transportRequests").document(documentName);
+
                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {

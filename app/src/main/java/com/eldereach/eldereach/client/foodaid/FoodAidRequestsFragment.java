@@ -41,8 +41,8 @@ public class FoodAidRequestsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_food_aid_requests_client, container, false);
-        email = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail();
         firebaseAuth = FirebaseAuth.getInstance();
+        email = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail();
         db = FirebaseFirestore.getInstance();
         final RecyclerView recyclerView = view.findViewById(R.id.recyclerFoodAidFragment);
         swipeContainer = view.findViewById(R.id.foodAidSwipeContainer);
