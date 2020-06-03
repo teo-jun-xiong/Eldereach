@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/foodAidSwipeContainerVolunteer"
+    android:id="@+id/visitSwipeContainerVolunteer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".volunteer.foodaid.FoodAidVolunteerActivity">
+    tools:context=".volunteer.visit.VisitVolunteerActivity">
 
     <RelativeLayout
-        android:id="@+id/layout1FoodAidVolunteerRequestFragment"
+        android:id="@+id/layout1VisitVolunteerRequestFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center">
 
         <Button
-            android:id="@+id/buttonHelpFoodAidVolunteer"
+            android:id="@+id/buttonHelpVisitVolunteer"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -24,23 +24,23 @@
             android:text="Help" />
 
         <TextView
-            android:id="@+id/textHeaderFoodAidClient"
+            android:id="@+id/textHeaderVisitClient"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
-            android:layout_alignBaseline="@+id/buttonHelpFoodAidVolunteer"
-            android:text="Food Aid Requests"
+            android:layout_alignBaseline="@+id/buttonHelpVisitVolunteer"
+            android:text="Visit Requests"
             android:textAlignment="center"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerFoodAidVolunteer"
+            android:id="@+id/recyclerVisitVolunteer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbarStyle="outsideOverlay"
-            android:layout_below="@+id/buttonHelpFoodAidVolunteer"
+            android:layout_below="@+id/buttonHelpVisitVolunteer"
             android:scrollbars="vertical" />
     </RelativeLayout>
 

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@drawable/custom_dropshadow"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/textVisitRequestNameVolunteer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Client name"
+        android:layout_toStartOf="@+id/buttonViewVisitVolunteer"
+        android:textColor="#000000" />
+
+    <ImageButton
+        android:id="@+id/buttonViewVisitVolunteer"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="15dp"
+        android:padding="5dp"
+        android:scaleType="fitCenter"
+        android:background="@drawable/custom_dropshadow"
+        android:src="@drawable/icon_check_button"/>
+
+    <TextView
+        android:id="@+id/textVisitRequestDateVolunteer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Date of request"
+        android:layout_toStartOf="@+id/buttonViewVisitVolunteer"
+        android:layout_below="@+id/textVisitRequestNameVolunteer"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/textVisitRequestDateTimeHomeVolunteer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/textVisitRequestDateVolunteer"
+        android:layout_toStartOf="@+id/buttonViewVisitVolunteer"
+        android:text="Date of pickup from home"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/textVisitRequestAddressHomeVolunteer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Client's address"
+        android:layout_below="@+id/textVisitRequestDateTimeHomeVolunteer"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/textVisitRequestServiceDestVolunteer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/textVisitRequestAddressHomeVolunteer"
+        android:text="Service required"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/textVisitRequestAddressDestVolunteer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Special requirements"
+        android:layout_below="@+id/textVisitRequestServiceDestVolunteer"
+        android:textColor="#000000" />
+</RelativeLayout>

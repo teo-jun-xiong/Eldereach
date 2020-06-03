@@ -5,6 +5,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import java.util.Map;
 
 public class VisitRequest {
+    private String id;
     private String email;
     private String dateTime;
     private String dateRequest;
@@ -12,14 +13,15 @@ public class VisitRequest {
     private String special;
     private String name;
     private String address;
-    private long status;
     private String serviceProviderName;
     private String serviceProviderPhone;
+    private long status;
 
     public VisitRequest(DocumentSnapshot documentSnapshot) {
         Map<String, Object> map = documentSnapshot.getData();
 
         assert map != null;
+        id = (String) map.get("id");
         email = (String) map.get("email");
         dateTime = (String) map.get("dateTime");
         dateRequest = (String) map.get("dateRequest");
@@ -83,5 +85,9 @@ public class VisitRequest {
         }
 
         return serviceProviderPhone;
+    }
+
+    public String getId() {
+        return id;
     }
 }
