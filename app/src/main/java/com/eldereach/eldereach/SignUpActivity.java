@@ -1,11 +1,11 @@
 package com.eldereach.eldereach;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,9 +24,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import static android.view.View.*;
-import static android.widget.CompoundButton.OnCheckedChangeListener;
-
 public class SignUpActivity extends AppCompatActivity {
     Button buttonSignUp;
     EditText textEmail;
@@ -42,6 +39,9 @@ public class SignUpActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseFirestore db;
 
+    Button buttonClient;
+    Button buttonVolunteer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,83 +53,25 @@ public class SignUpActivity extends AppCompatActivity {
         super.onStart();
         overridePendingTransition(0, 0);
 
-        initialiseComponents();
+        //initialiseComponents();
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.replace(R.id.layoutSignUp, new SignUpFragment());
+        fragmentTransaction.commit();
     }
 
-    private void initialiseComponents() {
-        buttonSignUp = findViewById(R.id.buttonSignUpSignUp);
-        textEmail = findViewById(R.id.textEmailSignUp);
-        textName = findViewById(R.id.textNameSignUp);
-        textPassword = findViewById(R.id.textPasswordSignUp);
-        textPhone = findViewById(R.id.textPhoneSignUp);
-        textAddress = findViewById(R.id.textAddressSignup);
-        textVolunteerSection = findViewById(R.id.textVolunteerSectionSignUp);
-        textRegisteredOrganizations = findViewById(R.id.textRegisteredOrganizationsSignUp);
-        textExperience = findViewById(R.id.textExperienceSignUp);
-        checkboxIsVolunteer = findViewById(R.id.checkboxIsVolunteerSignUp);
-        checkboxIsRegistered = findViewById(R.id.checkboxIsRegisteredSignUp);
+    void loadClientSignUpFragment() {
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.replace(R.id.layoutSignUp, new ClientSignUpFragment());
+        fragmentTransaction.commit();
+    }
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance();
-
-        textVolunteerSection.setText("This section is for clients only.");
-        textRegisteredOrganizations.setVisibility(INVISIBLE);
-        textExperience.setVisibility(INVISIBLE);
-        checkboxIsRegistered.setVisibility(INVISIBLE);
-
-        buttonSignUp.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick (View view){
-                String emailID = textEmail.getText().toString();
-                String pass = textPassword.getText().toString();
-                String name = textName.getText().toString();
-
-                if (emailID.isEmpty()) {
-                    textEmail.setError("Please indicate your email.");
-                    textEmail.requestFocus();
-                } else if (pass.isEmpty()) {
-                    textPassword.setError("Please set a password for your Eldereach account.");
-                    textPassword.requestFocus();
-                } else if (name.isEmpty()) {
-                    textName.setError("Please indicate your name.");
-                    textName.requestFocus();
-                } else if (!checkboxIsVolunteer.isChecked() && textAddress.getText().toString().isEmpty()) {
-                    textAddress.setError("Please indicate your home address.");
-                    textAddress.requestFocus();
-                } else {
-                    createAccount();
-                }
-            }
-        });
-
-        checkboxIsVolunteer.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (isChecked) {
-                    textVolunteerSection.setText("This section is for volunteers only.");
-                    textExperience.setVisibility(VISIBLE);
-                    checkboxIsRegistered.setVisibility(VISIBLE);
-                    textAddress.setVisibility(INVISIBLE);
-                } else {
-                    textVolunteerSection.setText("This section is for clients only.");
-                    textAddress.setVisibility(VISIBLE   );
-                    textExperience.setVisibility(INVISIBLE);
-                    textRegisteredOrganizations.setVisibility(INVISIBLE);
-                    checkboxIsRegistered.setVisibility(INVISIBLE);
-                }
-            }
-        });
-
-        checkboxIsRegistered.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (isChecked) {
-                    textRegisteredOrganizations.setVisibility(VISIBLE);
-                } else {
-                    textRegisteredOrganizations.setVisibility(INVISIBLE);
-                }
-            }
-        });
+    void loadVolunteerSignUpFragment() {
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.replace(R.id.layoutSignUp, new VolunteerSignUpFragment());
+        fragmentTransaction.commit();
     }
 
     @Override

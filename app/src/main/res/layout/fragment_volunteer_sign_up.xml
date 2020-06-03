@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layoutSignUp"
+        android:orientation="vertical">
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/textEmailSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:textSize="13sp" />
+
+    <EditText
+        android:id="@+id/textPasswordSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textSize="13sp" />
+
+    <EditText
+        android:id="@+id/textNameSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"
+        android:hint="Name"
+        android:inputType="text"
+        android:textSize="13sp" />
+
+    <EditText
+        android:id="@+id/textPhoneSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"
+        android:hint="Mobile number"
+        android:inputType="phone"
+        android:textSize="13sp" />
+
+    <EditText
+        android:id="@+id/textExperienceSignUp"
+        android:hint="Volunteer experience with elderly, if any."
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:inputType="textMultiLine"
+        android:textSize="13sp" />
+
+    <CheckBox
+        android:id="@+id/checkboxIsRegisteredSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="I am registered with an organization" />
+
+    <EditText
+        android:id="@+id/textRegisteredOrganizationsSignUp"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"
+        android:layout_centerHorizontal="true"
+        android:hint="Registered organization(s), if any."
+        android:textSize="13sp" />
+
+    <Button
+        android:id="@+id/buttonSignUpSignUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/custom_dropshadow"
+        style="?android:attr/borderlessButtonStyle"
+        android:text="Sign Up" />
+</LinearLayout>
