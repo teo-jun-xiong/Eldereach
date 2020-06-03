@@ -6,7 +6,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.Map;
 
-public class TransportRequest {
+public class TransportRequest implements EldereachRequest {
     private String id;
     private String email;
     private String dest;
@@ -18,6 +18,7 @@ public class TransportRequest {
     private String name;
     private String serviceProviderName;
     private String serviceProviderPhone;
+    private String serviceProviderEmail;
     private long status;
     private boolean returnNeeded;
 
@@ -38,6 +39,7 @@ public class TransportRequest {
         address = (String) map.get("address");
         serviceProviderName = (String) map.get("serviceProviderName");
         serviceProviderPhone = (String) map.get("serviceProviderPhone");
+        serviceProviderEmail = (String) map.get("serivceProviderEmail");
     }
 
     // Used to sort
@@ -49,6 +51,7 @@ public class TransportRequest {
         return dateTimeDest;
     }
 
+    @Override
     public String getDateRequest() {
         return dateRequest;
     }
@@ -71,6 +74,7 @@ public class TransportRequest {
         return email + " " + dateTimeHome + " " + dest + dateTimeDest;
     }
 
+    @Override
     public String getStatus() {
         if (status == 0) {
             return "Pending";
@@ -81,6 +85,7 @@ public class TransportRequest {
         }
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -111,5 +116,15 @@ public class TransportRequest {
 
     public String getId() {
         return id;
+    }
+
+    @Override
+    public String getServiceProviderEmail() {
+        return serviceProviderEmail;
+    }
+
+    @Override
+    public String getRequestType() {
+        return "Transport";
     }
 }

@@ -176,6 +176,7 @@ public class FoodAidClientActivity extends FragmentActivity implements OnMultipl
                 foodAidRequest.put("id", documentName);
                 foodAidRequest.put("serviceProviderName", "");
                 foodAidRequest.put("serviceProviderPhone", "");
+                foodAidRequest.put("serviceProviderEmail", "");
                 final DocumentReference docRef = db.collection("foodAidRequests").document(documentName);
 
                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

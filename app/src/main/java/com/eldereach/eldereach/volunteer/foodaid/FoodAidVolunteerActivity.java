@@ -57,8 +57,6 @@ public class FoodAidVolunteerActivity extends AppCompatActivity {
                     list.add(new FoodAidRequest(d));
                 }
 
-                System.out.println("size" + list.size());
-
                 listAdapter = new FoodAidVolunteerRequestsListAdapter(sortDateTime(list), FoodAidVolunteerActivity.this);
                 recyclerView.setAdapter(listAdapter);
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(FoodAidVolunteerActivity.this);

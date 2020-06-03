@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.eldereach.eldereach.LogInActivity;
 import com.eldereach.eldereach.R;
 import com.eldereach.eldereach.volunteer.foodaid.FoodAidVolunteerActivity;
+import com.eldereach.eldereach.volunteer.request.RequestsVolunteerActivity;
 import com.eldereach.eldereach.volunteer.transport.TransportVolunteerActivity;
 import com.eldereach.eldereach.volunteer.visit.VisitVolunteerActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,6 +20,7 @@ public class HomeVolunteerActivity extends AppCompatActivity {
     ImageButton buttonFoodAid;
     ImageButton buttonTransport;
     ImageButton buttonVisit;
+    ImageButton buttonRequest;
 
     FirebaseAuth firebaseAuth;
 
@@ -35,6 +37,7 @@ public class HomeVolunteerActivity extends AppCompatActivity {
         buttonFoodAid = findViewById(R.id.buttonFoodAidVolunteer);
         buttonTransport = findViewById(R.id.buttonTransportVolunteer);
         buttonVisit = findViewById(R.id.buttonVisitVolunteer);
+        buttonRequest = findViewById(R.id.buttonRequestsVolunteer);
         firebaseAuth = FirebaseAuth.getInstance();
 
         btnLogOut.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +66,13 @@ public class HomeVolunteerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(HomeVolunteerActivity.this, VisitVolunteerActivity.class));
+            }
+        });
+
+        buttonRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeVolunteerActivity.this, RequestsVolunteerActivity.class));
             }
         });
     }

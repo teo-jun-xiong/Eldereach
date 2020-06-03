@@ -41,6 +41,7 @@
         <activity android:name=".volunteer.foodaid.FoodAidVolunteerActivity" />
         <activity android:name=".volunteer.transport.TransportVolunteerActivity" />
         <activity android:name=".volunteer.visit.VisitVolunteerActivity" />
+        <activity android:name=".volunteer.request.RequestsVolunteerActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

@@ -127,6 +127,7 @@ public class VisitClientActivity extends FragmentActivity {
                 visitRequest.put("id", documentName);
                 visitRequest.put("serviceProviderName", "");
                 visitRequest.put("serviceProviderPhone", "");
+                visitRequest.put("serviceProviderEmail", "");
                 final DocumentReference docRef = db.collection("visitRequests").document(documentName);
 
                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

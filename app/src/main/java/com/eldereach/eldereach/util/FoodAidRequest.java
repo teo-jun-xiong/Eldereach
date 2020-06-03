@@ -5,7 +5,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class FoodAidRequest {
+public class FoodAidRequest implements EldereachRequest{
     private String id;
     private String email;
     private String dateTime;
@@ -16,6 +16,7 @@ public class FoodAidRequest {
     private String name;
     private String serviceProviderName;
     private String serviceProviderPhone;
+    private String serviceProviderEmail;
     private long status;
     private ArrayList<String> meals;
 
@@ -34,6 +35,7 @@ public class FoodAidRequest {
         address = (String) map.get("address");
         serviceProviderName = (String) map.get("serviceProviderName");
         serviceProviderPhone = (String) map.get("serviceProviderPhone");
+        serviceProviderEmail = (String) map.get("serivceProviderEmail");
         status = (long) map.get("status");
         meals = (ArrayList<String>) map.get("meals");
     }
@@ -54,6 +56,7 @@ public class FoodAidRequest {
         return allergies;
     }
 
+    @Override
     public String getStatus() {
         if (status == 0) {
             return "Pending";
@@ -75,10 +78,12 @@ public class FoodAidRequest {
         return mealString;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public String getDateRequest() {
         return dateRequest;
     }
@@ -105,5 +110,15 @@ public class FoodAidRequest {
 
     public String getId() {
         return id;
+    }
+
+    @Override
+    public String getServiceProviderEmail() {
+        return serviceProviderEmail;
+    }
+
+    @Override
+    public String getRequestType() {
+        return "Food aid";
     }
 }

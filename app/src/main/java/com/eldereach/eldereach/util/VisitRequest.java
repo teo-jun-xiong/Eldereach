@@ -4,7 +4,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.Map;
 
-public class VisitRequest {
+public class VisitRequest implements EldereachRequest {
     private String id;
     private String email;
     private String dateTime;
@@ -15,6 +15,7 @@ public class VisitRequest {
     private String address;
     private String serviceProviderName;
     private String serviceProviderPhone;
+    private String serviceProviderEmail;
     private long status;
 
     public VisitRequest(DocumentSnapshot documentSnapshot) {
@@ -32,12 +33,14 @@ public class VisitRequest {
         address = (String) map.get("address");
         serviceProviderName = (String) map.get("serviceProviderName");
         serviceProviderPhone = (String) map.get("serviceProviderPhone");
+        serviceProviderEmail = (String) map.get("serivceProviderEmail");
     }
 
     public String getSpecial() {
         return special;
     }
 
+    @Override
     public String getStatus() {
         if (status == 0) {
             return "Pending";
@@ -59,10 +62,12 @@ public class VisitRequest {
         return email;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public String getDateRequest() {
         return dateRequest;
     }
@@ -90,4 +95,13 @@ public class VisitRequest {
     public String getId() {
         return id;
     }
-}
+
+    @Override
+    public String getServiceProviderEmail() {
+        return serviceProviderEmail;
+    }
+
+    @Override
+    public String getRequestType() {
+        return "Visit";
+    }}

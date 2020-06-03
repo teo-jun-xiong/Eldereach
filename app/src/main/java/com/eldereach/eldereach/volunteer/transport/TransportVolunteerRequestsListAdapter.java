@@ -1,4 +1,4 @@
-package com.eldereach.eldereach.volunteer.foodaid;
+package com.eldereach.eldereach.volunteer.transport;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -93,7 +93,7 @@ public class TransportVolunteerRequestsListAdapter extends RecyclerView.Adapter 
                                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                                     final Map<String, Object> request = documentSnapshot.getData();
 
-                                    final String[] userInfo = {"", ""};
+                                    final String[] userInfo = {"", "", ""};
                                     db.collection("users").document(Objects.requireNonNull(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail()))
                                             .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                         @Override
@@ -101,8 +101,10 @@ public class TransportVolunteerRequestsListAdapter extends RecyclerView.Adapter 
                                             Map<String, Object> map = documentSnapshot.getData();
                                             userInfo[0] = (String) map.get("name");
                                             userInfo[1] = (String) map.get("phone");
+                                            userInfo[2] = (String) map.get("email");
                                             request.put("serviceProviderName", userInfo[0]);
                                             request.put("serviceProviderPhone", userInfo[1]);
+                                            request.put("serviceProviderEmail", userInfo[2]);
                                             request.put("status", 1);
                                             docRef.set(request);
                                             Toast.makeText(context, "Transport request accepted", Toast.LENGTH_SHORT).show();
