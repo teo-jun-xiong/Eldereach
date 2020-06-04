@@ -22,7 +22,7 @@
             android:layout_marginEnd="15dp"
             android:scaleType="fitCenter"
             android:padding="3dp"
-            android:background="@drawable/custom_dropshadow"
+            android:background="@drawable/custom_dropshadow_main"
             android:src="@drawable/icon_logout" />
 
         <ImageView
@@ -50,7 +50,7 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_marginEnd="33dp"
-                android:background="@drawable/custom_dropshadow"
+                android:background="@drawable/custom_dropshadow_main"
                 android:padding="5dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/icon_foodaid"
@@ -62,7 +62,7 @@
                 android:layout_height="150dp"
                 android:layout_toEndOf="@+id/buttonFoodAidVolunteer"
 
-                android:background="@drawable/custom_dropshadow"
+                android:background="@drawable/custom_dropshadow_main"
                 android:padding="5dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/icon_transport"
@@ -83,7 +83,7 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_marginEnd="33dp"
-                android:background="@drawable/custom_dropshadow"
+                android:background="@drawable/custom_dropshadow_main"
                 android:padding="5dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/icon_visit"
@@ -94,7 +94,7 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_toEndOf="@id/buttonVisitVolunteer"
-                android:background="@drawable/custom_dropshadow"
+                android:background="@drawable/custom_dropshadow_main"
                 android:padding="5dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/icon_request" />
@@ -112,7 +112,7 @@
                 android:id="@+id/buttonSettingsVolunteer"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:background="@drawable/custom_dropshadow"
+                android:background="@drawable/custom_dropshadow_main"
                 android:padding="5dp"
                 android:layout_marginEnd="33dp"
                 android:scaleType="fitCenter"

@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_margin="15dp"
-            android:background="@drawable/custom_dropshadow"
+            android:background="@drawable/custom_dropshadow_main"
             style="?android:attr/borderlessButtonStyle"
             android:text="Help" />
 
@@ -134,7 +134,7 @@
             android:layout_height="40dp"
             android:layout_marginEnd="15dp"
             android:layout_alignParentEnd="true"
-            android:background="@drawable/custom_dropshadow"
+            android:background="@drawable/custom_dropshadow_main"
             style="?android:attr/borderlessButtonStyle"
             android:text="Date and time" />
 
@@ -157,7 +157,7 @@
         android:layout_marginEnd="15dp"
         android:layout_marginTop="10dp"
         android:padding="7dp"
-        android:background="@drawable/custom_dropshadow"
+        android:background="@drawable/custom_dropshadow_main"
         style="?android:attr/borderlessButtonStyle"
         android:text="Submit request" />
 </RelativeLayout>

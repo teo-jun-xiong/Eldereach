@@ -5,7 +5,7 @@
     android:layout_margin="10dp"
     android:layout_gravity="center"
     android:gravity="center"
-    android:background="@drawable/custom_dropshadow"
+    android:background="@drawable/custom_dropshadow_main"
     android:orientation="vertical">
 
     <TextView

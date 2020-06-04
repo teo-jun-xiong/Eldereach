@@ -5,7 +5,7 @@
     android:layout_gravity="center"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@drawable/custom_dropshadow">
+    android:background="@drawable/custom_dropshadow_main">
 
         <Button
             android:id="@+id/buttonCall"

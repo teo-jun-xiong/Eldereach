@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    android:background="@drawable/custom_dropshadow"
+    android:background="@drawable/custom_dropshadow_transport"
     android:orientation="vertical">
     <TextView
         android:id="@+id/textTransportRequestNameVolunteer"
@@ -22,7 +22,7 @@
         android:layout_margin="15dp"
         android:padding="5dp"
         android:scaleType="fitCenter"
-        android:background="@drawable/custom_dropshadow"
+        android:background="@drawable/custom_dropshadow_transport"
         android:src="@drawable/icon_check_button"/>
 
     <TextView
