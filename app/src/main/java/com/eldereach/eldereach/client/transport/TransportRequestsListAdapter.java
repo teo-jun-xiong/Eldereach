@@ -25,32 +25,41 @@ public class TransportRequestsListAdapter extends RecyclerView.Adapter {
     // Inner class for a single RecyclerViewItem
     private class ListViewHolder extends RecyclerView.ViewHolder {
         private TextView textStatus;
+        private TextView textDateTimeRequest;
         private TextView textDateTimeHome;
         private TextView textDateTimeDest;
         private TextView textLocation;
+        private TextView textPurpose;
+        private TextView textServiceProvider;
 
         ListViewHolder(@NonNull View itemView) {
             super(itemView);
             textStatus = itemView.findViewById(R.id.textTransportRequestStatusClient);
+            textDateTimeRequest = itemView.findViewById(R.id.textTransportRequestDateClient);
             textDateTimeHome = itemView.findViewById(R.id.textTransportRequestDateTimeHomeClient);
             textDateTimeDest = itemView.findViewById(R.id.textTransportRequestDateTimeDestClient);
-            textLocation = itemView.findViewById(R.id.textTransportRequestLocationClient);
+            textLocation = itemView.findViewById(R.id.textTransportRequestAddressDestClient);
+            textPurpose = itemView.findViewById(R.id.textTransportRequestPurposeVolunteer);
+            textServiceProvider = itemView.findViewById(R.id.textTransportRequestServiceProviderDetailsVolunteer);
         }
 
         void bindView(int position) {
             TransportRequest request = items.get(position);
 
             //TODO incorporate status and service provider
-            textStatus.setText(request.getStatus());
-            textDateTimeHome.setText(request.getDateTime());
+            textStatus.setText("Status: " + request.getStatus());
+            textDateTimeRequest.setText("Date of request: " + request.getDateRequest());
+            textDateTimeHome.setText("Date of pickup from home: " + request.getDateTime());
 
             if (request.getReturnNeeded()) {
-                textDateTimeDest.setText(request.getDestDate());
+                textDateTimeDest.setText("Date of pickup from destination: " + request.getDestDate());
             } else {
-                textDateTimeDest.setText("Return trip not required");
+                textDateTimeDest.setText("Date of pickup from destination: Return trip not required");
             }
 
-            textLocation.setText(request.getDestAddress());
+            textLocation.setText("Address of destination: " + request.getDestAddress());
+            textPurpose.setText("Purpose of request: " + request.getPurpose());
+            textServiceProvider.setText("Service provider: " + request.getServiceProviderName() + " (" + request.getServiceProviderPhone() + ")");
         }
     }
 

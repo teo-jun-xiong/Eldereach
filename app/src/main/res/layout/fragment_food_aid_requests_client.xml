@@ -7,75 +7,12 @@
     android:orientation="vertical"
     tools:context=".client.request.RequestsClientActivity">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerFoodAidFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout1ClientRequestFragment"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="vertical" />
 
-        <RelativeLayout
-            android:id="@+id/layout1ClientRequestFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="75dp"
-            android:layout_centerHorizontal="true">
-
-            <TextView
-                android:id="@+id/textStatusClientRequestFragmentClient"
-                android:layout_width="70dp"
-                android:layout_height="75dp"
-                android:background="@drawable/custom_black_borders_header"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:maxLines="3"
-                android:padding="5dp"
-                android:scrollHorizontally="false"
-                android:text="Status"
-                android:textAlignment="center"
-                android:textColor="#000000"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textDeliveryFoodAidRequestFragmentClient"
-                android:layout_width="90dp"
-                android:layout_height="75dp"
-                android:layout_marginStart="-4dp"
-                android:layout_toEndOf="@id/textStatusClientRequestFragmentClient"
-                android:background="@drawable/custom_black_borders_header"
-                android:ellipsize="none"
-                android:gravity="center"
-                android:maxLines="3"
-                android:padding="5dp"
-                android:scrollHorizontally="false"
-                android:text="Delivery date"
-                android:textAlignment="center"
-                android:textColor="#000000"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textFoodAidRequestFragmentClient"
-                android:layout_width="240dp"
-                android:layout_height="75dp"
-                android:layout_marginStart="-4dp"
-                android:layout_toEndOf="@id/textDeliveryFoodAidRequestFragmentClient"
-                android:background="@drawable/custom_black_borders_header"
-                android:ellipsize="none"
-                android:gravity="center"
-                android:maxLines="3"
-                android:padding="5dp"
-                android:scrollHorizontally="false"
-                android:text="Type(s) of food aid"
-                android:textAlignment="center"
-                android:textColor="#000000"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-
-        </RelativeLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerFoodAidFragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/layout1ClientRequestFragment"
-            android:scrollbars="vertical" />
-    </RelativeLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

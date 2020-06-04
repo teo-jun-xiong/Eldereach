@@ -27,23 +27,31 @@ public class FoodAidClientRequestsListAdapter extends Adapter {
     // Inner class for a single RecyclerViewItem
     private class ListViewHolder extends ViewHolder {
         private TextView textStatus;
-        private TextView textDateTime;
+        private TextView textDateRequest;
+        private TextView textDateDelivery;
         private TextView textMeals;
+        private TextView textDietary;
+        private TextView textServiceProvider;
 
         ListViewHolder(@NonNull View itemView) {
             super(itemView);
             textStatus = itemView.findViewById(R.id.textFoodAidRequestStatusClient);
-            textDateTime = itemView.findViewById(R.id.textFoodAidRequestDateTimeClient);
-            textMeals = itemView.findViewById(R.id.textFoodAidRequestMealsClient);
+            textDateRequest = itemView.findViewById(R.id.textFoodAidRequestDateTimeRequestClient);
+            textDateDelivery = itemView.findViewById(R.id.textFoodAidRequestDateTimeClient);
+            textMeals = itemView.findViewById(R.id.textFoodAidRequestTypeClient);
+            textDietary = itemView.findViewById(R.id.textFoodAidRequestDietaryClient);
+            textServiceProvider = itemView.findViewById(R.id.textFoodAidRequestServiceProviderDetailsClient);
         }
 
         void bindView(int position) {
             FoodAidRequest request = items.get(position);
 
-            //TODO incorporate status and service provider
-            textStatus.setText(request.getStatus());
-            textDateTime.setText(request.getDateTime());
-            textMeals.setText(request.getMeals());
+            textStatus.setText("Status: " + request.getStatus());
+            textDateRequest.setText("Date of request: " + request.getDateRequest());
+            textDateDelivery.setText("Date of delivery: " + request.getDateTime());
+            textMeals.setText("Types of food aid: "  + request.getMeals());
+            textDietary.setText("Dietary restrictions: " + request.getDietary());
+            textServiceProvider.setText("Service provider: " + request.getServiceProviderName() + " (" + request.getServiceProviderPhone() + ")");
         }
     }
 

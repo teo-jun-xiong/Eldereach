@@ -54,7 +54,7 @@ public class VisitVolunteerRequestsListAdapter extends RecyclerView.Adapter {
             textDateVisit = itemView.findViewById(R.id.textVisitRequestDateTimeHomeVolunteer);
             textAddress = itemView.findViewById(R.id.textVisitRequestAddressHomeVolunteer);
             textService = itemView.findViewById(R.id.textVisitRequestServiceDestVolunteer);
-            textSpecial = itemView.findViewById(R.id.textVisitRequestAddressDestVolunteer);
+            textSpecial = itemView.findViewById(R.id.textVisitRequestSpecialVolunteer);
             buttonView = itemView.findViewById(R.id.buttonViewVisitVolunteer);
         }
 

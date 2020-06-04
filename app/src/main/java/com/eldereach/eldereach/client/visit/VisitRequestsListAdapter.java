@@ -24,26 +24,32 @@ class VisitRequestsListAdapter extends RecyclerView.Adapter {
     // Inner class for a single RecyclerViewItem
     private class ListViewHolder extends RecyclerView.ViewHolder {
         private TextView textStatus;
+        private TextView textDateTimeRequest;
         private TextView textDateTime;
-        private TextView textSpecial;
         private TextView textService;
+        private TextView textSpecial;
+        private TextView textServiceProvider;
 
         ListViewHolder(@NonNull View itemView) {
             super(itemView);
             textStatus = itemView.findViewById(R.id.textVisitRequestStatusClient);
-            textDateTime = itemView.findViewById(R.id.textVisitRequestDateTimeClient);
-            textService = itemView.findViewById(R.id.textVisitRequestServiceClient);
+            textDateTimeRequest = itemView.findViewById(R.id.textVisitRequestDateClient);
+            textDateTime = itemView.findViewById(R.id.textVisitRequestDateTimeHomeClient);
+            textService = itemView.findViewById(R.id.textVisitRequestServiceDestClient);
             textSpecial = itemView.findViewById(R.id.textVisitRequestSpecialClient);
+            textServiceProvider = itemView.findViewById(R.id.textVisitRequestServiceProviderDetailsClient);
         }
 
         void bindView(int position) {
             VisitRequest request = items.get(position);
 
             //TODO incorporate status and service provider
-            textStatus.setText(request.getStatus());
-            textDateTime.setText(request.getDateTime());
-            textService.setText(request.getService());
-            textService.setText(request.getSpecial());
+            textStatus.setText("Status: " + request.getStatus());
+            textDateTimeRequest.setText("Date of request: " + request.getDateRequest());
+            textDateTime.setText("Date of visit: " + request.getDateTime());
+            textService.setText("Serivce required: " + request.getService());
+            textSpecial.setText("Special requirements: " + request.getSpecial());
+            textServiceProvider.setText("Service provider: " + request.getServiceProviderName() + " (" + request.getServiceProviderPhone() + ")");
         }
     }
 

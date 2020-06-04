@@ -1,73 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="75dp"
-    android:layout_marginTop="-2dp"
-    android:gravity="center_horizontal">
-
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@drawable/custom_dropshadow_visit"
+    android:orientation="vertical">
     <TextView
         android:id="@+id/textVisitRequestStatusClient"
-        android:layout_width="70dp"
-        android:layout_height="match_parent"
-        android:background="@drawable/custom_black_borders"
-        android:gravity="center"
-        android:padding="5dp"
-        android:ellipsize="end"
-        android:maxLines="3"
-        android:scrollHorizontally="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:text="Status"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="13sp" />
+        android:textColor="#000000" />
 
     <TextView
-        android:id="@+id/textVisitRequestDateTimeClient"
-        android:layout_width="90dp"
-        android:layout_height="match_parent"
-        android:layout_marginStart="-4dp"
-        android:layout_toEndOf="@id/textVisitRequestStatusClient"
-        android:background="@drawable/custom_black_borders"
-        android:ellipsize="none"
-        android:gravity="center"
-        android:maxLines="3"
-        android:padding="5dp"
-        android:scrollHorizontally="false"
-        android:text="dd MMM yy\nhh:mm"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="13sp" />
+        android:id="@+id/textVisitRequestDateClient"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Date of request"
+        android:layout_below="@+id/textVisitRequestStatusClient"
+        android:textColor="#000000" />
 
     <TextView
-        android:id="@+id/textVisitRequestServiceClient"
-        android:layout_width="120dp"
-        android:layout_height="match_parent"
-        android:layout_marginStart="-4dp"
-        android:layout_toEndOf="@id/textVisitRequestDateTimeClient"
-        android:background="@drawable/custom_black_borders"
-        android:ellipsize="none"
-        android:gravity="center"
-        android:maxLines="3"
-        android:padding="5dp"
-        android:scrollHorizontally="false"
-        android:text="dd MMM yy hh:mm"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="13sp" />
+        android:id="@+id/textVisitRequestDateTimeHomeClient"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/textVisitRequestDateClient"
+        android:text="Date of visit"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/textVisitRequestServiceDestClient"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/textVisitRequestDateTimeHomeClient"
+        android:text="Service required"
+        android:textColor="#000000" />
 
     <TextView
         android:id="@+id/textVisitRequestSpecialClient"
-        android:layout_width="120dp"
-        android:layout_height="match_parent"
-        android:layout_marginStart="-4dp"
-        android:layout_toEndOf="@id/textVisitRequestServiceClient"
-        android:background="@drawable/custom_black_borders"
-        android:ellipsize="none"
-        android:gravity="center"
-        android:maxLines="3"
-        android:padding="5dp"
-        android:scrollHorizontally="false"
-        android:text="dd MMM yy hh:mm"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="13sp" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Special requirements"
+        android:layout_below="@+id/textVisitRequestServiceDestClient"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/textVisitRequestServiceProviderDetailsClient"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Service provider"
+        android:layout_below="@+id/textVisitRequestSpecialClient"
+        android:textColor="#000000" />
 </RelativeLayout>

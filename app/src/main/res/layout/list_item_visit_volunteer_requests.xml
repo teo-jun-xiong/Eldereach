@@ -64,7 +64,7 @@
         android:textColor="#000000" />
 
     <TextView
-        android:id="@+id/textVisitRequestAddressDestVolunteer"
+        android:id="@+id/textVisitRequestSpecialVolunteer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
