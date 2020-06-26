@@ -1,5 +1,5 @@
 # Eldereach
-An Android application developed with the welfare of Singapore's elderly in mind. Eldereach aims to connect welfare organizations and caregivers and make the provision and requesting of food aid, transportation, and visits much more simpler. 
+An Android application developed with the welfare of Singapore's elderly in mind. Eldereach aims to connect welfare organizations and caregivers and make the provision and requesting of food aid, transportation, and visits much more simpler. Read more about Eldereach [here](LICENSE.md). 
 
 ## Installation
 Clone this repository and import into **Android Studio**
@@ -27,3 +27,6 @@ This project is mantained by:
 - Multi-selection spinner from [Preet Sidhu](https://github.com/prsidhu/MultiSelectSpinner)
 - Icons made by [Payungkead](https://www.flaticon.com/authors/payungkead) from [Flaticon](https://www.flaticon.com/Flaticon)
 - Icons made by [Freepik](https://www.flaticon.com/authors/freepik) from [Flaticon](https://www.flaticon.com/Flaticon)
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
