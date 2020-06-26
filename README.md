@@ -24,6 +24,12 @@ This project is mantained by:
 5. Push your branch (git push origin my-new-feature)
 6. Create a new Pull Request
 
+## Try it out
+Download the `.apk` for v1.0 [here](https://github.com/teo-jun-xiong/eldereach/releases/tag/v1.0)! 
+
+Please note that the app will work, however, the client will be unable to create a transport request, as the Maps API key is a placeholder. Opening that activity will cause the app to crash. In order to try out the full app, please follow the installation and configuration instructions, and then create your own `.apk` by navigating the menu: Build > Build bundle(s) / APK(s) > Build APK(s). The APK can then be installed on your Android device or emulator. Additionally, Eldereach is optimized for a large screen real estate 
+~ 2960 x 1440 pixels. 
+
 ## Credits
 - Developed on Android Studio, using Firebase for user authentication and Firestore for database solutions.
 - Multi-selection spinner from [Preet Sidhu](https://github.com/prsidhu/MultiSelectSpinner)
