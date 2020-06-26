@@ -1,6 +1,71 @@
+= Eldereach - About
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+
 == Purpose
-Eldereach is developed with the intention to bridge the caregivers of elderly and charity organizations, and service providers.It was developed seeing as there is a lack of information for the elderly on the services available to them.Eldereach leverages on the already-present caregivers, who are likely to be technologically savvy enough to utilize Eldereach to help the elderly they are caring for.
+Eldereach is developed with the intention to bridge the caregivers of elderly and charity organizations, and service providers.It was developed seeing as there is a lack of information for the elderly on the services available to them. Eldereach leverages on the already-present caregivers, who are technologically savvy enough to utilize Eldereach to help the elderly they are caring for.
 
 == Features
+Eldereach has 5 core features for the caregivers (or the elderly). v1.0 of Eldereach is currently only optimised for a large screen size of around 2960 x 1440 pixels.
 
-== How to use
+.Client-side features
+
+|===
+|Description|How to use
+
+|Make food aid requests
+a|
+1. Indicate any dietary restrictions, such as halal, vegetarian, etc.
+2. Indicate any allergies such as nuts, dairy, etc.
+3. Indicate the type of food aid required
+4. Indicate the preferred date and time of the delivery of the food aid
+5. Submit the request
+
+|Make transportation requests
+a|
+1. Indicate the purpose of the transportation request
+2. Indicate the preferred date and time of pick up from home
+3. Indicate in the checkbox whether a return trip from the destination is required
+4. If a return trip is required, then, indicate the preferred date and time of pick up from the destination
+5. Indicate the address of the destination in the search bar, as clearly as possible, and press kbd:[Enter]
+6. Submit the request
+
+|Make home visit requests
+a|
+1. Indicate the service required from the home visit
+2. Indicate any special requirements that the visiting staff should be aware of, i.e. fall risk
+3. Indicate the preferred date and time of the home visit
+4. Submit request
+
+|View charity organizations' hotlines
+a| Pressing a particular charity organization's logo will direct users to a brief description of the charity organization. Pressing the telephone icon 📞 will open the telephone app, copying the phone number there, making it easier for contact the charity organizations.
+
+|View all requests
+|Views all requests of all statuses (pending, accepted, completed), seperated by cateogries (food aid, transport, visit). For each request, the details will be displayed, as well as the information of the service provider if the request has been accepted or completed.
+|===
+
+.Volunteer-side features
+
+|===
+|Description|How to use
+
+|Accept food aid/ transport/ visit requests
+|View the details of the request and allows volunteers to accept the request
+
+|View all accepted requests
+|Views all the accepted requests
+|===
+
+== Plans towards v2.0
+- Improve content shown under 'My Requests' for both clients and volunteers
+- Update Eldereach to accomodate for older Android OS
+- Add notifications for events
+- Integrate community events
+- Optimise view on smaller models
