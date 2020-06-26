@@ -1,4 +1,4 @@
-package com.eldereach.eldereach;
+package com.eldereach.eldereach.main;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -13,8 +13,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.eldereach.eldereach.R;
+import com.eldereach.eldereach.client.ClientSignUpFragment;
 import com.eldereach.eldereach.client.HomeClientActivity;
 import com.eldereach.eldereach.volunteer.HomeVolunteerActivity;
+import com.eldereach.eldereach.volunteer.VolunteerSignUpFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;

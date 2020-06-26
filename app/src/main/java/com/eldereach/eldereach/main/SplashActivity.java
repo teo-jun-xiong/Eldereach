@@ -1,4 +1,4 @@
-package com.eldereach.eldereach;
+package com.eldereach.eldereach.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.eldereach.eldereach.R;
 import com.eldereach.eldereach.client.HomeClientActivity;
 import com.eldereach.eldereach.volunteer.HomeVolunteerActivity;
 import com.google.android.gms.tasks.OnCompleteListener;

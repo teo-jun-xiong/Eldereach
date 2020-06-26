@@ -7,7 +7,7 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.eldereach.eldereach.LogInActivity;
+import com.eldereach.eldereach.main.LogInActivity;
 import com.eldereach.eldereach.R;
 import com.eldereach.eldereach.client.foodaid.FoodAidClientActivity;
 import com.eldereach.eldereach.client.hotline.HotlineClientActivity;

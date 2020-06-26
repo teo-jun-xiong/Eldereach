@@ -14,7 +14,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name=".SplashActivity"
+            android:name=".main.SplashActivity"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,11 +23,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".LogInActivity" />
+        <activity android:name=".main.LogInActivity" />
         <activity android:name=".volunteer.HomeVolunteerActivity" />
-        <activity android:name=".SignUpActivity" />
+        <activity android:name=".main.SignUpActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name=".main.MainActivity"
             android:noHistory="true" />
         <activity android:name=".client.HomeClientActivity" />
         <activity
