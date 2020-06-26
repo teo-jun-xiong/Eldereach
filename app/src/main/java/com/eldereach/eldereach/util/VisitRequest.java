@@ -92,6 +92,7 @@ public class VisitRequest implements EldereachRequest {
         return serviceProviderPhone;
     }
 
+    @Override
     public String getId() {
         return id;
     }

@@ -6,4 +6,5 @@ public interface EldereachRequest {
     public String getStatus();
     public String getName();
     public String getDateRequest();
+    public String getId();
 }

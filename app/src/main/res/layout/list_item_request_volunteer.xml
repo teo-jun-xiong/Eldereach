@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
+    android:id="@+id/layoutRequest"
     android:background="@drawable/custom_dropshadow_main"
     android:orientation="vertical">
 
@@ -24,7 +25,7 @@
         android:padding="5dp"
         android:scaleType="fitCenter"
         android:background="@drawable/custom_dropshadow_main"
-        android:src="@drawable/icon_view"/>
+        android:src="@drawable/icon_accept"/>
 
     <TextView
         android:id="@+id/textRequestDateVolunteer"

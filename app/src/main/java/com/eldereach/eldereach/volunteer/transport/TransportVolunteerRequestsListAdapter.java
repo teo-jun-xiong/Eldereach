@@ -75,7 +75,7 @@ public class TransportVolunteerRequestsListAdapter extends RecyclerView.Adapter 
                 @Override
                 public void onClick(View view) {
                     dialog = new Dialog(context);
-                    dialog.setContentView(R.layout.dialog_request_volunteer);
+                    dialog.setContentView(R.layout.dialog_accept_request_volunteer);
 
                     TextView textAccept = dialog.findViewById(R.id.textAcceptVolunteer);
                     ImageButton buttonAccept = dialog.findViewById(R.id.buttonTickVolunteer);
