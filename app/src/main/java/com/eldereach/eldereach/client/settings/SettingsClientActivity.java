@@ -51,9 +51,9 @@ public class SettingsClientActivity extends AppCompatActivity {
 
                     assert userData != null;
                     textSettings.setText("Name: " + userData.get("name") +
-                            "\nEmail: " + userData.get("email") +
-                            "\nPhone number: " + userData.get("phone") +
-                            "\nAddress: " + userData.get("address")
+                            "\n\nEmail: " + userData.get("email") +
+                            "\n\nPhone number: " + userData.get("phone") +
+                            "\n\nAddress: " + userData.get("address")
                     );
 
                 }
