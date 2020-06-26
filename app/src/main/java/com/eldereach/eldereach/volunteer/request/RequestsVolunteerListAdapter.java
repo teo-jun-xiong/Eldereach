@@ -73,13 +73,13 @@ public class RequestsVolunteerListAdapter extends RecyclerView.Adapter {
             rl.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    rl.setAlpha((float) 1);
+                    view.setAlpha((float) 1);
 
                     new Timer().schedule(
                             new java.util.TimerTask() {
                                 @Override
                                 public void run() {
-                                    rl.setAlpha((float) 0.5);
+                                    view.setAlpha((float) 0.5);
                                 }
                             },
                             3000);
