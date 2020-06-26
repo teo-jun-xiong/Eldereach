@@ -1,5 +1,5 @@
 # Eldereach
-An Android application developed with the welfare of Singapore's elderly in mind. Eldereach aims to connect welfare organizations and caregivers and make the provision and requesting of food aid, transportation, and visits much more simpler. Read more about Eldereach [here](ABOUT). 
+An Android application developed with the welfare of Singapore's elderly in mind. Eldereach aims to connect welfare organizations and caregivers and make the provision and requesting of food aid, transportation, and visits much more simpler. Read more about Eldereach [here](ABOUT.asciidoc). 
 
 ## Installation
 Clone this repository and import into **Android Studio**
